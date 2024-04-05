@@ -20,21 +20,6 @@ export class RadarModuleC extends ModuleC<RadarModuleS, null> {
     }
 
     private bindEvent(): void {
-        InputUtil.onKeyDown(mw.Keys.NumPadZero, () => {
-            let enemyLoc = new mw.Vector(-133.93, 8.46, 0);
-            this.radarUI.setEnemyPoint(enemyLoc, "024EBE78");
-        });
-
-        let isDie = false;
-        InputUtil.onKeyDown(mw.Keys.NumPadOne, () => {
-            isDie = !isDie;
-            this.radarUI.setEnemyState("024EBE78", isDie);
-        });
-
-        InputUtil.onKeyDown(mw.Keys.NumPadTwo, () => {
-            Event.dispatchToServer("die");
-        });
-
         Event.addLocalListener(EventType.OpenCloseHUDRadarUI, (isOpen: boolean) => {
             isOpen ? this.radarUI.show() : this.radarUI.hide();
         });

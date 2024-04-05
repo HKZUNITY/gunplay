@@ -1,4 +1,4 @@
-﻿import { SpawnManager } from "../../Modified027Editor/ModifiedSpawn";
+import { SpawnManager } from "../../Modified027Editor/ModifiedSpawn";
 import { Notice } from "../../common/notice/Notice";
 import { GameConfig } from "../../config/GameConfig";
 import Console from "../../tools/Console";
@@ -20,7 +20,6 @@ export class GunModuleC extends ModuleC<GunModuleS, GunData> {
     private cameraAnchor: mw.GameObject = null;
     private gunEffect: mw.Effect = null;
     private onSwitchCameraAction: Action1<number> = new Action1<number>();
-
 
     /** 当脚本被实例后，会在第一帧更新前调用此函数 */
     protected onStart(): void {
@@ -160,6 +159,7 @@ export class GunModuleC extends ModuleC<GunModuleS, GunData> {
         } else {
             Console.error("钻石不足");
             Notice.showDownNotice("钻石不足");
+
             this.adTipsPanel.showAdTips(1, AdType.AddDiamond);
             return false;
         }
