@@ -24,26 +24,34 @@ export class GunModuleS extends ModuleS<GunModuleC, GunData> {
         }
     }
 
+    @Decorator.noReply()
     public net_buyGun(gunId: number): void {
         this.currentData.buyGun(gunId);
     }
 
+    @Decorator.noReply()
     public net_setCurrentGunId(gunId: number): void {
         this.playerSwitchGun(gunId, this.currentPlayer);
         if (GameConfig.Gun.getElement(gunId).GunType == 2) return;
         this.currentData.setCurrentGunId(gunId);
     }
 
+    @Decorator.noReply()
     public net_playerSwitchGun(gunId: number): void {
         this.playerSwitchGun(gunId, this.currentPlayer);
     }
 
     private async playerSwitchGun(gunId: number, player: mw.Player): Promise<void> {
+        player.character.movementEnabled = false;
         let weapon = await SpawnManager.asyncSpawn({
             guid: GameConfig.Gun.getElement(gunId).GunPrefab,
             replicates: true,
-            transform: new mw.Transform(player.character.worldTransform.position, mw.Rotation.zero, mw.Vector.one)
+            // transform: new mw.Transform(player.character.worldTransform.position, mw.Rotation.zero, mw.Vector.one)
         });
+        await weapon.asyncReady();
+        player.character.attachToSlot(weapon, mw.HumanoidSlotType.BackOrnamental);
+        weapon.localTransform.position = mw.Vector.zero;
+        player.character.movementEnabled = true;
 
         await TimeUtil.delaySecond(2);
         let userId = player.userId;

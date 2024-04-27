@@ -1,9 +1,9 @@
 ﻿{
 	"name": "赛博朋克枪战都市(双排组队)",
 	"packageName": "53918B824871ACB34B5375898403DF6D",
-	"intro": "降低shop价格",
-	"notes": "降低shop价格",
-	"editorVersion": "v0.30.0.8",
+	"intro": "更新最大房间人数",
+	"notes": "更新最大房间人数",
+	"editorVersion": "v0.32.0.3",
 	"parentGameIdentity": "",
 	"parentGameId": "",
 	"extra": "{\"attribute\":2,\"IsHorizontal\":true,\"useAvatar\":0}",
