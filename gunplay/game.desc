@@ -1,14 +1,14 @@
 ﻿{
 	"name": "赛博朋克枪战都市(双排组队)",
 	"packageName": "53918B824871ACB34B5375898403DF6D",
-	"intro": "更新最大房间人数",
-	"notes": "更新最大房间人数",
-	"editorVersion": "v0.32.0.3",
+	"intro": "修复线上报错，替换ads-button",
+	"notes": "修复线上报错，替换ads-button",
+	"editorVersion": "v0.33.0.3",
 	"parentGameIdentity": "",
 	"parentGameId": "",
 	"extra": "{\"attribute\":2,\"IsHorizontal\":true,\"useAvatar\":0}",
 	"devEnv": 4,
-	"needToMgs": 0,
+	"needToMgs": 1,
 	"attribute": 2,
 	"autoSubmitAudit": false,
 	"ignore": [

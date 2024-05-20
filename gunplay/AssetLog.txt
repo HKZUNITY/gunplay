@@ -1,0 +1,20 @@
+**************************************************
+--开始检查项目资源
+--项目路径:E:\MetaApp\Editor_Win64\MetaWorldSaved\Saved\MetaWorld\Project\Edit\gunplay\gunplay
+**************************************************
+**************************************************
+--项目资源检查结束，耗时:5.886
+**************************************************
+-------------------------------------------
+--需要修改的脚本[.ts文件]：5
+[E:/MetaApp/Editor_Win64/MetaWorldSaved/Saved/MetaWorld/Project/Edit/gunplay/gunplay/JavaScripts/config/Gun.ts]使用到ID[ 30458 ]确定这是资源ID？可替换=>[ 63673 ]
+[E:/MetaApp/Editor_Win64/MetaWorldSaved/Saved/MetaWorld/Project/Edit/gunplay/gunplay/JavaScripts/config/Gun.ts]使用到ID[ 35185 ]确定这是资源ID？可替换=>[ 66618 ]
+[E:/MetaApp/Editor_Win64/MetaWorldSaved/Saved/MetaWorld/Project/Edit/gunplay/gunplay/JavaScripts/config/Skill.ts]使用到ID[ 21413 ]确定这是资源ID？可替换=>[ 197535 ]
+[E:/MetaApp/Editor_Win64/MetaWorldSaved/Saved/MetaWorld/Project/Edit/gunplay/gunplay/JavaScripts/config/Skill.ts]使用到ID[ 21416 ]确定这是资源ID？可替换=>[ 197402 ]
+[E:/MetaApp/Editor_Win64/MetaWorldSaved/Saved/MetaWorld/Project/Edit/gunplay/gunplay/JavaScripts/config/Skill.ts]使用到ID[ 35373 ]确定这是资源ID？可替换=>[ 60078 ]
+=>请修改上述ts文件，如果提示ID不是资源请忽略
+=>如果是配置文件转换的ts文件，请修改对应的配置表
+-------------------------------------------
+=>资源替换0处
+=>还有5个目标需要处理
+=========================================================

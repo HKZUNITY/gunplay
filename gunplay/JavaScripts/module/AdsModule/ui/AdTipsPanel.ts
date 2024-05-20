@@ -1,3 +1,4 @@
+import { Notice } from "../../../common/notice/Notice";
 import Console from "../../../tools/Console";
 import { Utils } from "../../../tools/utils";
 import AdsTipsPanel_Generate from "../../../ui-generate/Ads/AdsTipsPanel_generate";
@@ -24,7 +25,7 @@ export default class AdTipsPanel extends AdsTipsPanel_Generate {
 
 	/**按钮绑定 */
 	private bindButtons(): void {
-		this.mYesBtn.onClicked.add(this.onClickYesBtn.bind(this));
+		this.mYesBtn.onClose.add(this.onClickYesBtn.bind(this));
 
 		this.mNoBtn.onClicked.add(() => {
 			if (!this.visible) return;
@@ -37,10 +38,12 @@ export default class AdTipsPanel extends AdsTipsPanel_Generate {
 		});
 	}
 
-	private onClickYesBtn(): void {
-		if (!this.visible) return;
-		this.hide();
-		if (this.adType == -1) return;
+	private onClickYesBtn(isSuccess: boolean): void {
+		if (!isSuccess) {
+			Notice.showDownNotice(`领取失败，请重试`);
+			return;
+		}
+		this.hideAdTips();
 		this.onWatchAdsAction.call(this.id, this.adType);
 	}
 
@@ -50,31 +53,7 @@ export default class AdTipsPanel extends AdsTipsPanel_Generate {
 		this.id = id;
 		this.adType = adType;
 		this.show();
-		this.autoYes();
 	}
-
-	private yesInterval: any = null;
-	private autoYes(): void {
-		this.clearAutoYesInterval();
-		let time: number = 5;
-		this.mYesBtn.text = "领取(" + time + ")";
-		this.yesInterval = TimeUtil.setInterval(() => {
-			time--;
-			this.mYesBtn.text = "领取(" + time + ")";
-			if (time <= 0) {
-				this.onClickYesBtn();
-				this.clearAutoYesInterval();
-			}
-		}, 1);
-	}
-
-	private clearAutoYesInterval(): void {
-		if (this.yesInterval) {
-			TimeUtil.clearInterval(this.yesInterval);
-			this.yesInterval = null;
-		}
-	}
-
 
 	/**隐藏此界面 */
 	public hideAdTips(): void {

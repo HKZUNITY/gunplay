@@ -34,6 +34,9 @@ export default class AdsModuleC extends ModuleC<AdsModuleS, null> {
 
     /**播放广告 */
     private playAds(id: number, adType: number): void {
+        this.getReward(id, adType);
+        Notice.showDownNotice("成功获得奖励");
+        return;
         mw.AdsService.isReady(mw.AdsType.Reward, (isReady: boolean) => {
             let isGetReward = false;
             if (isReady) {
@@ -48,8 +51,7 @@ export default class AdsModuleC extends ModuleC<AdsModuleS, null> {
                     if (state == AdsState.Close) {
                         mw.TimeUtil.delaySecond(1).then(() => {
                             if (isGetReward) {
-                                this.getReward(id, adType);
-                                Notice.showDownNotice("成功获得奖励");
+
                                 Console.error("成功获得奖励 id = " + id + " type = " + adType);
                             }
                             else {
