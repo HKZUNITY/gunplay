@@ -781,11 +781,11 @@ let Dance = class Dance extends Script {
         await Utils.asyncDownloadAsset("232755");
         let trigger = this.gameObject;
         trigger.onEnter.add((character) => {
-            character.loadAnimation("232755").play();
+            character?.loadAnimation("232755")?.play();
         });
         trigger.onLeave.add((character) => {
-            if (character.currentAnimation?.assetId == "232755")
-                character.currentAnimation.stop();
+            if (character?.currentAnimation?.assetId == "232755")
+                character?.currentAnimation?.stop();
         });
     }
     /**
@@ -16942,7 +16942,7 @@ let WeaponDriver = WeaponDriver_1 = class WeaponDriver extends mw.Script {
     }
     /** 脚本被销毁时最后一帧执行完调用此函数 */
     onDestroy() {
-        this.clientDestroy();
+        // this.clientDestroy();
     }
     /* 击中对象函数 */
     hit(hitResult) {

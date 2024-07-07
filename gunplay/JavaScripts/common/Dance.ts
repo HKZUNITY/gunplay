@@ -9,10 +9,10 @@ export default class Dance extends Script {
         await Utils.asyncDownloadAsset("232755");
         let trigger = (this.gameObject as mw.Trigger);
         trigger.onEnter.add((character: mw.Character) => {
-            character.loadAnimation("232755").play();
+            character?.loadAnimation("232755")?.play();
         });
         trigger.onLeave.add((character: mw.Character) => {
-            if (character.currentAnimation?.assetId == "232755") character.currentAnimation.stop();
+            if (character?.currentAnimation?.assetId == "232755") character?.currentAnimation?.stop();
         });
     }
 

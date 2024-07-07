@@ -725,7 +725,7 @@ export default class WeaponDriver extends mw.Script {
 
 	/** 脚本被销毁时最后一帧执行完调用此函数 */
 	protected onDestroy(): void {
-		this.clientDestroy();
+		// this.clientDestroy();
 	}
 
 	/* 击中对象函数 */
