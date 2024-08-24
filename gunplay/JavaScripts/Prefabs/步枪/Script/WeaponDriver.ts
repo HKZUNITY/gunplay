@@ -1300,6 +1300,12 @@ export default class WeaponDriver extends mw.Script {
 				this.serverEquip(this.player.playerId);
 				Console.error("B");
 			}
+			this.pickUpTrigger.onEnter.add((char: mw.Character) => {
+				if (char.gameObjectId == this.chara.gameObjectId) {
+					this.serverEquip(this.player.playerId);
+					console.error("A");
+				}
+			});
 		}
 	}
 
