@@ -7357,7 +7357,7 @@ function PrefabReport(reportId = null) {
     };
 }
 
-var foreign64 = /*#__PURE__*/Object.freeze({
+var foreign66 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get PrefabEvent () { return PrefabEvent; },
     PrefabReport: PrefabReport
@@ -16400,7 +16400,7 @@ class WeaponUI extends WeaponUI_Generate$1 {
     }
 }
 
-var foreign66 = /*#__PURE__*/Object.freeze({
+var foreign65 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     default: WeaponUI
 });
@@ -18100,7 +18100,7 @@ WeaponDriver = WeaponDriver_1 = __decorate([
 ], WeaponDriver);
 var WeaponDriver$1 = WeaponDriver;
 
-var foreign65 = /*#__PURE__*/Object.freeze({
+var foreign64 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     default: WeaponDriver$1
 });
@@ -18534,9 +18534,9 @@ const MWModuleMap = {
      'C2A63B424C2C17C9DE3395B59BA9444C': foreign61,
      '4CA21C094DAD2346E120EFBEA3D7736C': foreign62,
      'E8535D714F5BFEC20EF595B175FA24BD': foreign63,
-     'CD82A2E448FA71DD00529A8B5261ED6C': foreign64,
-     '7F2CCB354EB99D9A0A5B778B29710155': foreign65,
-     '5412430B4D7A4F6AD130678D4BC159E0': foreign66,
+     '7F2CCB354EB99D9A0A5B778B29710155': foreign64,
+     '5412430B4D7A4F6AD130678D4BC159E0': foreign65,
+     'CD82A2E448FA71DD00529A8B5261ED6C': foreign66,
      'A80AA1E445AC0F89C299789501FC1817': foreign67,
      'B73909BE4325D9DD1CDD53BB979330F7': foreign68,
      '141437E3436A6DD6EE9FFA8856006A8E': foreign69,
@@ -18631,9 +18631,9 @@ const MWFileMapping = new WeakMap([[foreign1 || {}, "JavaScripts/common/Dance"],
 [foreign61 || {}, "JavaScripts/module/TaskModule/TaskModuleC"],
 [foreign62 || {}, "JavaScripts/module/TaskModule/TaskModuleS"],
 [foreign63 || {}, "JavaScripts/module/TaskModule/ui/TaskPanel"],
-[foreign64 || {}, "JavaScripts/Prefabs/PrefabEvent"],
-[foreign65 || {}, "JavaScripts/Prefabs/步枪/Script/WeaponDriver"],
-[foreign66 || {}, "JavaScripts/Prefabs/步枪/Script/WeaponUI"],
+[foreign64 || {}, "JavaScripts/Prefabs/步枪/Script/WeaponDriver"],
+[foreign65 || {}, "JavaScripts/Prefabs/步枪/Script/WeaponUI"],
+[foreign66 || {}, "JavaScripts/Prefabs/PrefabEvent"],
 [foreign67 || {}, "JavaScripts/tools/Console"],
 [foreign68 || {}, "JavaScripts/tools/MapEx"],
 [foreign69 || {}, "JavaScripts/tools/ObjectPool"],
