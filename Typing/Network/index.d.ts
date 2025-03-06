@@ -98,17 +98,29 @@ declare namespace mw {
      * @groups 玩法
      */
     enum HttpRequestURL {
+        /** CobblestoneService */
         CobblestoneService = 0,
+        /** Resource */
         Resource = 1,
+        /** Gateway */
         Gateway = 2,
+        /** Developers */
         Developers = 3,
+        /** Tasks */
         Tasks = 4,
+        /** Games */
         Games = 5,
+        /** MGS */
         MGS = 6,
+        /** Register */
         Register = 7,
+        /** Login */
         Login = 8,
+        /** Packages */
         Packages = 9,
+        /** Pandora */
         Pandora = 10,
+        /** Translation */
         Translation = 11
     }
     /**

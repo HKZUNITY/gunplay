@@ -179,7 +179,6 @@ declare namespace mw {
          * @description 一秒内收到的网络包的总大小。单位 Byte。
          */
         static get receivedBytes(): number;
-        static tsEventRpcFuncs: string[];
         /**
          * @groups 工具
          * @description 当前帧收到的RPC消息。
@@ -1125,9 +1124,9 @@ declare namespace mw {
         /**
          * @groups 工具
          * @author xiaobo.qi
-         * @deprecated info : 该接口已废弃，请使用LanguageUtil.addKey("");
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.addKey("");
          * @description 多语言标记
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @param textkey usage:用户多语言配置表收集的 Key range: 不做限制
          * @return 返回Key，此函数只用于做翻译文本收集标识。
          */
@@ -1135,9 +1134,9 @@ declare namespace mw {
         /**
          * @groups 工具
          * @author xiaobo.qi
-         * @deprecated info: 该接口已废弃，请使用LanguageUtil.getText("key");
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.getText("key");
          * @description 根据key获取翻译内容
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @param textkey usage:需要查找的翻译的 key range: 不做限制
          * @return 返回Key对应的当前语言环境的翻译内容
          */
@@ -1145,9 +1144,9 @@ declare namespace mw {
         /**
          * @groups 工具
          * @author xiaobo.qi
-         * @deprecated info:该接口已废弃，请使用LanguageUtil.setLanguage(Type);
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.setLanguage(Type);
          * @description 游戏语言设置
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @param type usage:切换游戏语言种类
          * @return true修改成功 false修改失败
          */
@@ -1156,7 +1155,7 @@ declare namespace mw {
                  * @groups 工具
                  * @author xiaobo.qi
                  * @description 多语言标记
-                 * @effect 仅客户端调用生效
+                 * @effect 只在客户端调用生效
                  * @param textkey usage:用户多语言配置表收集的 Key range: 不做限制
                  * @return 返回Key，此函数只用于做翻译文本收集标识。
                  */
@@ -1165,7 +1164,7 @@ declare namespace mw {
          * @groups 工具
          * @author xiaobo.qi
          * @description 根据key获取翻译内容
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @param textkey usage:需要查找的翻译的 key range: 不做限制
          * @return 返回Key对应的当前语言环境的翻译内容
          */
@@ -1174,7 +1173,7 @@ declare namespace mw {
          * @groups 工具
          * @author xiaobo.qi
          * @description 游戏语言设置
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @param type usage:切换游戏语言种类
          * @return true修改成功 false修改失败
          */
@@ -1183,7 +1182,7 @@ declare namespace mw {
          * @author xiaobo.qi
          * @description 获取当前本地化语言
          * @groups 工具
-         * @effect 仅客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 语言枚举对象
          */
         static getlanguage(): mw.LanguageCodeType;
@@ -1207,7 +1206,7 @@ declare namespace mw {
          *     }
          *
          *     private async test(): Promise<void> {
-         *         const locale = LocaleUtil.getDefaultLocale();
+         *         const locale = LanguageUtil.getDefaultLocale();
          *         console.log(`locale: ${locale}`);
 // zh-CN
          *     }
@@ -1228,7 +1227,7 @@ declare namespace mw {
     class LocaleUtil {
         /**
          * @author xiaobo.qi
-         * @deprecated info:该接口已被迁移到LanguageUtil中，请到LanguageUtil中使用
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.getDefaultLocale;
          * @description 获取默认的语言和地区
          * @groups 工具
          * @effect 调用端生效
@@ -1698,8 +1697,8 @@ declare namespace mw {
          * @description 获取随机范围内整数[包含min, 不包含max)
          * @groups 工具
          * @effect 调用端生效
-         * @param min usage:最小值  range: 数据大小不做限制  type: 整数
-         * @param max usage:最大值  range: 数据大小不做限制  type: 整数
+         * @param min usage:最小值  range: 数据大小不做限制  type: 整形
+         * @param max usage:最大值  range: 数据大小不做限制  type: 整形
          * @returns 随机范围内的整数
          * @example
          * 使用示例:创建一个名为MathExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，日志会输出1和10之间的随机整数。
@@ -1743,6 +1742,17 @@ declare namespace mw {
          * ```
          */
         static angleCheck(StartLocation: mw.Vector, StartDirection: mw.Vector, TargetLocation: mw.Vector, Angle: number): boolean;
+        /**
+         * @author yang.zheng
+         * @description 判断浮点数是否近似相等
+         * @groups 玩法
+         * @effect 调用端生效
+         * @param a usage:对比变量 a range: 数据大小不做限制 type: 浮点
+         * @param b usage:对比变量 b range: 数据大小不做限制 type: 浮点
+         * @param epsilon usage:判断精度 range: 数据大小不做限制 type: 浮点 default: MathUtil.EPSILON(1.e-7)
+         * @returns true，两浮点数近似相等
+         */
+        static areFloatsEqual(a: number, b: number, epsilon?: number): boolean;
     }
 }
 
@@ -2578,7 +2588,7 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的行执行碰撞跟踪，并返回遇到的所有命中，直到并包括第一次阻塞命中。
+         * @description 沿着给定的路径进行射线追踪，直到首次遇到阻挡命中时结束，返回沿途遇到的所有命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
@@ -2598,7 +2608,7 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的线进行碰撞追踪，并返回遇到的第一个阻挡命中。
+         * @description 沿着给定的路径进行射线追踪，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
@@ -2615,11 +2625,11 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的直线扫过一个球体，并返回所有命中，包括第一次拦截命中。
+         * @description 球体沿着给定的路径扫过一个空间，直到首次在起点球体空间之外遇到阻挡命中时结束（球体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param radius usage: 球形半径
+         * @param radius usage: 球形半径 range: 无 type: 浮点型
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
          * @returns HitResult数组
@@ -2636,11 +2646,11 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的线扫过一个球体，并返回遇到的第一个阻挡命中。
+         * @description 球体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param radius usage: 球形半径
+         * @param radius usage: 球形半径 range: 无 type: 浮点型
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
          * @returns HitResult
@@ -2654,12 +2664,12 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的路线扫描一个胶囊，并返回遇到的所有命中，包括第一次拦截命中。
+         * @description 胶囊体沿着给定的路径扫过一个空间，直到首次在起点胶囊体空间之外遇到阻挡命中时结束（胶囊体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param radius usage: 胶囊体半径
-         * @param halfHeight usage: 胶囊体半高
+         * @param radius usage: 胶囊体半径 range: 无 type: 浮点型
+         * @param halfHeight usage: 胶囊体半高 range: 无 type: 浮点型
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
          * @returns HitResult数组
@@ -2676,12 +2686,12 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的线扫过一个胶囊体，并返回遇到的第一个阻挡命中。
+         * @description 胶囊体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param radius usage: 胶囊体半径
-         * @param halfHeight usage: 胶囊体半高
+         * @param radius usage: 胶囊体半径 range: 无 type: 浮点型
+         * @param halfHeight usage: 胶囊体半高 range: 无 type: 浮点型
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
          * @returns HitResult
@@ -2695,11 +2705,11 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的路线扫描一个盒体，并返回遇到的所有命中，包括第一次拦截命中。
+         * @description 盒体沿着给定的路径扫过一个空间，直到首次在起点盒体空间之外遇到阻挡命中时结束（盒体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param halfSize usage: 盒形大小
+         * @param halfSize usage: 盒形大小 range: 无
          * @param orientation usage: 旋转大小
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
@@ -2717,11 +2727,11 @@ declare namespace mw {
         /**
          * @author zhiqiang.tan
          * @groups 玩法/物理
-         * @description 沿着给定的线扫过一个盒体，并返回遇到的第一个阻挡命中。
+         * @description 盒体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
          * @param start usage: 起始点
          * @param end usage:终止点
-         * @param halfSize usage: 盒形大小
+         * @param halfSize usage: 盒形大小 range: 无
          * @param orientation usage: 旋转大小
          * @param collisionParams usage:空间查询碰撞参数
          * @param renderParams usage:空间查询渲染参数
@@ -2739,7 +2749,7 @@ declare namespace mw {
          * @description 返回一个与给定球体重叠的对象数组
          * @effect 调用端生效
          * @param spherePos usage:检测位置
-         * @param sphereRadius usage:球半径
+         * @param sphereRadius usage:球半径 range: 无 type: 浮点型
          * @param collisionParams usage:碰撞查询渲染参数
          * @param renderParams usage:空间查询渲染参数
          * @returns GameObject数组
@@ -2759,8 +2769,8 @@ declare namespace mw {
          * @description 返回一个与给定胶囊体重叠的对象数组
          * @effect 调用端生效
          * @param capsulePos usage:检测位置
-         * @param radius usage: 胶囊体半径
-         * @param halfHeight usage:胶囊体半高
+         * @param radius usage: 胶囊体半径 range: 无 type: 浮点型
+         * @param halfHeight usage:胶囊体半高 range: 无 type: 浮点型
          * @param collisionParams usage:碰撞查询渲染参数
          * @param renderParams usage:空间查询渲染参数
          * @returns GameObject数组
@@ -3037,6 +3047,7 @@ declare namespace mw {
          *             }
          *         })
          *     }
+         * ```
          */
         static getSightBeadPosition(): mw.Vector;
         /**
@@ -3397,9 +3408,17 @@ declare namespace mw {
 }
 
 declare namespace mw {
+    /**
+     * @author guang.deng
+     * @description 贴图格式
+     * @groups 基础类型
+     */
     enum TextureFormat {
+        /** Default */
         Default = 0,
+        /** PNG */
         PNG = 1,
+        /** JPEG */
         JPEG = 2
     }
     /**
@@ -3881,7 +3900,7 @@ declare namespace mw {
          * @groups 工具
          * @effect 调用端生效
          * @param handler usage: 执行的方法
-         * @param frameNum usage: 要延迟的帧数 default: 1  <br> range: 根据你想要延迟的帧数而定，不做限制。 type: 整数
+         * @param frameNum usage: 要延迟的帧数 default: 1  <br> range: 根据你想要延迟的帧数而定，不做限制。 type: 整形
          * @returns 用于停止的ID
          * @example
          * 使用示例:创建一个名为TimeExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，会延迟600帧执行
@@ -3909,7 +3928,7 @@ declare namespace mw {
          * @description 清除 delayExecute
          * @groups 工具
          * @effect 调用端生效
-         * @param id usage: delayExecute 方法返回的 ID    <br> range: 根据 ID 长度而定。  type: 整数
+         * @param id usage: delayExecute 方法返回的 ID    <br> range: 根据 ID 长度而定。  type: 整形
          * @example
          * 使用示例:创建一个名为TimeExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，原本会延迟600帧执行，现在不会执行
          * ```

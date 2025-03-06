@@ -14,9 +14,10 @@ declare namespace mweditor {
      * 创建一个Toolbar的按钮
      * @param name 按钮名称
      * @param framePrefix 插件目录下的按钮资源名称前缀
+     * @param type 工具栏类型，默认放在插件工具栏
      * @returns
      */
-    function ToolBarItem(name: string, framePrefix: string): any;
+    function ToolBarItem(name: string, framePrefix: string, type?: number): any;
 }
 
 declare namespace mweditor {
@@ -1079,6 +1080,7 @@ declare namespace mweditor {
 
 /// <reference types="Extension" />
 /// <reference types="Core" />
+/// <reference types="engine" />
 declare namespace mweditor {
     // @ts-ignore
     import UE from "ue";
@@ -1157,6 +1159,11 @@ declare namespace mweditor {
          * 调用进程的安全上下文中指定的可执行文件
          */
         static createProcess(url: string, params?: string, launchDetached?: boolean, launchHidden?: boolean, optional?: string, callback?: (bEnding: boolean, data: string) => void): number;
+        /**
+         * 创建一个新进程及其主线程。新流程运行,该进程会随父进程销毁而自动销毁
+         * 调用进程的安全上下文中指定的可执行文件
+         */
+        static createJobProcess(url: string, params?: string, launchDetached?: boolean, launchHidden?: boolean, optional?: string, callback?: (bEnding: boolean, data: string) => void): number;
         /**正常向进程发送一个关闭命令 */
         static closeProcess(processHandle: number): boolean;
         /**终止进程 */
@@ -1169,6 +1176,12 @@ declare namespace mweditor {
         static launchFile(fileName: string, params?: string, openVerbEdit?: boolean): void;
         /**获取编辑器语言 */
         static getEditorLanguage(): string;
+        /**是否指定进程在运行，性能开销会比较大，慎用 */
+        static isApplicationRunning(name: string): boolean;
+        /** 根据进程名称强杀进程，性能开销会比较大，容易误杀，慎用 */
+        static killApplication(name: string): void;
+        /** 是否是有效的没有被占用的端口 */
+        static isValidPort(port: number): boolean;
     }
 }
 declare namespace mweditor {
@@ -1201,7 +1214,7 @@ declare namespace mweditor {
     class LocalAssetManager extends mweditor.EditorSystemBase {
         launchImportDialog(importType?: mweditor.LocalType): void;
         dragImportLocalAsset(fileNames: string[]): void;
-        uploadLocalAsset(guidList: string[], uploadCallback: (bSuccess: boolean) => void): void;
+        uploadLocalAsset(guidList: string[], uploadCallback: (bSuccess: boolean, message: string) => void): void;
         getThumbnailByAssetId(assetId: string): string;
         getThumbnailByAssetPath(assetPath: string): string;
         getVisibleByAssetId(assetId: string): boolean;
@@ -1531,7 +1544,23 @@ declare namespace mweditor {
         Entered = 1,
         Leaved = 2
     }
+    enum ECompileStatus {
+        CompileStart = 0,
+        CompileCurrentFile = 1,
+        CompileSuccess = 2,
+        CompileFailed = 3,
+        LoadExtensionsStart = 4,
+        LoadGameStart = 5,
+        UIInitStart = 6,
+        InitGameStart = 7,
+        LoadExtensionsError = 8,
+        LoadGameError = 9,
+        UIInitError = 10,
+        InitGameError = 11,
+        NotifyCompilingScene = 12
+    }
     class OpenProjectManager extends mweditor.EditorSystemBase {
+        allbuild: boolean;
         private openProjectSubsystem;
         private procedureChanged;
         private procedureChangedHandle;
@@ -1557,6 +1586,8 @@ declare namespace mweditor {
          * @param stage 插入的位置，在输入的阶段之后插入
          */
         static insertProcedure(newProcedureClass: typeof OpenProjectProcedureBase, stage: EOpenProjectStage): boolean;
+        StopCompile(): void;
+        OpenAllbuildCompilePopover(): void;
     }
 }
 
@@ -1625,7 +1656,7 @@ declare namespace mweditor {
          * @param targetFolder 重定向目标目录
          * @param checkCallback 重定向确认提示（参数为重定向资源的后缀名）
          */
-        confirmRedirect(targetFolder: string, checkCallback?: (extension: string) => {}): void;
+        confirmRedirect(targetFolder: string, checkCallback?: (extensions: string[]) => {}): void;
         /**
          * 将资源状态设置为公共资源，或取消公共资源状态时，资源重定向至对应的根目录
          * @param dataList              需要移动至项目/公共根目录的资源列表
@@ -1824,6 +1855,7 @@ declare namespace mweditor {
         get contentList(): Readonly<mweditor.WorkData[]>;
         get selectedContent(): Readonly<mweditor.WorkData[]>;
         get searchContentList(): Readonly<mweditor.WorkData[]>;
+        SetCompileScriptState(state: number, message: string): void;
     }
     class ProjectContentTab extends mweditor.Tab {
         get projectContent(): ProjectContent;
@@ -1909,6 +1941,128 @@ declare namespace mweditor {
 
 /// <reference types="Extension" />
 /// <reference types="Extension" />
+/// <reference types="engine" />
+declare namespace mweditor {
+    // @ts-ignore
+    import UE from "ue";
+    class ToolBar extends mweditor.EditorSystemBase {
+        private MWEdToolBarSubsystem;
+        onLogWindowClosed: mw.MulticastDelegate<(name: string) => void>;
+        onLogWindowOpen: mw.MulticastDelegate<(name: string) => void>;
+        onTSAutoCompileChanged: mw.MulticastDelegate<(auto: boolean) => void>;
+        onAlignmentToolTabChanged: mw.MulticastDelegate<(auto: boolean) => void>;
+        onPerformanceTabChanged: mw.MulticastDelegate<(auto: boolean) => void>;
+        onNewResolution: mw.MulticastDelegate<(name: string, width: number, height: number) => void>;
+        onResourceReady: mw.MulticastDelegate<() => void>;
+        onGeometryState: mw.MulticastDelegate<(one: boolean, two: boolean, three: boolean) => void>;
+        onBBACheckChanged: mw.MulticastDelegate<(auto: boolean) => void>;
+        onTransformChanged: mw.MulticastDelegate<(mode: number) => void>;
+        onScaleTypeChanged: mw.MulticastDelegate<(type: number) => void>;
+        onCoordModeChanged: mw.MulticastDelegate<(mode: number) => void>;
+        onGizmoSocketTypeChanged: mw.MulticastDelegate<(mode: number) => void>;
+        onSnapChanged: mw.MulticastDelegate<(snap: boolean) => void>;
+        onDeleteResolution: mw.MulticastDelegate<() => void>;
+        onPathFinding: mw.MulticastDelegate<(find: boolean) => void>;
+        onSwitchBoxChanegd: mw.MulticastDelegate<(mode: string) => void>;
+        onPIEChanged: mw.MulticastDelegate<(mode: Number) => void>;
+        onChordSettingChanged: mw.MulticastDelegate<(name: string, chord: any) => void>;
+        private onBBACheckChangedBind;
+        private onTransformChangedBind;
+        private onScaleTypeChangedBind;
+        private onCoordModeChangedBind;
+        private onGizmoSocketTypeChangedBind;
+        private onSnapChangedBind;
+        private onDeleteResolutionBind;
+        private onPathFindingBind;
+        initialize(): void;
+        deinitialize(): void;
+        registerToolBarWidget(uiInfo: string, flag: number): void;
+        registerGamesettingWidget(uiInfo: string): void;
+        registerMenuToolBarWidget(uiInfo: string, callback: (widget: mw.Widget) => void, type: string): void;
+        ForwardAlignToolCheckBoxEvent(state: mw.CheckBoxState): void;
+        OpenSettingPanel(): void;
+        OpenWeb(tag: number): void;
+        OpenHelpWindows(): void;
+        OnRelease(): void;
+        OnUpdate(): void;
+        OnCreate(): void;
+        OnOpen(): void;
+        OnSave(): void;
+        OnDeletePIECache(): void;
+        OnExitProject(): void;
+        BackupProject(): void;
+        GreatAccount(): void;
+        ForwardMultilanguageEvent(): void;
+        ForwardPerformanceEvent(state: mw.CheckBoxState): void;
+        ForwardResolutionEvent(): void;
+        DeleteResolution(): void;
+        PathFinding(find: boolean): void;
+        BBACheckChanged(check: boolean): void;
+        ForwardPositionEvent(state: mw.CheckBoxState): void;
+        ForwardCursorEvent(state: mw.CheckBoxState): void;
+        ForwardOnlineEvent(state: mw.CheckBoxState): void;
+        ForwardRuntimeMobileEvent(state: mw.CheckBoxState): void;
+        ForwardPlayerEvent(num: number): void;
+        ForwardPortEvent(port: number): void;
+        ForwardTSCompileButtonClickEvent(method: number): void;
+        ForwardModeEvent(paint: boolean): void;
+        ForwardTransformModeChangeEvent(): boolean;
+        TransformModeChanged(mode: number): void;
+        RightButtonDown(): boolean;
+        ScaleTypeChanged(mode: number): void;
+        CoordModeChanged(mode: number): void;
+        GizmoSocketTypeChanged(type: number): void;
+        SnapChanged(snap: boolean): void;
+        ForwardNumRotateEvent(num: number): void;
+        ForwardNumScaleEvent(num: number): void;
+        ForwardNumTranslateEvent(num: number): void;
+        GetPaintMode(): boolean;
+        IsPerformanceTabAlive(): boolean;
+        ForwardTabEvent(name: string, state: mw.CheckBoxState): void;
+        IsTabAlive(name: string): boolean;
+        IsAlignToolTabAlive(): boolean;
+        IsTSCompileButtonEnabled(): boolean;
+        ForwardShowWireframeEvent(state: mw.CheckBoxState): void;
+        ShowWireframe(): boolean;
+        ForwardShowChatframeEvent(state: mw.CheckBoxState): void;
+        ShowChatframe(): boolean;
+        ForwardShowPINGRegionEvent(state: mw.CheckBoxState): void;
+        ShowPINGRegion(): boolean;
+        ForwardShowViewSelectorEvent(state: mw.CheckBoxState): void;
+        ShowViewSelector(): boolean;
+        ForwardRunPIEWithHotKeyEvent(type: number): void;
+        ForwardRunEvent(): void;
+        ForwardPauseEvent(): void;
+        ForwardResumeEvent(): void;
+        ForwardStopEvent(): void;
+        ForwardNewClientEvent(): void;
+        ClientTooltipVisible(): boolean;
+        ClientButtonEnable(): boolean;
+        ClientTooltipText(): string;
+        CommandLineParam(command: string): boolean;
+        CommandLineValue(command: string): string;
+        GetEditorGameSettingPath(): string;
+        GetEditorSettingPath(): string;
+        GetGameSettingPath(): string;
+        CustomAddClicked(): void;
+        ScreenAspectRatioClicked(NewIsHorizontal: boolean): void;
+        EditorPresetJson(): string;
+        UserCustomJson(): string;
+        GetResolutionSettingsPath(): string;
+        RemoveUserCustomConfig(name: string): void;
+        SelectResolution(name: string): void;
+        GetBaseModelList(): any[];
+        ModelContentChange(guid: string): void;
+        OnUnionClicked(): void;
+        OnNegateClicked(): void;
+        OnSeparateClicked(): void;
+        GetActiveChord(id: string): UE.InputChord;
+        BuildAll(): void;
+    }
+}
+
+/// <reference types="Extension" />
+/// <reference types="Extension" />
 declare namespace mweditor {
     /**
      * UI编辑器通用管理接口
@@ -1975,6 +2129,11 @@ declare namespace mweditor {
      * @description 用户数据相关
      */
     class User extends mweditor.EditorSystemBase {
+        /**
+         * 使用当前登录的token发起http请求
+         * 请求参数设置规则解释于参数类型中
+         */
+        static httpRequestWithToken(httpRequestInfo: mweditor.HttpRequestInfo, callback?: (code: number, url: string, result: string) => {}): boolean;
         /**
          * 获取当前用户名称
          */
@@ -2271,14 +2430,14 @@ declare namespace mweditor {
         /**
          * 拷贝文件或者文件夹
          * @param destination 拷贝目的地址
-         * @param overwrite 拷贝来源地址
+         * @param overwrite 是否覆盖
          * @returns 返回成功还是失败
          */
         copyTo(destination: string, overwrite?: boolean): boolean;
         /**
          * 移动文件或者文件夹
          * @param destination 移动到目的地址
-         * @param overwrite 移动来源地址
+         * @param overwrite 是否覆盖
          * @returns 返回成功还是失败
          */
         moveTo(destination: string, overwrite?: boolean): boolean;
@@ -2470,6 +2629,7 @@ declare namespace mweditor {
         loadingPhase: PluginLoadingPhase;
         loadingWeight: number;
         typingNameSpace: string;
+        oversea: boolean;
         /**
          * 从一段json字符串反序列化出插件信息
          * @param pluginDataJson json字符串
@@ -2996,7 +3156,21 @@ declare namespace mweditor {
         mw_project_script_compile = "mw_project_script_compile",
         mw_open_project_resource = "mw_open_project_resource",
         mw_open_project_initialization_scene = "mw_open_project_initialization_scene",
-        mw_open_project_error = "mw_open_project_error"
+        mw_open_project_error = "mw_open_project_error",
+        mw_primary_draw_mode_switch = "mw_primary_draw_mode_switch",
+        mw_plugin_manager_open = "mw_plugin_manager_open",
+        mw_plugin_manager_close = "mw_plugin_manager_close",
+        mw_complie_click = "mw_complie_click",
+        mw_resolution_add = "mw_resolution_add",
+        mw_resolution_switch = "mw_resolution_switch",
+        mw_log_port_check = "mw_log_port_check",
+        mw_grid_value_change = "mw_grid_value_change",
+        mw_scale_tool_switch = "mw_scale_tool_switch",
+        mw_axis_mode_switch = "mw_axis_mode_switch",
+        mw_center_pivot_mode_switch = "mw_center_pivot_mode_switch",
+        mw_help_menu_click = "mw_help_menu_click",
+        mw_publish_menu_click = "mw_publish_menu_click",
+        mw_localization_close = "mw_localization_close"
     }
 }
 
@@ -3147,6 +3321,8 @@ declare namespace mweditor {
         static GetExhibitionInfo(Asset: EditorAssetExhibition): AssetExhibitionInfo;
         static GetExhibitionType(AssetType: string): EditorAssetExhibition;
         static GetObjectTypeEnum(inObj: any | any[]): EditorAssetExhibition;
+        static originGameFuncObjectGuidList: Map<string, string>;
+        static originGameUIClassList: Map<any, string>;
     }
 }
 
@@ -3197,6 +3373,15 @@ false 事务不存在或不可 Redo
      * @description 清除销毁标记
      */
     function ClearPendingKill(targetObj: mw.GameObject): void;
+}
+
+declare namespace mweditor {
+    class HttpRequestInfo {
+        URL: string;
+        tokenHeaderName: string;
+        requestBody: string;
+        headerMap: Map<string, string>;
+    }
 }
 
 declare namespace mweditor {
@@ -3341,7 +3526,9 @@ declare namespace mweditor {
         StaticMesh = 9,
         GameUITex = 10,
         SceneTex = 11,
-        Audio = 12
+        Audio = 12,
+        AnimSequence = 13,
+        ClothSkeletalMesh = 14
     }
     enum OperatorType {
         DeleteFolder = 1,
@@ -3351,10 +3538,13 @@ declare namespace mweditor {
         DeleteCharacter = 5,
         DeleteMaterial = 6,
         DeleteModel = 7,
-        DropScript = 8,
-        SavePrefab = 9,
-        ClosePrefab = 10,
-        SwitchToScene = 11
+        DeleteLocalAsset = 8,
+        DropScript = 9,
+        SavePrefab = 10,
+        ClosePrefab = 11,
+        SwitchToScene = 12,
+        DeleteDataFile = 13,
+        RedirectToPrjectRoot = 14
     }
     enum MultSceneWindowMode {
         EAdd = 0,
@@ -3385,6 +3575,16 @@ declare namespace mweditor {
         PlayerEditor = "PlayerEditor",
         /** 材质编辑器 */
         MaterialEditor = "MaterialEditor"
+    }
+    export enum ToolBarType {
+        None = 0,
+        Debug = 1,
+        Build = 2,
+        Plugin = 4,
+        UI = 8,
+        Material = 16,
+        Character = 32,
+        All = 255
     }
     export enum Orientation {
         /** 水平布局 */
@@ -3610,6 +3810,7 @@ declare namespace mweditor {
 }
 
 /// <reference types="Extension" />
+/// <reference types="engine" />
 declare namespace mweditor {
     // @ts-ignore
     import UE from "ue";
@@ -3660,7 +3861,7 @@ declare namespace mweditor {
     }
     enum EPropertyType {
         default = 0,
-        blankAttribute = 1,
+        tipsError = 1,
         UIConstraintGraph = 2,
         category = 3,
         array = 4,
@@ -3685,9 +3886,11 @@ declare namespace mweditor {
         staticMesh = 23,
         objectPtr = 24,
         materials = 25,
-        asset = 26,
-        script = 27,
-        otherStruct = 28
+        multiPassMaterial = 26,
+        asset = 27,
+        CurveColorArray = 28,
+        script = 29,
+        otherStruct = 30
     }
     /**
      * @author jianke.feng
@@ -3764,7 +3967,15 @@ declare namespace mweditor {
         /** 标记该属性是不是基础属性，是哪一个(名称、ID、网络状态、tag) */
         BaseProperty_Str = 33,
         /** 显隐和材质的切换绑定，材质颜色动态显隐专用 */
-        VisibleBindMaterialChange_Boolean = 34
+        VisibleBindMaterialChange_Boolean = 34,
+        /** 通知MultiPassM材质移除插槽, 默认参数: void  返回值: void*/
+        ClearMultiPassMatsFun_Fun = 35
+    }
+    enum EMultiPassFit {
+        MP_Fit = 0,
+        MP_VariableNotFit = 1,
+        MP_MainPassNotFit1 = 2,
+        MP_MultiPassNotFit1 = 4
     }
     /**
      * @description 根据字符串解析为相应的 Vector 方法, 字符串格式(Pitch=0.000000,Yaw=0.000000,Roll=0.000000)
@@ -3789,6 +4000,8 @@ declare namespace mweditor {
     function ParseLinearColorString(str: string, outColor: mw.LinearColor): mw.LinearColor;
     function ParsesSysValueFromString(inValue: string, inType: EPropertyType): any;
     function ParsesSysValueToString(inValue: any): string;
+    function GetAssetDisplayName(assetID: string): string;
+    function CheckIsMatFitForMultiPass(obj: any, assetId: string): void;
     /**
      * @description         解析获取Obj上的资源属性的Guid
      * @effect              调用生效
@@ -3801,12 +4014,13 @@ declare namespace mweditor {
 
 /// <reference types="Extension" />
 /// <reference types="Extension" />
+/// <reference types="Extension" />
 declare namespace mweditor {
     enum EComponentType {
         None = 0,
-        ScriptComponent = 1,
-        GameObjectComponent = 2,
-        UIWidgetBase = 3,
+        UIWidgetBase = 1,
+        ScriptComponent = 2,
+        GameObjectComponent = 3,
         CustomPropertiesComponent = 4
     }
     /**
@@ -3834,7 +4048,7 @@ declare namespace mweditor {
         propertyType: mweditor.EPropertyType;
         private DataPath;
         addChild(inData: PropertyDataBase): void;
-        /** 如果是自定义属性则移除自身，并返回原父级 */
+        /** 如果是自定义属性则移除自身，并返回true*/
         removeCustomProperty(): boolean;
         getPropertyPureName(): string;
         set displayName(newName: string);
@@ -3973,6 +4187,11 @@ declare namespace mweditor {
         private ColorPickCallBack;
         copy(): LinearColorPropertyData;
     }
+    class ColorGradientPropertyData extends PropertyData {
+        constructor();
+        onColorPointChange: mw.MulticastDelegate<(colorPointArr: mw.colorSequencePoint[]) => void>;
+        copy(): ColorGradientPropertyData;
+    }
     /**
      * @description marginData类
      */
@@ -4040,6 +4259,7 @@ declare namespace mweditor {
          * @return      节点自身的拷贝
          */
         copy(): TArrayCategoryData;
+        get arraylength(): number;
         /**
          *
          * @returns 初步判断数组的内容是否有变化，长度变化需要刷新属性面板
@@ -4060,15 +4280,32 @@ declare namespace mweditor {
         copy(): MaterialsPropertyData;
     }
     /**
-     * @description BlankAttributePropertyData类, 空白屬性， 當屬性展示空間格式不夠時， 用來綁定並行展示
+     * @description MaterialsPropertyData类
      */
-    class BlankAttributePropertyData extends PropertyData {
+    class MultiPassMaterialPropertyData extends PropertyData {
         constructor();
-        BindData: PropertyDataBase;
-        copy(): BlankAttributePropertyData;
+        warnTipsKey: string;
+        ClearPass(): boolean;
+        /**
+        * @description 拷贝节点自身,但属性信息与属性所属对象依然引用同样的对象
+        * @return      节点自身的拷贝
+        */
+        copy(): MultiPassMaterialPropertyData;
     }
     /**
-     * @description UIConstraintGraphPropertyData 类, 空白屬性， 當屬性展示空間格式不夠時， 用來綁定並行展示
+     * @description TipsErrorPropertyData类, 警告提示，单独占用一行，有绑定的目标属性控制显示和警告内容
+     */
+    class TipsErrorPropertyData extends PropertyData {
+        constructor();
+        BindData: PropertyDataBase;
+        TipsKey: string;
+        get bTipsVisible(): boolean;
+        customRowHeight: number;
+        propertyContentHeight: number;
+        copy(): TipsErrorPropertyData;
+    }
+    /**
+     * @description UIConstraintGraphPropertyData 类,
      */
     class UIConstraintGraphPropertyData extends PropertyData {
         constructor();
@@ -4078,6 +4315,7 @@ declare namespace mweditor {
     }
 }
 
+/// <reference types="Extension" />
 /// <reference types="Extension" />
 /// <reference types="Extension" />
 declare namespace mweditor {
@@ -4155,6 +4393,12 @@ declare namespace mweditor {
         getValue(obj: any): any;
         setValue(obj: any, inValue: any): void;
     }
+    class ObjColorGradientPropertyInfo extends ObjPropertyInfo {
+        constructor(funGetter: PropertyDescriptor, funSetter: PropertyDescriptor);
+        getValue(obj: any): Array<mw.colorSequencePoint>;
+        setValue(obj: any, inValue: Array<mw.colorSequencePoint> | any): void;
+        ColorGradientValue: Array<mw.colorSequencePoint>;
+    }
     /**
      * @author jianke.feng
      * @description  属性信息
@@ -4218,6 +4462,16 @@ declare namespace mweditor {
         getAssetGuid(obj: any): string[];
         getValue(obj: any, inGuid?: string): mweditor.AssetManager_OnlineAssetInfo[];
         setMaterialInst(obj: any, index: number, inAssetGUID: string): void;
+    }
+    /**
+     * @author jianke.feng
+     * @description  MultiPassMaterial 多Pass材质资源属性信息
+     * @effect
+     */
+    class objMultiPassMaterialPropertyInfo extends ObjPropertyInfo {
+        constructor(funGetter: PropertyDescriptor, funSetter: PropertyDescriptor);
+        getValue(obj: any): any;
+        setValue(obj: any, inValue: any, inPropertyPath?: string): void;
     }
 }
 

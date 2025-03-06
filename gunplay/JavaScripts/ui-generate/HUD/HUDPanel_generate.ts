@@ -3,7 +3,7 @@
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/HUD/HUDPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
  
 @UIBind('UI/HUD/HUDPanel.ui')
@@ -85,6 +85,34 @@ export default class HUDPanel_Generate extends UIScript {
 		}
 		return this.mRightTopCanvas_Internal
 	}
+	private mSetBtnCanvas_Internal: mw.Canvas
+	public get mSetBtnCanvas(): mw.Canvas {
+		if(!this.mSetBtnCanvas_Internal&&this.uiWidgetBase) {
+			this.mSetBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mSetBtnCanvas') as mw.Canvas
+		}
+		return this.mSetBtnCanvas_Internal
+	}
+	private mSetButton_Internal: mw.Button
+	public get mSetButton(): mw.Button {
+		if(!this.mSetButton_Internal&&this.uiWidgetBase) {
+			this.mSetButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mSetBtnCanvas/mSetButton') as mw.Button
+		}
+		return this.mSetButton_Internal
+	}
+	private mRankCanvas_Internal: mw.Canvas
+	public get mRankCanvas(): mw.Canvas {
+		if(!this.mRankCanvas_Internal&&this.uiWidgetBase) {
+			this.mRankCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas') as mw.Canvas
+		}
+		return this.mRankCanvas_Internal
+	}
+	private mRankButton_Internal: mw.Button
+	public get mRankButton(): mw.Button {
+		if(!this.mRankButton_Internal&&this.uiWidgetBase) {
+			this.mRankButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas/mRankButton') as mw.Button
+		}
+		return this.mRankButton_Internal
+	}
 	private mTeamCanvas_Internal: mw.Canvas
 	public get mTeamCanvas(): mw.Canvas {
 		if(!this.mTeamCanvas_Internal&&this.uiWidgetBase) {
@@ -113,103 +141,82 @@ export default class HUDPanel_Generate extends UIScript {
 		}
 		return this.mGunButton_Internal
 	}
-	private mRankCanvas_Internal: mw.Canvas
-	public get mRankCanvas(): mw.Canvas {
-		if(!this.mRankCanvas_Internal&&this.uiWidgetBase) {
-			this.mRankCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas') as mw.Canvas
-		}
-		return this.mRankCanvas_Internal
-	}
-	private mRankButton_Internal: mw.Button
-	public get mRankButton(): mw.Button {
-		if(!this.mRankButton_Internal&&this.uiWidgetBase) {
-			this.mRankButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas/mRankButton') as mw.Button
-		}
-		return this.mRankButton_Internal
-	}
-	private mRightTopCanvas1_Internal: mw.Canvas
-	public get mRightTopCanvas1(): mw.Canvas {
-		if(!this.mRightTopCanvas1_Internal&&this.uiWidgetBase) {
-			this.mRightTopCanvas1_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1') as mw.Canvas
-		}
-		return this.mRightTopCanvas1_Internal
-	}
 	private mLotteryCanvas_Internal: mw.Canvas
 	public get mLotteryCanvas(): mw.Canvas {
 		if(!this.mLotteryCanvas_Internal&&this.uiWidgetBase) {
-			this.mLotteryCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mLotteryCanvas') as mw.Canvas
+			this.mLotteryCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLotteryCanvas') as mw.Canvas
 		}
 		return this.mLotteryCanvas_Internal
 	}
 	private mLotteryButton_Internal: mw.Button
 	public get mLotteryButton(): mw.Button {
 		if(!this.mLotteryButton_Internal&&this.uiWidgetBase) {
-			this.mLotteryButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mLotteryCanvas/mLotteryButton') as mw.Button
+			this.mLotteryButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLotteryCanvas/mLotteryButton') as mw.Button
 		}
 		return this.mLotteryButton_Internal
 	}
-	private mTaskCanvas_Internal: mw.Canvas
-	public get mTaskCanvas(): mw.Canvas {
-		if(!this.mTaskCanvas_Internal&&this.uiWidgetBase) {
-			this.mTaskCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas') as mw.Canvas
+	private mClothBtnCanvas_Internal: mw.Canvas
+	public get mClothBtnCanvas(): mw.Canvas {
+		if(!this.mClothBtnCanvas_Internal&&this.uiWidgetBase) {
+			this.mClothBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mClothBtnCanvas') as mw.Canvas
 		}
-		return this.mTaskCanvas_Internal
+		return this.mClothBtnCanvas_Internal
 	}
-	private mTaskButton_Internal: mw.Button
-	public get mTaskButton(): mw.Button {
-		if(!this.mTaskButton_Internal&&this.uiWidgetBase) {
-			this.mTaskButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas/mTaskButton') as mw.Button
+	private mClothButton_Internal: mw.Button
+	public get mClothButton(): mw.Button {
+		if(!this.mClothButton_Internal&&this.uiWidgetBase) {
+			this.mClothButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mClothBtnCanvas/mClothButton') as mw.Button
 		}
-		return this.mTaskButton_Internal
-	}
-	private mRedPointImage_Internal: mw.Image
-	public get mRedPointImage(): mw.Image {
-		if(!this.mRedPointImage_Internal&&this.uiWidgetBase) {
-			this.mRedPointImage_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas/mRedPointImage') as mw.Image
-		}
-		return this.mRedPointImage_Internal
-	}
-	private mSetBtnCanvas_Internal: mw.Canvas
-	public get mSetBtnCanvas(): mw.Canvas {
-		if(!this.mSetBtnCanvas_Internal&&this.uiWidgetBase) {
-			this.mSetBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mSetBtnCanvas') as mw.Canvas
-		}
-		return this.mSetBtnCanvas_Internal
-	}
-	private mSetButton_Internal: mw.Button
-	public get mSetButton(): mw.Button {
-		if(!this.mSetButton_Internal&&this.uiWidgetBase) {
-			this.mSetButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mSetBtnCanvas/mSetButton') as mw.Button
-		}
-		return this.mSetButton_Internal
+		return this.mClothButton_Internal
 	}
 	private mRoleBtnCanvas_Internal: mw.Canvas
 	public get mRoleBtnCanvas(): mw.Canvas {
 		if(!this.mRoleBtnCanvas_Internal&&this.uiWidgetBase) {
-			this.mRoleBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRoleBtnCanvas') as mw.Canvas
+			this.mRoleBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRoleBtnCanvas') as mw.Canvas
 		}
 		return this.mRoleBtnCanvas_Internal
 	}
 	private mRoleButton_Internal: mw.Button
 	public get mRoleButton(): mw.Button {
 		if(!this.mRoleButton_Internal&&this.uiWidgetBase) {
-			this.mRoleButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRoleBtnCanvas/mRoleButton') as mw.Button
+			this.mRoleButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRoleBtnCanvas/mRoleButton') as mw.Button
 		}
 		return this.mRoleButton_Internal
 	}
 	private mLoginBtnCanvas_Internal: mw.Canvas
 	public get mLoginBtnCanvas(): mw.Canvas {
 		if(!this.mLoginBtnCanvas_Internal&&this.uiWidgetBase) {
-			this.mLoginBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mLoginBtnCanvas') as mw.Canvas
+			this.mLoginBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLoginBtnCanvas') as mw.Canvas
 		}
 		return this.mLoginBtnCanvas_Internal
 	}
 	private mLoginButton_Internal: mw.Button
 	public get mLoginButton(): mw.Button {
 		if(!this.mLoginButton_Internal&&this.uiWidgetBase) {
-			this.mLoginButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mLoginBtnCanvas/mLoginButton') as mw.Button
+			this.mLoginButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLoginBtnCanvas/mLoginButton') as mw.Button
 		}
 		return this.mLoginButton_Internal
+	}
+	private mTaskCanvas_Internal: mw.Canvas
+	public get mTaskCanvas(): mw.Canvas {
+		if(!this.mTaskCanvas_Internal&&this.uiWidgetBase) {
+			this.mTaskCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas') as mw.Canvas
+		}
+		return this.mTaskCanvas_Internal
+	}
+	private mTaskButton_Internal: mw.Button
+	public get mTaskButton(): mw.Button {
+		if(!this.mTaskButton_Internal&&this.uiWidgetBase) {
+			this.mTaskButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas/mTaskButton') as mw.Button
+		}
+		return this.mTaskButton_Internal
+	}
+	private mRedPointImage_Internal: mw.Image
+	public get mRedPointImage(): mw.Image {
+		if(!this.mRedPointImage_Internal&&this.uiWidgetBase) {
+			this.mRedPointImage_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas/mRedPointImage') as mw.Image
+		}
+		return this.mRedPointImage_Internal
 	}
 	private mMiddleBottomCanvas_Internal: mw.Canvas
 	public get mMiddleBottomCanvas(): mw.Canvas {
@@ -439,6 +446,18 @@ export default class HUDPanel_Generate extends UIScript {
 		this.mAddDiamondButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
 		
 	
+		this.mSetButton.onClicked.add(()=>{
+			Event.dispatchToLocal("PlayButtonClick", "mSetButton");
+		});
+		this.mSetButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+		
+	
+		this.mRankButton.onClicked.add(()=>{
+			Event.dispatchToLocal("PlayButtonClick", "mRankButton");
+		});
+		this.mRankButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+		
+	
 		this.mTeamButton.onClicked.add(()=>{
 			Event.dispatchToLocal("PlayButtonClick", "mTeamButton");
 		});
@@ -451,28 +470,16 @@ export default class HUDPanel_Generate extends UIScript {
 		this.mGunButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
 		
 	
-		this.mRankButton.onClicked.add(()=>{
-			Event.dispatchToLocal("PlayButtonClick", "mRankButton");
-		});
-		this.mRankButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
-		
-	
 		this.mLotteryButton.onClicked.add(()=>{
 			Event.dispatchToLocal("PlayButtonClick", "mLotteryButton");
 		});
 		this.mLotteryButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
 		
 	
-		this.mTaskButton.onClicked.add(()=>{
-			Event.dispatchToLocal("PlayButtonClick", "mTaskButton");
+		this.mClothButton.onClicked.add(()=>{
+			Event.dispatchToLocal("PlayButtonClick", "mClothButton");
 		});
-		this.mTaskButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
-		
-	
-		this.mSetButton.onClicked.add(()=>{
-			Event.dispatchToLocal("PlayButtonClick", "mSetButton");
-		});
-		this.mSetButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+		this.mClothButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
 		
 	
 		this.mRoleButton.onClicked.add(()=>{
@@ -485,6 +492,12 @@ export default class HUDPanel_Generate extends UIScript {
 			Event.dispatchToLocal("PlayButtonClick", "mLoginButton");
 		});
 		this.mLoginButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+		
+	
+		this.mTaskButton.onClicked.add(()=>{
+			Event.dispatchToLocal("PlayButtonClick", "mTaskButton");
+		});
+		this.mTaskButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
 		
 	
 		this.mSetCloseButton.onClicked.add(()=>{
@@ -535,28 +548,31 @@ export default class HUDPanel_Generate extends UIScript {
 	
 		//文本多语言
 		
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mSetBtnCanvas/SetTextBlock") as any);
+		
+	
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRankCanvas/RankTextBlock") as any);
+		
+	
 		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mTeamCanvas/TeamTextBlock") as any);
 		
 	
 		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mGunCanvas/GunTextBlock") as any);
 		
 	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRankCanvas/RankTextBlock") as any);
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mLotteryCanvas/LotteryTextBlock") as any);
 		
 	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mLotteryCanvas/LotteryTextBlock") as any);
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mClothBtnCanvas/LoginTextBlock") as any);
 		
 	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mTaskCanvas/TaskTextBlock") as any);
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRoleBtnCanvas/RoleTextBlock") as any);
 		
 	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mSetBtnCanvas/SetTextBlock") as any);
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mLoginBtnCanvas/LoginTextBlock") as any);
 		
 	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRoleBtnCanvas/RoleTextBlock") as any);
-		
-	
-		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mLoginBtnCanvas/LoginTextBlock") as any);
+		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mTaskCanvas/TaskTextBlock") as any);
 		
 	
 		this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mDieCanvas/TextBlock") as any);

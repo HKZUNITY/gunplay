@@ -185,11 +185,11 @@ declare namespace mw {
          * @author lei.zhao
          * @description 背包注册道具信息，道具需要在客户端注册
          * @effect 调用端生效
-         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整数
+         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
          * @param icon usage:道具图片 <br> range: 不做限制
          * @param name usage:名称 <br> range: 不做限制
          * @param quality usage:道具品质-默认普通 default:ItemQuality.Common
-         * @param stackCount usage:堆叠数量 default:1 <br> range: 不做限制  type: 整数
+         * @param stackCount usage:堆叠数量 default:1 <br> range: 不做限制  type: 整形
          * @param customData usage:额外数据 default:null
          * @returns 返回背包实例
          * @example
@@ -214,7 +214,7 @@ declare namespace mw {
          * @author lei.zhao
          * @description 获取背包指定道具数量
          * @effect 调用端生效
-         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整数
+         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
          * @param player usage:服务端传入，打开指定玩家的背包 default:服务端必传入
          * @returns 返回背包实例
          */
@@ -224,8 +224,8 @@ declare namespace mw {
          * @author lei.zhao
          * @description 添加道具
          * @effect 调用端生效
-         * @param itemId usage:道具ID <br> range: 不做限制  type: 整数
-         * @param count usage:道具数量 default:1 <br> range: 不做限制  type: 整数
+         * @param itemId usage:道具ID <br> range: 不做限制  type: 整形
+         * @param count usage:道具数量 default:1 <br> range: 不做限制  type: 整形
          * @param player usage:道具所有者 default:服务端必传入
          * @returns 返回添加的道具数量，如果添加失败则返回0
          * @example
@@ -249,8 +249,8 @@ declare namespace mw {
          * @author lei.zhao
          * @description 删除道具
          * @effect 调用端生效
-         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整数
-         * @param count usage:道具数量  default:1 <br> range: 不做限制  type: 整数
+         * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
+         * @param count usage:道具数量  default:1 <br> range: 不做限制  type: 整形
          * @param player usage:道具所有者，服务端必传入 default:服务端必传入
          * @returns 返回背包实例
          */
@@ -676,8 +676,8 @@ declare namespace mw {
          * @effect 只在客户端调用生效
          * @param title usage: 界面标题  range: UI 标题信息
          * @param fieldsAutoLayout usage: 字段是否自动布局，均匀分布
-         * @param showPlayerNum usage: 最多显示的玩家数量  range:合理即可  type: 整数
-         * @param itemSpacing usage: 每条数据的间距  range:合理即可  type: 整数
+         * @param showPlayerNum usage: 最多显示的玩家数量  range:合理即可  type: 整形
+         * @param itemSpacing usage: 每条数据的间距  range:合理即可  type: 整形
          * @returns 返回自己，可用于链式调用
          */
         static setStyle(title: string, fieldsAutoLayout: boolean, showPlayerNum: number, itemSpacing: number): typeof LeaderboardModule;
@@ -959,8 +959,8 @@ declare namespace mw {
          * @effect 只在客户端调用生效
          * @param title usage: UI 标题  range: UI 标题信息
          * @param fieldsAutoLayout usage: 字段是否自动布局(true-均匀分布, false-所摆即所得）
-         * @param showPlayerNum usage: 最多显示的玩家数量  range:合理即可  type: 整数
-         * @param itemSpacing usage: 每条数据的间距  range:合理即可  type: 整数
+         * @param showPlayerNum usage: 最多显示的玩家数量  range:合理即可  type: 整形
+         * @param itemSpacing usage: 每条数据的间距  range:合理即可  type: 整形
          * @returns 返回自己，可用于链式调用
          */
         setStyle(title: string, fieldsAutoLayout: boolean, showPlayerNum: number, itemSpacing: number): this;
@@ -1019,10 +1019,10 @@ declare namespace mw {
          * @groups 拓展/排行榜
          * @description 设置自己(界面最下面那一行)的字段内容后调用，需要请复写
          * @effect 只在客户端调用生效
-         * @param rankIndex usage: 名次索引(0开始)  range: 合理即可，不做限制  type: 整数
-         * @param fieldId usage: 字段索引 (如果是排行字段，此参数为mull)  range: 合理即可，不做限制  type: 整数
-         * @param fieldValue usage: 字段显示内容  range: 合理即可，不做限制  type: 整数
-         * @param textBlockIndex usage: 文本控件索引  range: 合理即可，不做限制  type: 整数
+         * @param rankIndex usage: 名次索引(0开始)  range: 合理即可，不做限制  type: 整形
+         * @param fieldId usage: 字段索引 (如果是排行字段，此参数为mull)  range: 合理即可，不做限制  type: 整形
+         * @param fieldValue usage: 字段显示内容  range: 合理即可，不做限制  type: 整形
+         * @param textBlockIndex usage: 文本控件索引  range: 合理即可，不做限制  type: 整形
          * @param textBlock usage: 文本控件
          */
         protected onSelfFieldSet(rankIndex: number, fieldId: number, fieldValue: string | number, textBlockIndex: number, textBlock: mw.TextBlock): void;
@@ -1052,10 +1052,10 @@ declare namespace mw {
      * @description 【保存数据方便】保存数据只需要调用父类SubData的save方法，即可实现保存
      * @description 【获取数据方便】获取数据只需要传入数据体的类名，即可获取到对应数据
      * @description 2. 数据控制中心是如何工作的？
-     * @description 数据上方标注的 @Decorator.saveProperty 装饰器有两个作用：
+     * @description 数据上方标注的 @Decorator.persistence 装饰器有两个作用：
      * @description - 让字段能够被永久存储（永久存储可以认为当退出游戏后，再次打开游戏，会存储上次游戏数据继续玩）
      * @description - 让字段能够被同步到客户端
-     * @description - 没有标注 @Decorator.saveProperty 装饰器将丧失永久存储和同步至客户端的能力。
+     * @description - 没有标注 @Decorator.persistence 装饰器将丧失永久存储和同步至客户端的能力。
      * @description 3. 通过改写 ModuleService 中的示例，数据控制中心如何使用：
      * @example
      * 使用示例: C&S 和数据模块组合。
@@ -2587,7 +2587,7 @@ declare namespace mw {
          * @param onReset usage: 重置对象的回调 default: null
          * @param onDestroy usage: 销毁对象的回调 default: null
          * @param onDespawn usage: 归还对象的回调 default: null
-         * @param initNum usage: 默认缓存对象数量 default: 2  range: 不做限制  type: 整数
+         * @param initNum usage: 默认缓存对象数量 default: 2  range: 不做限制  type: 整形
          */
         constructor(onCreateObj: () => T, onReset?: (obj: T) => void, onDestroy?: (obj: T) => void, onDespawn?: (obj: T) => void, initNum?: number);
         /**

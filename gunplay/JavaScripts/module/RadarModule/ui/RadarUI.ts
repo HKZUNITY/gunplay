@@ -101,7 +101,13 @@ export default class RadarUI extends UIScript {
 						}
 						let loc = this.radarModuleC.Loc2RadarPos(otherPlayer.character.worldTransform.position);
 						let offset = otherPlayerPoint.size;
-						otherPlayerPoint.position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+						let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+						if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+							otherPlayerPoint.visibility = 1;
+						} else {
+							otherPlayerPoint.position = retP;
+							otherPlayerPoint.visibility = 4;
+						}
 					}
 					else {
 						let otherPlayerPoint = mw.TextBlock.newObject(this.rootCanvas, otherPlayer.userId);
@@ -128,7 +134,13 @@ export default class RadarUI extends UIScript {
 				this.enemyLocMap.forEach((value, key) => {
 					let loc = this.radarModuleC.Loc2RadarPos(value);
 					let offset = this.enemyPointMap.get(key).size;
-					this.enemyPointMap.get(key).position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+					let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+					if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+						this.enemyPointMap.get(key).visibility = 1;
+					} else {
+						this.enemyPointMap.get(key).position = retP;
+						this.enemyPointMap.get(key).visibility = 4;
+					}
 				});
 			}
 
@@ -141,7 +153,14 @@ export default class RadarUI extends UIScript {
 					}
 					let loc = this.radarModuleC.Loc2RadarPos(key.worldTransform.position);
 					let offset = value.size;
-					value.position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+
+					let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+					if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+						value.visibility = 1;
+					} else {
+						value.position = retP;
+						value.visibility = 4;
+					}
 				});
 			}
 		}, 0.1);

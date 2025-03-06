@@ -1029,7 +1029,7 @@ var foreign17 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/notice/NoticeView.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let NoticeView_Generate = class NoticeView_Generate extends UIScript {
     get con_top_notice() {
@@ -1096,7 +1096,7 @@ var foreign84 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/notice/TopNoticeItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let TopNoticeItem_Generate = class TopNoticeItem_Generate extends UIScript {
     get txt_context() {
@@ -2985,7 +2985,7 @@ var foreign23 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Ads/AdsTipsPanel.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.22
  */
 let AdsTipsPanel_Generate = class AdsTipsPanel_Generate extends UIScript {
     get mTitleTxt() {
@@ -3222,7 +3222,7 @@ var foreign70 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Gun/GunItem.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.23
  */
 let GunItem_Generate = class GunItem_Generate extends UIScript {
     get mSelectImage() {
@@ -3314,7 +3314,7 @@ var foreign77 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Gun/GunPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let GunPanel_Generate = class GunPanel_Generate extends UIScript {
     get mTouchImage() {
@@ -3519,7 +3519,7 @@ var foreign78 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/HUD/HUDPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
     get mMainCanvas() {
@@ -3588,6 +3588,30 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
         }
         return this.mRightTopCanvas_Internal;
     }
+    get mSetBtnCanvas() {
+        if (!this.mSetBtnCanvas_Internal && this.uiWidgetBase) {
+            this.mSetBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mSetBtnCanvas');
+        }
+        return this.mSetBtnCanvas_Internal;
+    }
+    get mSetButton() {
+        if (!this.mSetButton_Internal && this.uiWidgetBase) {
+            this.mSetButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mSetBtnCanvas/mSetButton');
+        }
+        return this.mSetButton_Internal;
+    }
+    get mRankCanvas() {
+        if (!this.mRankCanvas_Internal && this.uiWidgetBase) {
+            this.mRankCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas');
+        }
+        return this.mRankCanvas_Internal;
+    }
+    get mRankButton() {
+        if (!this.mRankButton_Internal && this.uiWidgetBase) {
+            this.mRankButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas/mRankButton');
+        }
+        return this.mRankButton_Internal;
+    }
     get mTeamCanvas() {
         if (!this.mTeamCanvas_Internal && this.uiWidgetBase) {
             this.mTeamCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTeamCanvas');
@@ -3612,89 +3636,71 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
         }
         return this.mGunButton_Internal;
     }
-    get mRankCanvas() {
-        if (!this.mRankCanvas_Internal && this.uiWidgetBase) {
-            this.mRankCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas');
-        }
-        return this.mRankCanvas_Internal;
-    }
-    get mRankButton() {
-        if (!this.mRankButton_Internal && this.uiWidgetBase) {
-            this.mRankButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRankCanvas/mRankButton');
-        }
-        return this.mRankButton_Internal;
-    }
-    get mRightTopCanvas1() {
-        if (!this.mRightTopCanvas1_Internal && this.uiWidgetBase) {
-            this.mRightTopCanvas1_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1');
-        }
-        return this.mRightTopCanvas1_Internal;
-    }
     get mLotteryCanvas() {
         if (!this.mLotteryCanvas_Internal && this.uiWidgetBase) {
-            this.mLotteryCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mLotteryCanvas');
+            this.mLotteryCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLotteryCanvas');
         }
         return this.mLotteryCanvas_Internal;
     }
     get mLotteryButton() {
         if (!this.mLotteryButton_Internal && this.uiWidgetBase) {
-            this.mLotteryButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mLotteryCanvas/mLotteryButton');
+            this.mLotteryButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLotteryCanvas/mLotteryButton');
         }
         return this.mLotteryButton_Internal;
     }
-    get mTaskCanvas() {
-        if (!this.mTaskCanvas_Internal && this.uiWidgetBase) {
-            this.mTaskCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas');
+    get mClothBtnCanvas() {
+        if (!this.mClothBtnCanvas_Internal && this.uiWidgetBase) {
+            this.mClothBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mClothBtnCanvas');
         }
-        return this.mTaskCanvas_Internal;
+        return this.mClothBtnCanvas_Internal;
     }
-    get mTaskButton() {
-        if (!this.mTaskButton_Internal && this.uiWidgetBase) {
-            this.mTaskButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas/mTaskButton');
+    get mClothButton() {
+        if (!this.mClothButton_Internal && this.uiWidgetBase) {
+            this.mClothButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mClothBtnCanvas/mClothButton');
         }
-        return this.mTaskButton_Internal;
-    }
-    get mRedPointImage() {
-        if (!this.mRedPointImage_Internal && this.uiWidgetBase) {
-            this.mRedPointImage_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mTaskCanvas/mRedPointImage');
-        }
-        return this.mRedPointImage_Internal;
-    }
-    get mSetBtnCanvas() {
-        if (!this.mSetBtnCanvas_Internal && this.uiWidgetBase) {
-            this.mSetBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mSetBtnCanvas');
-        }
-        return this.mSetBtnCanvas_Internal;
-    }
-    get mSetButton() {
-        if (!this.mSetButton_Internal && this.uiWidgetBase) {
-            this.mSetButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas1/mSetBtnCanvas/mSetButton');
-        }
-        return this.mSetButton_Internal;
+        return this.mClothButton_Internal;
     }
     get mRoleBtnCanvas() {
         if (!this.mRoleBtnCanvas_Internal && this.uiWidgetBase) {
-            this.mRoleBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRoleBtnCanvas');
+            this.mRoleBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRoleBtnCanvas');
         }
         return this.mRoleBtnCanvas_Internal;
     }
     get mRoleButton() {
         if (!this.mRoleButton_Internal && this.uiWidgetBase) {
-            this.mRoleButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRoleBtnCanvas/mRoleButton');
+            this.mRoleButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mRoleBtnCanvas/mRoleButton');
         }
         return this.mRoleButton_Internal;
     }
     get mLoginBtnCanvas() {
         if (!this.mLoginBtnCanvas_Internal && this.uiWidgetBase) {
-            this.mLoginBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mLoginBtnCanvas');
+            this.mLoginBtnCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLoginBtnCanvas');
         }
         return this.mLoginBtnCanvas_Internal;
     }
     get mLoginButton() {
         if (!this.mLoginButton_Internal && this.uiWidgetBase) {
-            this.mLoginButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mLoginBtnCanvas/mLoginButton');
+            this.mLoginButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mLoginBtnCanvas/mLoginButton');
         }
         return this.mLoginButton_Internal;
+    }
+    get mTaskCanvas() {
+        if (!this.mTaskCanvas_Internal && this.uiWidgetBase) {
+            this.mTaskCanvas_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas');
+        }
+        return this.mTaskCanvas_Internal;
+    }
+    get mTaskButton() {
+        if (!this.mTaskButton_Internal && this.uiWidgetBase) {
+            this.mTaskButton_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas/mTaskButton');
+        }
+        return this.mTaskButton_Internal;
+    }
+    get mRedPointImage() {
+        if (!this.mRedPointImage_Internal && this.uiWidgetBase) {
+            this.mRedPointImage_Internal = this.uiWidgetBase.findChildByPath('RootCanvas/mRightTopCanvas/mTaskCanvas/mRedPointImage');
+        }
+        return this.mRedPointImage_Internal;
     }
     get mMiddleBottomCanvas() {
         if (!this.mMiddleBottomCanvas_Internal && this.uiWidgetBase) {
@@ -3887,6 +3893,14 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
             Event.dispatchToLocal("PlayButtonClick", "mAddDiamondButton");
         });
         this.mAddDiamondButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+        this.mSetButton.onClicked.add(() => {
+            Event.dispatchToLocal("PlayButtonClick", "mSetButton");
+        });
+        this.mSetButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+        this.mRankButton.onClicked.add(() => {
+            Event.dispatchToLocal("PlayButtonClick", "mRankButton");
+        });
+        this.mRankButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
         this.mTeamButton.onClicked.add(() => {
             Event.dispatchToLocal("PlayButtonClick", "mTeamButton");
         });
@@ -3895,22 +3909,14 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
             Event.dispatchToLocal("PlayButtonClick", "mGunButton");
         });
         this.mGunButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
-        this.mRankButton.onClicked.add(() => {
-            Event.dispatchToLocal("PlayButtonClick", "mRankButton");
-        });
-        this.mRankButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
         this.mLotteryButton.onClicked.add(() => {
             Event.dispatchToLocal("PlayButtonClick", "mLotteryButton");
         });
         this.mLotteryButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
-        this.mTaskButton.onClicked.add(() => {
-            Event.dispatchToLocal("PlayButtonClick", "mTaskButton");
+        this.mClothButton.onClicked.add(() => {
+            Event.dispatchToLocal("PlayButtonClick", "mClothButton");
         });
-        this.mTaskButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
-        this.mSetButton.onClicked.add(() => {
-            Event.dispatchToLocal("PlayButtonClick", "mSetButton");
-        });
-        this.mSetButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+        this.mClothButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
         this.mRoleButton.onClicked.add(() => {
             Event.dispatchToLocal("PlayButtonClick", "mRoleButton");
         });
@@ -3919,6 +3925,10 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
             Event.dispatchToLocal("PlayButtonClick", "mLoginButton");
         });
         this.mLoginButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
+        this.mTaskButton.onClicked.add(() => {
+            Event.dispatchToLocal("PlayButtonClick", "mTaskButton");
+        });
+        this.mTaskButton.touchMethod = (mw.ButtonTouchMethod.PreciseTap);
         this.mSetCloseButton.onClicked.add(() => {
             Event.dispatchToLocal("PlayButtonClick", "mSetCloseButton");
         });
@@ -3938,14 +3948,15 @@ let HUDPanel_Generate = class HUDPanel_Generate extends UIScript {
         this.initLanguage(this.mKillTipTextBlock2);
         this.initLanguage(this.mKillTipTextBlock3);
         //文本多语言
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mSetBtnCanvas/SetTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRankCanvas/RankTextBlock"));
         this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mTeamCanvas/TeamTextBlock"));
         this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mGunCanvas/GunTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRankCanvas/RankTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mLotteryCanvas/LotteryTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mTaskCanvas/TaskTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas1/mSetBtnCanvas/SetTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRoleBtnCanvas/RoleTextBlock"));
-        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mLoginBtnCanvas/LoginTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mLotteryCanvas/LotteryTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mClothBtnCanvas/LoginTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mRoleBtnCanvas/RoleTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mLoginBtnCanvas/LoginTextBlock"));
+        this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mRightTopCanvas/mTaskCanvas/TaskTextBlock"));
         this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mDieCanvas/TextBlock"));
         this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mDieCanvas/TextBlock_1"));
         this.initLanguage(this.uiWidgetBase.findChildByPath("RootCanvas/mSetCanvas/SetTextBlock"));
@@ -8545,7 +8556,7 @@ var foreign39 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/HUD/KillTipItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let KillTipItem_Generate = class KillTipItem_Generate extends UIScript {
     get mBgImage() {
@@ -8754,6 +8765,22 @@ class HUDPanel extends HUDPanel_Generate$1 {
         });
         this.bindSetButton();
         this.bindATKButton();
+        this.mClothButton.onClicked.add(async () => {
+            await AvatarEditorService.asyncOpenAvatarEditorModule();
+            this.mVirtualJoystickPanel.resetJoyStick();
+        });
+        mw.AvatarEditorService.avatarServiceDelegate.add(this.addAvatarServiceDelegate.bind(this));
+    }
+    addAvatarServiceDelegate(eventName, ...params) {
+        console.error(`eventName: ${eventName}`);
+        switch (eventName) {
+            case "AE_OnQuit":
+                Event.dispatchToLocal(EventType.OpenCloseHUDRadarUI, true);
+                break;
+            case "AE_OnOpen":
+                Event.dispatchToLocal(EventType.OpenCloseHUDRadarUI, false);
+                break;
+        }
     }
     initKillTipItems() {
         for (let i = 0; i < 4; ++i) {
@@ -9356,7 +9383,7 @@ var foreign33 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Gun/BuyGunPanel.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.23
  */
 let BuyGunPanel_Generate = class BuyGunPanel_Generate extends UIScript {
     get mIconImage() {
@@ -9802,7 +9829,7 @@ var foreign38 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Lottery/LotteryItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let LotteryItem_Generate = class LotteryItem_Generate extends UIScript {
     get mIconImage() {
@@ -9890,7 +9917,7 @@ var foreign82 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Lottery/LotteryPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let LotteryPanel_Generate = class LotteryPanel_Generate extends UIScript {
     get mMiddleTopCanvas() {
@@ -10286,7 +10313,7 @@ var foreign45 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/BuyRole/BuyRolePanel.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.23
  */
 let BuyRolePanel_Generate = class BuyRolePanel_Generate extends UIScript {
     get mNameTextBlock() {
@@ -10398,7 +10425,7 @@ var foreign73 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/BuyRole/RolePanel.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.23
  */
 let RolePanel_Generate = class RolePanel_Generate extends UIScript {
     get mLeftButton() {
@@ -11103,7 +11130,7 @@ var foreign41 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Team/TeamItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let TeamItem_Generate = class TeamItem_Generate extends UIScript {
     get mCanvas_1() {
@@ -11226,7 +11253,7 @@ var foreign92 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Team/TeamPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let TeamPanel_Generate = class TeamPanel_Generate extends UIScript {
     get mCanvas() {
@@ -11292,7 +11319,7 @@ var foreign93 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Player/InputPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let InputPanel_Generate = class InputPanel_Generate extends UIScript {
     get mCloseButton() {
@@ -11988,7 +12015,7 @@ var foreign34 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Gun/LoginPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let LoginPanel_Generate = class LoginPanel_Generate extends UIScript {
     get mExplainTextBlock() {
@@ -12461,7 +12488,14 @@ class RadarUI extends UIScript {
                         }
                         let loc = this.radarModuleC.Loc2RadarPos(otherPlayer.character.worldTransform.position);
                         let offset = otherPlayerPoint.size;
-                        otherPlayerPoint.position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                        let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                        if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+                            otherPlayerPoint.visibility = 1;
+                        }
+                        else {
+                            otherPlayerPoint.position = retP;
+                            otherPlayerPoint.visibility = 4;
+                        }
                     }
                     else {
                         let otherPlayerPoint = mw.TextBlock.newObject(this.rootCanvas, otherPlayer.userId);
@@ -12487,7 +12521,14 @@ class RadarUI extends UIScript {
                 this.enemyLocMap.forEach((value, key) => {
                     let loc = this.radarModuleC.Loc2RadarPos(value);
                     let offset = this.enemyPointMap.get(key).size;
-                    this.enemyPointMap.get(key).position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                    let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                    if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+                        this.enemyPointMap.get(key).visibility = 1;
+                    }
+                    else {
+                        this.enemyPointMap.get(key).position = retP;
+                        this.enemyPointMap.get(key).visibility = 4;
+                    }
                 });
             }
             if (this.characterPointMap.size > 0) {
@@ -12500,7 +12541,14 @@ class RadarUI extends UIScript {
                     }
                     let loc = this.radarModuleC.Loc2RadarPos(key.worldTransform.position);
                     let offset = value.size;
-                    value.position = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                    let retP = new Vector2(loc.x - (offset.x / 2), loc.y - (offset.y / 2));
+                    if (retP.x < 0 || retP.x > 400 || retP.y < 0 || retP.y > 400) {
+                        value.visibility = 1;
+                    }
+                    else {
+                        value.position = retP;
+                        value.visibility = 4;
+                    }
                 });
             }
         }, 0.1);
@@ -12872,7 +12920,7 @@ var foreign69 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/WorldRank/WorldRankPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let WorldRankPanel_Generate = class WorldRankPanel_Generate extends UIScript {
     get mTitleTextBlock() {
@@ -13410,7 +13458,7 @@ var foreign58 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Task/TaskPanel.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let TaskPanel_Generate = class TaskPanel_Generate extends UIScript {
     get mDailyTimeTextBlock() {
@@ -15033,7 +15081,7 @@ var foreign21 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Enemy/CubeLifebar.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.23
  */
 let CubeLifebar_Generate = class CubeLifebar_Generate extends UIScript {
     get mLifebarProgressBar() {
@@ -16076,7 +16124,7 @@ var foreign30 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Prefabs/步枪/UI/WeaponUI.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let WeaponUI_Generate = class WeaponUI_Generate extends UIScript {
     get point() {
@@ -18110,7 +18158,7 @@ var foreign64 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/notice/SecondNoticeItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let SecondNoticeItem_Generate = class SecondNoticeItem_Generate extends UIScript {
     get txt_context() {
@@ -18178,7 +18226,7 @@ var foreign85 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Portal.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.22
  */
 let Portal_Generate = class Portal_Generate extends UIScript {
     onAwake() {
@@ -18228,7 +18276,7 @@ var foreign88 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Task/TaskItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let TaskItem_Generate = class TaskItem_Generate extends UIScript {
     get mNameTextBlock() {
@@ -18328,7 +18376,7 @@ var foreign90 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/WorldRank/RankItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let RankItem_Generate = class RankItem_Generate extends UIScript {
     get mRankTextBlock() {
@@ -18405,7 +18453,7 @@ var foreign94 = /*#__PURE__*/Object.freeze({
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/WorldRank/WorldRankItem.ui
- * TIME: 2024.05.20-22.03.02
+ * TIME: 2025.03.05-22.33.23
  */
 let WorldRankItem_Generate = class WorldRankItem_Generate extends UIScript {
     get mRankTextBlock() {

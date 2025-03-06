@@ -8,7 +8,17 @@ declare namespace mweditor {
         /** 校验详细日志信息 */
         DetailedLog = 0
     }
-    function AutoTest(bEditor?: boolean): (target: any) => void;
+    enum TaskType {
+        /** API覆盖类型的用例 */
+        API = 0,
+        /** 功能覆盖类型的用例 */
+        Function = 1,
+        /** bug覆盖类型的用例 */
+        Bug = 2,
+        /** 其它，暂未分类的用例 */
+        Other = 3
+    }
+    function AutoTest(pluginType?: mweditor.PluginType): (target: any) => void;
     function ShutdownTSTest(): void;
     function getAllAutoTestClass(): Set<AutomationSpecBase>;
     class AutomationSpecBase {
@@ -23,13 +33,17 @@ declare namespace mweditor {
          */
         protected describe(title: string, fn: () => void): void;
         /** 禁用该任务 */
-        protected xit(title: string, fn: () => void, ...params: any[]): void;
+        protected xit(...params: any[]): void;
+        private CheckNetStatus;
         /**
          * 任务
          * @param title 任务描述
-         * @param detailedLog 详细日志
+         * @param owner 管理员 运行用例的时候需要检测格式，不符合格式的直接报错（格式：XXX.XXX
+         * @param feishuID 飞书ID 上报bug的时候指定任务的负责人
+         * @param taskType 类型（默认Other类型）
+         * @param netStatus 表示调用端，默认双端调用，可选仅客户端、仅服务端（任务内部进行过滤）
          */
-        protected it(title: string, fn: () => void, logType?: mweditor.CheckAutoTestInfo): void;
+        protected it(title: string, owner: string, feishuID: string, fn: () => void, taskType?: mweditor.TaskType, netStatus?: mw.NetStatus, logType?: mweditor.CheckAutoTestInfo): void;
         /**
          * 潜伏任务
          * 指 在一定时间类执行完任务，而不是在一帧执行完任务
@@ -38,11 +52,15 @@ declare namespace mweditor {
          * this.doneLatent()
          * ```
          * @param title 任务描述
+         * @param owner 管理员 运行用例的时候需要检测格式，不符合格式的直接报错（格式：XXX.XXX
+         * @param feishuID 飞书ID 上报bug的时候指定任务的负责人
          * @param timeout 任务执行时间（默认为30000毫秒，超出时间返回错误执行下个任务）
+         * @param taskType 类型（默认Other类型）
+         * @param netStatus 表示调用端，默认双端调用，可选仅客户端、仅服务端（任务内部进行过滤）
          */
-        protected latentIt(title: string, fn: () => void, timeout?: number, logType?: mweditor.CheckAutoTestInfo): void;
+        protected latentIt(title: string, owner: string, feishuID: string, fn: () => void, timeout?: number, taskType?: mweditor.TaskType, netStatus?: mw.NetStatus, logType?: mweditor.CheckAutoTestInfo): void;
         /** 禁用潜伏任务 */
-        protected xlatentIt(title: string, fn: () => void, ...params: any[]): void;
+        protected xlatentIt(...params: any[]): void;
         /**
          * 任务前准备阶段（潜伏）
          * 在任务完成时记得通知完成任务
@@ -53,7 +71,7 @@ declare namespace mweditor {
          */
         protected latentBeforeEach(fn: () => void, timeout?: number): void;
         /** 禁用任务前准备阶段 */
-        protected xlatentBeforeEach(fn: () => void, ...params: any[]): void;
+        protected xlatentBeforeEach(...params: any[]): void;
         /**
          * 任务执行后结束阶段(潜伏)
          * 在任务完成时记得通知完成任务
@@ -64,7 +82,7 @@ declare namespace mweditor {
          */
         protected latentAfterEach(fn: () => void, timeout?: number): void;
         /** 禁用任务后结束阶段 */
-        protected xlatentAfterEach(fn: () => void, ...params: any[]): void;
+        protected xlatentAfterEach(...params: any[]): void;
         /**
          * 潜伏任务完成通知
          */
@@ -83,10 +101,14 @@ declare namespace mweditor {
         protected log(info: string): void;
         /**
          * 场景图片截取
-         * @param showUI 是否显示视口中的UI
          * @returns 是否截图成功
          */
-        protected screenShot(showUI?: boolean): boolean;
+        protected screenShot(): boolean;
+        /**
+         * 获取当前执行任务
+         * @returns 任务名称
+         */
+        static get currentTestContext(): string;
     }
     class DriverElement {
         /**

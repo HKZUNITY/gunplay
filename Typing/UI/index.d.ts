@@ -13,7 +13,7 @@
          * @description 当parent和inName与已有的对象相同时，旧的对象会被销毁
          * @effect  只在客户端调用生效
          * @param parent usage:创建控件的外parent对象 default: null
-         * @param inName usage:创建控件的名称 default:null   range:设置合理的名称即可
+         * @param inName usage:创建控件的名称 default:null range:无
          * @returns 返回创建的对象
          */
         static newObject(parent?: mw.Canvas, inName?: string): AdsButton;
@@ -252,70 +252,70 @@
         get onClose(): mw.MulticastDelegate<(isSuccess: boolean) => void>;
         /** *************************************************  限制用户操作 ******************************************************/
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置大小(不能生效)
          * @effect  只在客户端调用生效
          * @param inSize usage:输入的大小尺寸(不能生效)
          */
         set size(inSize: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置渲染的角度(不能生效)
          * @effect  只在客户端调用生效
          * @param o usage:渲染角度
          */
         set renderTransformAngle(o: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置渲染锚点(不能生效)
          * @effect  只在客户端调用生效
          * @param Pivot usage:渲染锚点
          */
         set renderTransformPivot(Pivot: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置渲染错切形变(不能生效)
          * @effect  只在客户端调用生效
          * @param shear usage:渲染错切形变
          */
         set renderShear(shear: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置渲染透明度 0 ~ 1(不能生效)
          * @effect  只在客户端调用生效
          * @param InOpacity usage:透明度
          */
         set renderOpacity(InOpacity: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置渲染尺寸(不能生效)
          * @effect  只在客户端调用生效
          * @param InOpacity usage:透明度
          */
         set renderScale(scale: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 使用setPostion来设置位置，transform不能生效
          * @effect  只在客户端调用生效
          * @param inTransform usage:大小
          */
         set transform(inTransform: never);
         /**
-         * @deprecated
-         * @deprecated 设置自动大小(不能生效)
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
+         * @description 设置自动大小(不能生效)
          * @effect  只在客户端调用生效
          * @param autoSize usage:是否自动设置大小
          */
         set autoSizeEnable(autoSize: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置自动大小的水平分量(不能生效)
          * @effect  只在客户端调用生效
          * @returns 是否自动水平设置大小
          */
         set autoSizeHorizontalEnable(bEnabled: never);
         /**
-         * @deprecated
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:020 reason:限制使用 replacement:无
          * @description 设置自动大小的垂直分量(不能生效)
          * @effect  只在客户端调用生效
          * @returns 是否自动垂直设置大小
@@ -471,10 +471,10 @@ declare namespace mw {
          * @groups 界面/控件/按钮
          * @description 设置正常颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setNormalImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -568,10 +568,10 @@ declare namespace mw {
          * @groups 界面/控件/按钮
          * @description 设置按下颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setPressedImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -665,10 +665,10 @@ declare namespace mw {
          * @groups 界面/控件/按钮
          * @description 设置不可用颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setDisableImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -742,8 +742,6 @@ declare namespace mw {
          * @returns 返回事件的代理
          */
         get onUnhovered(): mw.MulticastDelegate<() => void>;
-        get onAssetDragEnter(): mw.MulticastDelegate<(assetGUID: string) => void>;
-        get onAssetDragLeave(): mw.MulticastDelegate<() => void>;
         /**
          * @groups 界面/控件/按钮
          * @description 是否按下
@@ -1235,7 +1233,7 @@ declare namespace mw {
          * @groups 界面/控件/绘图画布
          * @description 创建绘画控件
          * @description 当parent和inName与已有的对象相同时，旧的对象会被销毁
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param parent usage:创建控件的外parent对象 default: null
          * @param inName usage:创建控件的名称 default:null   range:设置合理的名称即可
          * @returns 返回创建的对象
@@ -1244,68 +1242,70 @@ declare namespace mw {
         /**
          * @groups 界面/控件/绘图画布
          * @description 清除全部绘制
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         clearDraws(): void;
         /**
-         * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
          * @description 移除指定的绘制图元
-         * @param Id 指定的绘制图元Id
+         * @groups 界面/控件/绘图画布
+         * @effect 只在客户端调用生效
+         * @param id usage:指定的绘制图元Id type: 整形 range: 无
          */
-        removeDrawById(Id: number): void;
+        removeDrawById(id: number): void;
         /**
          * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @description 画多段线
-         * @param points 线的各个点坐标
-         * @param lineData 绘制图元信息
+         * @param points usage:线的各个点坐标
+         * @param lineData usage:绘制图元信息 default: new DrawDataBase()
          * @returns 返回drawId
          */
         drawLines(points: mw.Vector2[], lineData?: DrawDataBase): number;
         /**
          * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @description 画埃尔米特曲线
-         * @param startPoint 开始线位置
-         * @param startDirection 开始切线方向
-         * @param endPoint 结束点位置
-         * @param endDirection 结束点切线方向
-         * @param lineData 绘制图元信息
+         * @param startPoint usage:开始线位置
+         * @param startDirection usage:开始切线方向
+         * @param endPoint usage:结束点位置
+         * @param endDirection usage:结束点切线方向
+         * @param lineData usage:绘制图元信息 default: new DrawDataBase()
          * @returns 返回drawId
          */
         drawSpline(startPoint: mw.Vector2, startDirection: mw.Vector2, endPoint: mw.Vector2, endDirection: mw.Vector2, lineData?: DrawDataBase): number;
         /**
          * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @description 绘制三阶贝塞尔曲线
-         * @param p1 第一个点
-         * @param p2 第二个点
-         * @param p3 第三个点
-         * @param p4 第四个点
-         * @param lineData 绘制图元信息
+         * @param p1 usage:第一个点
+         * @param p2 usage:第二个点
+         * @param p3 usage:第三个点
+         * @param p4 usage:第四个点
+         * @param lineData usage:绘制图元信息 default: new DrawDataBase()
          * @returns 返回drawId
          */
         drawCubicBezierSpline(p1: mw.Vector2, p2: mw.Vector2, p3: mw.Vector2, p4: mw.Vector2, lineData?: DrawDataBase): number;
         /**
          * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @description 画文字
-         * @param position 位置
-         * @param fontSize 字体大小
-         * @param fontColor 颜色
-         * @param drawLayerId 绘制层级
-         * @returns
+         * @param text usage:要绘制的文本 range: 无
+         * @param position usage:位置
+         * @param fontSize usage:字体大小 type: 整形 range: 无
+         * @param fontColor usage:颜色
+         * @param drawLayerId usage:绘制层级 default: 0 range: 无 type: 整形
+         * @returns 返回drawId
          */
-        drawText(text: string, position: mw.Vector2, fontSize: number, fontColor: any, drawLayerId?: number): number;
+        drawText(text: string, position: mw.Vector2, fontSize: number, fontColor: mw.LinearColor, drawLayerId?: number): number;
         /**
          * @groups 界面/控件/绘图画布
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @description 自定义绘制图元
-         * @param vertex 顶点图元数据信息
-         * @param index  顶点图元索引信息
-         * @param assetId:UI贴图资源
-         * @param drawLayerId：绘制层级
+         * @param vertex usage:顶点图元数据信息
+         * @param index usage:顶点图元索引信息
+         * @param assetId usage:UI贴图资源 default: "" range: 无
+         * @param drawLayerId usage:绘制层级 default: 0 range: 无 type: 整形
+         * @returns 返回drawId
          */
         drawCustom(vertex: UIDrawCustomVertex[], index: number[], assetId?: string, drawLayerId?: number): number;
     }
@@ -1322,206 +1322,212 @@ declare namespace mw {
         /**
          * @groups 界面/控件/下拉框
          * @description 创建Canvas控件 当parent和inName与已有的对象相同时，旧的对象会被销毁
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param parent usage:创建控件的外parent对象 default:null
-         * @param inName usage:创建控件的名称 default:null  <br> range: 不做限制，合理即可。
+         * @param inName usage:创建控件的名称 default:null  <br> range: 无
          * @returns 返回创建的对象
          */
         static newObject(parent?: mw.Canvas, inName?: string): Dropdown;
         /**
          * @groups 界面/控件/文本按钮
          * @description 获取默认字体
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 默认字体
          */
         get defaultFont(): mw.UIFontFamily | string;
         /**
          * @groups 界面/控件/文本按钮
          * @description 设置默认字体
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inFont 需设置的默认字体
          */
         set defaultFont(inFont: mw.UIFontFamily | string);
         /**
          * @groups 界面/控件/文本按钮
          * @description 获取退却字体
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 退却字体
          */
         get fallbackFont(): mw.UIFontFamily | string;
         /**
          * @groups 界面/控件/文本按钮
          * @description 设置退却字体
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inFont 需设置的退却字体
          */
         set fallbackFont(inFont: mw.UIFontFamily | string);
         /**
          * @description 设置字体字形
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inGlyph usage:字体字形的类型
          */
         set glyph(inGlyph: mw.UIFontGlyph);
         /**
          * @description 获取字体字形
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 字体字形
          */
         get glyph(): mw.UIFontGlyph;
         /**
          * @groups 界面/控件/下拉框
          * @description 文本样式
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回文本样式
          */
         get textStyle(): mw.TextStyle;
         /**
          * @groups 界面/控件/下拉框
          * @description 菜单样式
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回菜单样式
          */
         get dropdownStyle(): mw.DropdownStyle;
         /**
          * @groups 界面/控件/下拉框
          * @description 滚动条样式
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回滚动条样式
          */
         get scrollbarStyle(): mw.ScrollbarStyle;
         /**
          * @groups 界面/控件/下拉框
          * @description ListItemStyle样式
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回ListItemStyle样式
          */
         get menuRowStyle(): mw.ListItemStyle;
         /**
          * @groups 界面/控件/下拉框
          * @description 选中改动事件
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回选中改动事件
          */
         get onSelectionChangedEvent(): mw.MulticastDelegate<(item: string, select: mw.SelectInfo) => void>;
         /**
          * @groups 界面/控件/下拉框
          * @description 打开下拉菜单前触发事件
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回事件
          */
         get onOpeningEvent(): mw.MulticastDelegate<() => void>;
         /**
          * @groups 界面/控件/下拉框
-         * @param option 菜单项    <br> range: 不做限制，合理即可。
+         * @param option usage:菜单项    <br> range: 无
          * @description 添加菜单项
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         addOption(option: string): void;
         /**
          * @groups 界面/控件/下拉框
-         * @param option 菜单项  <br> range: 不做限制，合理即可。
+         * @param option usage:菜单项  <br> range: 无
          * @description 移除菜单项
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         removeOption(option: string): void;
         /**
          * @groups 界面/控件/下拉框
-         * @param option 菜单项    <br> range: 不做限制，合理即可。
+         * @param option usage:菜单项    <br> range: 无
          * @description 获取下拉顺序坐标
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 下拉顺序坐标
          */
         findOptionIndex(option: string): number;
         /**
          * @groups 界面/控件/下拉框
-         * @param index 下拉顺序坐标    <br> range: 不做限制，合理即可。
+         * @param index usage:下拉顺序坐标    <br> range: 无  type: 整形
          * @description 菜单项内容
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 获取菜单项内容
          */
         getOptionByIndex(index: number): string;
         /**
          * @groups 界面/控件/下拉框
          * @description 清空所有菜单项
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         clearOptions(): void;
         /**
          * @groups 界面/控件/下拉框
          * @description 清空所有选中
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         clearSelection(): void;
         /**
          * @groups 界面/控件/下拉框
          * @description 获取所有菜单项
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 所有菜单项
          */
         get options(): string[];
         /**
          * @groups 界面/控件/下拉框
          * @description 获取所有菜单项
-         * @effect  只在客户端调用生效
-         * @param value usage: 传进来的字符串数组     <br> range: 不做限制，合理即可。
+         * @effect 只在客户端调用生效
+         * @param value usage: 传进来的字符串数组     <br> range: 无
          */
         set options(value: string[]);
         /**
          * @groups 界面/控件/下拉框
          * @description 修改索引处的值
-         * @effect  只在客户端调用生效
-         * @param index usage: 索引     <br> range: 对应的索引值，不做限制。  <br> type: 整数
-         * @param value usage: 值    <br> range: 不做限制。
+         * @effect 只在客户端调用生效
+         * @param index usage: 索引     <br> range: 对应的索引值，不做限制。  <br> type: 整形
+         * @param value usage: 值    <br> range: 无
          */
         setOptionByIndex(index: number, value: string): void;
         /**
          * @groups 界面/控件/下拉框
          * @description 获取菜单项数量
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 菜单项数量
          */
         get optionCount(): number;
         /**
          * @groups 界面/控件/下拉框
          * @description 获取当前选中项
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 当前选中项
          */
         get selectedOption(): string;
         /**
          * @groups 界面/控件/下拉框
          * @description 设置前选中项
-         * @effect  只在客户端调用生效
-         * @param value 传进来的文本
+         * @effect 只在客户端调用生效
+         * @param value usage:传进来的文本 range: 无
          */
         set selectedOption(value: string);
         /**
          * @groups 界面/控件/下拉框
          * @description 设置选中项下拉索引
-         * @effect  只在客户端调用生效
-         * @param value 设置的索引值
+         * @effect 只在客户端调用生效
+         * @param value usage:设置的索引值 range: 无 type: 整形
          */
         set selectedOptionIndex(value: number);
         /**
          * @groups 界面/控件/下拉框
          * @description 获取选中项下拉索引
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 选中项下拉索引
          */
         get selectedOptionIndex(): number;
         /**
          * @groups 界面/控件/下拉框
          * @description 获取菜单是否打开
-         * @effect  只在客户端调用生效
-         * @returns  菜单是否打开
+         * @effect 只在客户端调用生效
+         * @returns 菜单是否打开
          */
         get isOpened(): boolean;
         /**
-         * 设置显示的选中文本的可见性
+         * @groups 界面/控件/下拉框
+         * @description 设置显示的选中文本的可见性
+         * @effect 只在客户端调用生效
+         * @param bVisible usage: 自定义UI的GUID range: [true,false]
          */
         setShowTextVisible(bVisible: boolean): void;
         /**
-         * 获取显示的选中文本的可见性
+         * @groups 界面/控件/下拉框
+         * @description 获取显示的选中文本的可见性
+         * @effect 只在客户端调用生效
+         * @returns 文本的可见性
          */
         getShowTextVisible(): boolean;
     }
@@ -1540,7 +1546,7 @@ declare namespace mw {
          * @description 当parent和inName与已有的对象相同时，旧的对象会被销毁
          * @effect  只在客户端调用生效
          * @param parent usage:创建控件的外parent对象 default:null
-         * @param inName usage:创建控件的名称 default:null
+         * @param inName usage:创建控件的名称 default:null range:无
          * @returns 返回创建的对象
          */
         static newObject(parent?: mw.Canvas, inName?: string): FlipBook;
@@ -1654,7 +1660,7 @@ declare namespace mw {
          * @groups 界面/控件/图片
          * @description 创建 Image 控件
          * @description 当parent和inName与已有的对象相同时，旧的对象会被销毁
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param parent usage:创建控件的外parent对象 default:null
          * @param inName usage:创建控件的名称 default:null   range:设置合理的名称即可
          * @returns 返回创建的对象
@@ -1662,28 +1668,28 @@ declare namespace mw {
         static newObject(parent?: mw.Canvas, inName?: string): Image;
         /**
          * @groups 界面/控件/图片
-          * @description 图片资源信息
-          * @effect 只在客户端调用生效
-          */
+         * @description 图片资源信息
+         * @effect只在客户端调用生效
+         */
         get imageInfo(): mw.ImageInfo;
         /**
          * @groups 界面/控件/图片
-          * @description 设置图片大小
-          * @effect 只在客户端调用生效
-          * @param inSize usage:size
-          */
+         * @description 设置图片大小
+         * @effect只在客户端调用生效
+         * @param inSize usage:size
+         */
         set imageSize(inSize: mw.Vector2);
         /**
          * @groups 界面/控件/图片
          * @description 获取图片大小
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 图片大小
          */
         get imageSize(): Readonly<mw.Vector2>;
         /**
          * @groups 界面/控件/图片
          * @description 设置图片颜色
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inColor usage:图片颜色，Type.LinearColor类型，数据范围0~1
          * @returns 颜色
          */
@@ -1691,75 +1697,89 @@ declare namespace mw {
         /**
          * @groups 界面/控件/图片
          * @description 获取图片的颜色
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 图片的颜色，Type.LinearColor类型，数据范围0~1
          */
         get imageColor(): Readonly<mw.LinearColor>;
         /**
          * @groups 界面/控件/图片
          * @description 设置图片颜色
-         * @effect  只在客户端调用生效
-         * @param R usage:图片 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:图片 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:图片 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:图片 透明度。 <br> range:[0, 255]  type: 整数
+         * @effect 只在客户端调用生效
+         * @param R usage:图片 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:图片 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:图片 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:图片 透明度。 <br> range:[0, 255]  type: 整形
          */
         setImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
          * @groups 界面/控件/图片
          * @description 设置图片颜色。
          * @description 指定 Hex 的颜色文本设定颜色 例如: #05050505
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inHexString usage: Hex 颜色字符串。 <br>   range: 符合 Hex 特点的字符串类型
          */
         setImageColorByHex(inHexString: string): void;
         /**
          * @groups 界面/控件/图片
         * @description 设置图片绘制类型
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param inDrawType usage:绘制类型
         */
         set imageDrawType(inDrawType: mw.SlateBrushDrawType);
         /**
          * @groups 界面/控件/图片
          * @description 获取图片绘制类型
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 图片绘制类型
          */
         get imageDrawType(): Readonly<mw.SlateBrushDrawType>;
         /**
          * @groups 界面/控件/图片
          * @description 获取图片边距
-         * @effect 只在客户端调用生效
+         * @effect只在客户端调用生效
          * @returns 图片边距
          */
         get margin(): Readonly<mw.Margin>;
         /**
          * @groups 界面/控件/图片
          * @description 设置图片的边距
-         * @effect 只在客户端调用生效
+         * @effect只在客户端调用生效
          * @param inMargin usage:图片边距
          */
         set margin(inMargin: mw.Margin);
         /**
          * @groups 界面/控件/图片
          * @description 获取图片id
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 图片id
          */
         get imageGuid(): Readonly<string>;
         /**
          * @groups 界面/控件/图片
          * @description 设置图片id
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param inGUID usage:新的图片样式
          */
         set imageGuid(inGUID: string);
         /**
          * @groups 界面/控件/图片
+         * @description 获取当前渲染的摄像机
+         * @effect  只在客户端调用生效
+         * @returns 新的摄像机对象
+         */
+        get currentCamera(): mw.Camera;
+        /**
+         * @groups 界面/控件/图片
+         * @description 设置当前渲染的摄像机
+         * @effect  只在客户端调用生效
+         * @param camera usage:新的摄像机对象
+         */
+        set currentCamera(camera: mw.Camera | string);
+        /**
+         * @groups 界面/控件/图片
          * @description 设置图片样式为本地图片文件
          * @precautions 1. 建议设置 bRefreshCache = false 以提升性能  2. 该接口主要配合 setImageByBlendMode 和 asyncExportBlendBrush 来为移动编辑器服务的
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param absPath usage: 图片绝对路径 range: 路径长度
          * @param bRefreshCache usage: 默认为 true 将重新创建并刷新缓存，为 false 则使用缓存  <br> default: true
          */
@@ -1767,7 +1787,7 @@ declare namespace mw {
         /**
          * @groups 界面/控件/图片
          * @description 将两张图片融合叠加显示在图片组件上
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param backgroundPic usage:背景图片绝对路径  range:路径长度
          * @param foregroundPic usage:前景图片绝对路径  range:路径长度
          */
@@ -1775,7 +1795,7 @@ declare namespace mw {
         /**
          * @groups 界面/控件/图片
          * @description 将两张图片融合叠加显示在图片组件上
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param GUID usage:背景图片 GUID  range: 依据资源 ID 长度而定
          * @param foregroundPic  usage:前景图片绝对路径  range: 路径长度
          */
@@ -1784,22 +1804,22 @@ declare namespace mw {
          * @groups 界面/控件/图片
          * @description 将融合的图片导出为一张
          * @precautions 必须调用过 setImageByBlendMode 后才会生效，高消耗操作注意
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 导出的图片的本地路径
          */
         asyncExportBlendBrush(): Promise<string>;
         /**
          * @groups 界面/控件/图片
-         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口不再需要，直接设置ImageInfo里的setByAssetIcon
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口不再需要 replacement:直接设置ImageInfo里的setByAssetIcon
          * @description 设置显示资源的ICON
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param data usage:资源的ICON信息
          */
         setImageByAssetIconData(data: mw.AssetIconData): void;
         /**
          * @groups 界面/控件/图片
         * @description 获取显示资源的ICON
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @returns  资源的ICON信息
         */
         getImageAssetIconData(): Readonly<mw.AssetIconData>;
@@ -2019,7 +2039,7 @@ declare namespace mw {
          * @effect  只在客户端调用生效
          * @returns 文本提交事件
          */
-        get onTextCommitted(): mw.MulticastDelegate<(Text: string, CommitMethod: mw.TextCommit) => void>;
+        get onTextCommitted(): mw.MulticastDelegate<(Text: string, CommitMethod: mw.TextCommit, Result?: mw.maskWordCheckResult) => void>;
         /**
          * @groups 界面/控件/输入框
          * @description 设置是否为富文本
@@ -2043,6 +2063,7 @@ declare namespace mw {
         set text(inText: string);
         /**
          * @groups 界面/控件/输入框
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:041 reason:功能迁移 replacement: Inputbox.asyncGetText
          * @description 获取文本内容
          * @effect  只在客户端调用生效
          * @returns 文本内容
@@ -2063,13 +2084,28 @@ declare namespace mw {
          */
         set hintString(inHintString: string);
         /**
+       * @groups 界面/控件/输入框
+       * @description 文本提交屏蔽词检测封装
+       * @effect  只在客户端调用生效
+       * @param Text usage:提交的文本
+       * @param CommitMethod usage:提交方式
+       */
+        private onTextCommittedMaskCheck;
+        /**
+       * @groups 界面/控件/输入框
+       * @description 异步获取文本接口
+       * @effect  只在客户端调用生效
+       * @returns 获取当前输入框的文本值,若为正在提交文本,则异步获取
+       */
+        asyncGetText(): Promise<string>;
+        /**
          * @groups 界面/控件/输入框
          * @description 设置输入框的内容颜色
          * @effect  只在客户端调用生效
-         * @param R usage:图片 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:图片 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:图片 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:图片 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:图片 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:图片 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:图片 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:图片 透明度。 <br> range:[0, 255]  type: 整形
          */
         setContentColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2083,10 +2119,10 @@ declare namespace mw {
          * @groups 界面/控件/输入框
          * @description 设置阴影颜色
          * @effect  只在客户端调用生效
-         * @param R usage:阴影 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:阴影 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:阴影 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:阴影 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:阴影 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:阴影 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:阴影 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:阴影 透明度。 <br> range:[0, 255]  type: 整形
          */
         setShadowColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2114,10 +2150,10 @@ declare namespace mw {
          * @groups 界面/控件/输入框
          * @description 设置文本颜色
          * @effect  只在客户端调用生效
-         * @param R usage:文本 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:文本 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:文本 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:文本 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:文本 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:文本 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:文本 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:文本 透明度。 <br> range:[0, 255]  type: 整形
          */
         setFontColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2263,6 +2299,7 @@ declare namespace mw {
     * @author maohang.zeng
     * @groups 界面
     * @description 列表视图节点数据基类
+    * @networkStatus usage:客户端
     */
     class ListViewItemDataBase {
         constructor();
@@ -2285,7 +2322,7 @@ declare namespace mw {
      * @author maohang.zeng
      * @groups 界面/控件/列表视图
      * @description 列表视图
-     * @networkStatus usage : 客户端
+     * @networkStatus usage: 客户端
      */
     class ListView extends mw.Widget {
         /**
@@ -2340,7 +2377,7 @@ declare namespace mw {
         * @description 插入项目节点数据，如果位置越界，则自动插入最后
         * @effect 只在客户端调用生效
         * @param newItem usage:需要插入的新数据
-        * @param index usage:插入的位置
+        * @param index usage:插入的位置 range: 无 type: 整形
         */
         insertItem(newItem: ListViewItemDataBase, index: number): void;
         /**
@@ -2352,7 +2389,7 @@ declare namespace mw {
         /**
         * @description 根据索引移除项目节点数据，如果位置越界，则移除失败
         * @effect 只在客户端调用生效
-        * @param delIndex usage:需要移除的数据所在位置
+        * @param delIndex usage:需要移除的数据所在位置 range: 无 type: 整形
         */
         removeItemByIndex(delIndex: number): void;
         /**
@@ -2363,7 +2400,7 @@ declare namespace mw {
         /**
         * @description 根据索引查找对应的项目节点数据，如果位置越界，则返回空
         * @effect 只在客户端调用生效
-        * @param index usage:需要查找的数据所在位置
+        * @param index usage:需要查找的数据所在位置 range: 无 type: 整形
         * @returns 返回找到的数据
         */
         findItemByIndex(index: number): ListViewItemDataBase;
@@ -2376,16 +2413,16 @@ declare namespace mw {
         * @description 设置节点选中
         * @effect 只在客户端调用生效
         * @param selectedItems usage:需要修改选中的节点数据
-        * @param selected usage:确定修改目标：选中/不选中
-        * @param selectInfo usage:选中方式：键盘/导航/鼠标/直接选中
+        * @param selected usage:确定修改目标：选中/不选中 range:[true, false]
+        * @param selectInfo usage:选中方式：键盘/导航/鼠标/直接选中 default: SelectInfo.Direct
         */
         setSelectionItem(selectedItems: ListViewItemDataBase | ListViewItemDataBase[], selected: boolean, selectInfo?: mw.SelectInfo): void;
         /**
         * @description 根据索引设置节点选中，如果位置越界，则越界对应的操作无效
         * @effect 只在客户端调用生效
         * @param selectedIndexs usage:需要修改选中的节点所在索引
-        * @param selected usage:确定修改目标：选中/不选中
-        * @param selectInfo usage:选中方式：键盘/导航/鼠标/直接选中
+        * @param selected usage:确定修改目标：选中/不选中 range:[true, false]
+        * @param selectInfo usage:选中方式：键盘/导航/鼠标/直接选中 default: SelectInfo.Direct
         */
         setSelectionItemByIndex(selectedIndexs: number | number[], selected: boolean, selectInfo?: mw.SelectInfo): void;
         /**
@@ -2473,12 +2510,24 @@ declare namespace mw {
          */
         get onItemRefreshed(): mw.MulticastDelegate<(rowDatas: ListViewItemDataBase[]) => void>;
         /**
+        * @description 设置是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @param bCanControl usage:能否touch控制滚动
+        */
+        setTouchCanControlThisScroll(bCanControl: boolean): void;
+        /**
+        * @description 获取是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @returns 能否touch能控制滚动
+        */
+        getTouchCanControlThisScroll(): boolean;
+        /**
          * @description 创建 ListView 控件，当parent和inName与已有的对象相同时，旧的对象会被销毁
          * @effect 只在客户端调用生效
          * @param orientation usage: 朝向
-         * @param uiAssetGUID usage: 设置视图绑定的节点UI
+         * @param uiAssetGUID usage: 设置视图绑定的节点UI range: 无
          * @param parent usage:创建控件的外parent对象 default:null
-         * @param inName usage:创建控件的名称 default:null
+         * @param inName usage:创建控件的名称 default:null range: 无 default:null
          * @returns 创建的对象
          */
         static newObject(orientation: mw.Orientation, uiAssetGUID: string, parent?: mw.Canvas, inName?: string): ListView;
@@ -2575,20 +2624,22 @@ declare namespace mw {
         isPressed(): boolean;
         /**
          * @groups 界面/控件/遮罩按钮
-         * @description 设置点击模式
-         * @effect  只在客户端调用生效
-         * @param inClickMethod usage:点击模式选择
-         */
-        set clickMethod(inClickMethod: mw.ButtonClickMethod);
-        /**
-         * @groups 界面/控件/遮罩按钮
          * @description 获取点击模式
          * @effect  只在客户端调用生效
          * @returns 点击模式
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:042 reason:接口与touchMethod功能合并 replacement:touchMethod
          */
         get clickMethod(): mw.ButtonClickMethod;
         /**
-         * @groups 界面/控件/遮罩按钮
+         * @groups 界面/控件/按钮
+         * @description 设置点击模式
+         * @effect  只在客户端调用生效
+         * @param inClickMethod usage:点击模式选择
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:042 reason:接口touchMethod功能合并 replacement:touchMethod
+         */
+        set clickMethod(inClickMethod: mw.ButtonClickMethod);
+        /**
+         * @groups 界面/控件/按钮
          * @description 设置触摸模式
          * @effect  只在客户端调用生效
          * @param inTouchMethod usage:Touch模式选择
@@ -2662,10 +2713,10 @@ declare namespace mw {
          * @groups 界面/控件/遮罩按钮
         * @description 设置普通图片颜色
         * @effect  只在客户端调用生效
-        * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-        * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-        * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-        * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+        * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+        * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+        * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+        * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
         */
         setNormalImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2750,10 +2801,10 @@ declare namespace mw {
          * @groups 界面/控件/遮罩按钮
          * @description 设置按压图片颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setPressedImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2838,10 +2889,10 @@ declare namespace mw {
          * @groups 界面/控件/遮罩按钮
          * @description 设置禁用颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setDisableImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -2912,10 +2963,10 @@ declare namespace mw {
          * @groups 界面/控件/遮罩按钮
          * @description 设置遮罩图片颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setMaskImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -3232,8 +3283,13 @@ declare namespace mw {
      * @author wei.yang
      * @groups 界面
      * @description 菜单项节点信息
+     * @networkStatus usage:客户端
      */
     class MenuItemInfo {
+        /**
+         * @description 构造函数
+         * @param id usage: 用于校验的Id range: 无
+         */
         constructor(id: string);
         /** @description ID，用于校验 */
         menuID: string;
@@ -3261,45 +3317,6 @@ declare namespace mw {
      * @networkStatus usage:客户端
      */
     class MenuAnchor extends mw.Widget {
-        /**
-         * 菜单背景图
-         */
-        get menuBorderBrush(): mw.ImageInfo;
-        /**
-         * 菜单内容边距
-         */
-        get contentPadding(): mw.Margin;
-        /**
-         * 菜单内容边距
-         */
-        set contentPadding(inPadding: mw.Margin);
-        /**
-         * 菜单项样式
-         */
-        get itemStyle(): mw.ButtonStyle;
-        /**
-         * 滚动条样式
-         */
-        get scrollBarStyle(): mw.ScrollbarStyle;
-        get scrollBarThickness(): number;
-        set scrollBarThickness(inThickness: number);
-        get scrollBarPadding(): mw.Margin;
-        set scrollBarPadding(inPadding: mw.Margin);
-        get maxListHeight(): number;
-        set maxListHeight(inHeight: number);
-        get isRightOpenMenu(): boolean;
-        set isRightOpenMenu(isOpen: boolean);
-        get isFitInWindow(): boolean;
-        set isFitInWindow(isFit: boolean);
-        get placement(): mw.MenuPlacement;
-        set placement(inType: mw.MenuPlacement);
-        get onClickMenuItemEvent(): mw.MulticastDelegate<(menuId: string) => void>;
-        get itemPadding(): mw.Margin;
-        set itemPadding(inPadding: mw.Margin);
-        addMenuItem(info: MenuItemInfo): void;
-        addMenuItems(info: MenuItemInfo[]): void;
-        toggleOpen(focusOnOpen?: boolean): void;
-        open(focusMenu?: boolean): void;
     }
 }
 
@@ -3490,7 +3507,7 @@ declare namespace mw {
         /**
          * @groups 界面/控件/进度条
          * @description 获取填充图片绘制类型
-         * @effect 只在客户端调用生效\
+         * @effect 只在客户端调用生效
          * @returns 填充图片绘制类型
          */
         get fillImageDrawType(): Readonly<mw.SlateBrushDrawType>;
@@ -3988,6 +4005,18 @@ declare namespace mw {
          * @returns 滚动条图片颜色，Type.LinearColor类型，数据范围0~1
          */
         get scrollAxisColor(): Readonly<mw.LinearColor>;
+        /**
+        * @description 设置是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @param bCanControl usage:能否touch控制滚动
+        */
+        setTouchCanControlThisScroll(bCanControl: boolean): void;
+        /**
+        * @description 获取是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @returns 能否touch能控制滚动
+        */
+        getTouchCanControlThisScroll(): boolean;
     }
 }
 
@@ -4105,6 +4134,34 @@ declare namespace mw {
          * @returns 是否获取输入焦点
          */
         get focusable(): boolean;
+        /**
+         * @groups 界面/控件/文本
+         * @description 获取当前字体的水平显示方式
+         * @effect  只在客户端调用生效
+         * @returns 返回字体的水平显示方式
+         */
+        get textHorizontalLayout(): mw.UITextHorizontalLayout;
+        /**
+         * @groups 界面/控件/文本
+         * @description 设置字体的水平显示方式
+         * @effect  只在客户端调用生效
+         * @param inTextHorizontalLayout usage:水平显示方式
+         */
+        set textHorizontalLayout(inTextHorizontalLayout: mw.UITextHorizontalLayout);
+        /**
+        * @groups 界面/控件/文本
+        * @description 获取字体是否自适应调整大小:boolean(为True时，文本内容字体大小将自动改变，尽可能大的充满整个文本框，而文本框大小不会变化)
+        * @effect  只在客户端调用生效
+        * @returns 字体是否自适应调整大小
+        */
+        get autoAdjust(): boolean;
+        /**
+         * @groups 界面/控件/文本
+         * @description 设置字体是否自适应调整大小:boolean(为True时，文本内容字体大小将自动改变，尽可能大的充满整个文本框，而文本框大小不会变化)
+         * @effect  只在客户端调用生效
+         * @param isAdjust usage:字体是否自适应调整大小
+         */
+        set autoAdjust(isAdjust: boolean);
         /** *******************  文本内容 *****************************/
         /**
          * @groups 界面/控件/文本按钮
@@ -4251,10 +4308,10 @@ declare namespace mw {
          * @groups 界面/控件/文本按钮
          * @description 设置字体颜色
          * @effect  只在客户端调用生效
-         * @param R usage:字体 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:字体 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:字体 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:字体 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:字体 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:字体 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:字体 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:字体 透明度。 <br> range:[0, 255]  type: 整形
          */
         setFontColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -4348,6 +4405,58 @@ declare namespace mw {
          * @returns 字体描边宽度
          */
         get outlineSize(): number;
+        /**
+         * @groups 界面/控件/文本
+         * @description 设置富文本
+         * @effect  只在客户端调用生效
+         * @param InValue usage:是否为富文本
+         */
+        set isRichText(isRichText: boolean);
+        /**
+         * @groups 界面/控件/文本
+         * @description 获取是否为富文本
+         * @effect  只在客户端调用生效
+         * @returns 是否为富文本
+         */
+        get isRichText(): boolean;
+        /**
+         * @description 设置自适应最大字体大小
+         * @effect  只在客户端调用生效
+         * @param inText usage:文本内容
+         */
+        set maxSize(inText: number);
+        /**
+         * @description 获取自适应最大字体大小
+         * @effect  只在客户端调用生效
+         * @returns 返回当前的文本内容
+         */
+        get maxSize(): number;
+        /**
+         * @description 设置自适应最小字体大小
+         * @effect  只在客户端调用生效
+         * @param inText usage:文本内容
+         */
+        set minSize(inText: number);
+        /**
+         * @description 获取自适应最小字体大小
+         * @effect  只在客户端调用生效
+         * @returns 返回当前的文本内容
+         */
+        get minSize(): number;
+        /**
+         * @groups 界面/控件/文本
+         * @description 设置行高系数
+         * @effect  只在客户端调用生效
+         * @param inValue usage:系数
+         */
+        set lineHeightPercentage(inValue: number);
+        /**
+         * @groups 界面/控件/文本
+         * @description 获取行高系数
+         * @effect  只在客户端调用生效
+         * @returns 行高系数
+         */
+        get lineHeightPercentage(): number;
         /** ************************************************* 普通图片  ******************************************************/
         /**
          * @groups 界面/控件/文本按钮
@@ -4404,10 +4513,10 @@ declare namespace mw {
          * @groups 界面/控件/文本按钮
         * @description 设置正常颜色
         * @effect  只在客户端调用生效
-        * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-        * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-        * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-        * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+        * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+        * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+        * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+        * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
         */
         setNormalImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -4515,10 +4624,10 @@ declare namespace mw {
          * @groups 界面/控件/文本按钮
          * @description 设置按下颜色
          * @effect  只在客户端调用生效
-         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setPressedImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -4612,10 +4721,10 @@ declare namespace mw {
          * @groups 界面/控件/文本按钮
           * @description 设置不可用颜色
           * @effect  只在客户端调用生效
-          * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-          * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-          * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-          * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+          * @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+          * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+          * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+          * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
           */
         setDisableImageColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -4697,15 +4806,15 @@ declare namespace mw {
          */
         isPressed(): boolean;
         /**
-         * @groups 界面/控件/文本按钮
+         * @groups 界面/控件/按钮
          * @description 设置点击模式
          * @effect  只在客户端调用生效
-         * @param inClickMethod usage:点击模式
-         * @returns 点击模式选择
+         * @param inClickMethod usage:点击模式选择
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:042 reason:接口与touchMethod功能合并 replacement:touchMethod
          */
         set clickMethod(inClickMethod: mw.ButtonClickMethod);
         /**
-         * @groups 界面/控件/文本按钮
+         * @groups 界面/控件/按钮
          * @description 设置触摸模式
          * @effect  只在客户端调用生效
          * @param inTouchMethod usage:Touch模式选择
@@ -4994,10 +5103,10 @@ declare namespace mw {
         /**
           * @description 设置字体颜色
           * @effect  只在客户端调用生效
-          * @param R usage:字体颜色 R 值。 <br> range:[0, 255]  type: 整数
-          * @param G usage:字体颜色 G 值。 <br> range:[0, 255]  type: 整数
-          * @param B usage:字体颜色 B 值。 <br> range:[0, 255]  type: 整数
-          * @param A usage:字体颜色 透明度。 <br> range:[0, 255]  type: 整数
+          * @param R usage:字体颜色 R 值。 <br> range:[0, 255]  type: 整形
+          * @param G usage:字体颜色 G 值。 <br> range:[0, 255]  type: 整形
+          * @param B usage:字体颜色 B 值。 <br> range:[0, 255]  type: 整形
+          * @param A usage:字体颜色 透明度。 <br> range:[0, 255]  type: 整形
           */
         setFontColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -5026,10 +5135,10 @@ declare namespace mw {
          * @description 设置字体的阴影颜色
          * @description Shadow Offset 必须设值才能看到效果。
          * @effect  只在客户端调用生效
-         * @param R usage:阴影颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:阴影颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:阴影颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:阴影颜色 透明度。 <br> range:[0, 255]  type: 整数
+         * @param R usage:阴影颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:阴影颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:阴影颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:阴影颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setShadowColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -5100,10 +5209,10 @@ declare namespace mw {
          * @groups 界面/控件/文本
          * @description 设置当前的描边颜色
          * @effect  只在客户端调用生效
-        *  @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整数
-         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整数
-         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整数
-         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整数
+        *  @param R usage:颜色 R 值。 <br> range:[0, 255]  type: 整形
+         * @param G usage:颜色 G 值。 <br> range:[0, 255]  type: 整形
+         * @param B usage:颜色 B 值。 <br> range:[0, 255]  type: 整形
+         * @param A usage:颜色 透明度。 <br> range:[0, 255]  type: 整形
          */
         setOutlineColorDecimal(R: number, G: number, B: number, A: number): void;
         /**
@@ -5202,7 +5311,7 @@ declare namespace mw {
      * @author maohang.zeng
      * @groups 界面/控件/平铺视图
      * @description 平铺视图
-     * @networkStatus usage : 客户端
+     * @networkStatus usage: 客户端
      */
     class TileView extends mw.ListView {
         /**
@@ -5218,12 +5327,24 @@ declare namespace mw {
          */
         set itemHeight(itemHeight: number);
         /**
+        * @description 设置是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @param bCanControl usage:能否touch控制滚动
+        */
+        setTouchCanControlThisScroll(bCanControl: boolean): void;
+        /**
+        * @description 获取是否受Touch事件影响滚动
+        * @effect 只在客户端调用生效
+        * @returns 能否touch能控制滚动
+        */
+        getTouchCanControlThisScroll(): boolean;
+        /**
          * @description 创建 TileView 控件，当parent和inName与已有的对象相同时，旧的对象会被销毁
          * @effect 只在客户端调用生效
          * @param orientation usage: 朝向
-         * @param uiAssetGUID usage: 设置视图绑定的节点UI
+         * @param uiAssetGUID usage: 设置视图绑定的节点UI range: 无
          * @param parent usage:创建控件的外parent对象 default:null
-         * @param inName usage:创建控件的名称 default:null
+         * @param inName usage:创建控件的名称 default:null range:无
          * @returns 创建的对象
          */
         static newObject(orientation: mw.Orientation, uiAssetGUID: string, parent?: mw.Canvas, inName?: string): TileView;
@@ -5284,17 +5405,18 @@ declare namespace mw {
     * @author maohang.zeng
     * @groups 界面
     * @description 树状视图节点数据基类
+    * @networkStatus usage: 客户端
     */
     class TreeViewItemDataBase {
         constructor();
         /**
          * @description 该节点数据对应的UI
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         get widgetCanvas(): mw.Widget;
         /**
          * @description 该节点数据的唯一标识序号，和位置无关
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         get baseGuid(): number;
         /**
@@ -5303,26 +5425,26 @@ declare namespace mw {
         get ownerTreeView(): TreeView;
         /**
          * @description 设置父节点， 如果存在旧有父节点 或 属于treeView.listItems的根数组中，会从其中移除， 然后加入到新父节点parentData.children最后
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param parentData usage:新的父节点
          */
         set parent(parentData: TreeViewItemDataBase);
         /**
          * @description 父节点
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回当前的父节点
          */
         get parent(): TreeViewItemDataBase;
         /**
          * @description 设置子节点
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param childrenData usage:新的子节点
          *
          */
         set children(childrenData: TreeViewItemDataBase[]);
         /**
          * @description 所有子节点
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回当前所有子节点
          */
         get children(): TreeViewItemDataBase[];
@@ -5331,7 +5453,7 @@ declare namespace mw {
      * @author maohang.zeng
      * @groups 界面/控件/树状视图
      * @description 树状视图
-     * @networkStatus usage : 客户端
+     * @networkStatus usage: 客户端
      */
     class TreeView extends mw.Widget {
         /**
@@ -5367,145 +5489,148 @@ declare namespace mw {
         /** ******************************************************************************************************/
         /**
          * @description 刷新数据
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          */
         requestRefresh(): void;
         /**
          * @description 重新生成树刷新数据
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
+         * @param regenItems usage:刷新数据
          */
         regenerateTreeData(regenItems: TreeViewItemDataBase[]): void;
         /**
          * @description 重新设置项目节点数据组
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param newListItems usage:用于替换的新数据组
          */
         resetListItems(newListItems: TreeViewItemDataBase[]): void;
         /**
          * @description 添加项目节点数据
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param newListItems usage:新的数据组
          */
         addItems(newListItems: TreeViewItemDataBase[]): void;
         /**
          * @description 插入项目节点数据，如果位置越界，则自动插入最后
-         * @effect  客户端调用生效
+         * @effect 只在客户端调用生效
          * @param newItem usage:需要插入的新数据
-         * @param index usage:插入的位置
+         * @param index usage:插入的位置 range: 无 type: 整形
          */
         insertItem(newItem: TreeViewItemDataBase, index: number): void;
         /**
         * @description 移除项目节点数据
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param delItem usage:需要移除的数据
         */
         removeItem(delItem: TreeViewItemDataBase): void;
         /**
         * @description 清理数据组
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         */
         clearItems(): void;
         /**
         * @description 清空列表的选中
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         */
         clearSelection(): void;
         /**
         * @description 设置节点选中
-        * @effect  只在客户端调用生效
-        * @param selectedItems usage:需要修改选中的节点数据
-        * @param selected usage:确定修改目标：选中/不选中
+        * @effect 只在客户端调用生效
+          * @param selectedItems usage:需要修改选中的节点数据
+          * @param selected usage:确定修改目标：选中/不选中 range:[true, false]
+          * @param selectInfo usage:选中方式：键盘/导航/鼠标/直接选中 default: SelectInfo.Direct
         */
         setSelectionItem(selectedItems: TreeViewItemDataBase | TreeViewItemDataBase[], selected: boolean, selectInfo?: mw.SelectInfo): void;
         /**
         * @description 获取列表数据
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @returns 返回列表数据
         */
         get listItems(): Readonly<TreeViewItemDataBase[]>;
         /**
         * @description 获取选中节点的数据
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @returns 返回选中节点的数据
         */
         getSelectionItems(): TreeViewItemDataBase[];
         /**
         * @description 修改节点的展开状态
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param targetItem usage:目标数据
         */
         toggleItemExpansion(targetItem: TreeViewItemDataBase): void;
         /**
         * @description 设置节点的展开状态
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param targetItem usage:目标数据
         * @param expandItem usage:是否展开
         */
         setItemExpansion(targetItem: TreeViewItemDataBase, expandItem: boolean): void;
         /**
         * @description 获取节点的展开状态
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param targetItem usage:目标数据
         * @returns 返回节点是否展开
         */
         getItemExpansion(targetItem: TreeViewItemDataBase): boolean;
         /**
         * @description 获取所有展开的节点
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @returns 返回所有展开的节点
         */
         getExpandedItems(): TreeViewItemDataBase[];
         /**
         * @description 设置选中模式
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @param newSelectionMode usage:选中模式
         */
         set selectionMode(newSelectionMode: mw.SelectionMode);
         /**
         * @description 获取选中模式
-        * @effect  只在客户端调用生效
+        * @effect 只在客户端调用生效
         * @returns 返回选中模式
         */
         get selectionMode(): mw.SelectionMode;
         /**
          * @description 获取当前滚动条偏移位置
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回当前滚动条偏移位置
          */
         get scrollOffset(): number;
         /**
          * @description 设置当前滚动条偏移位置
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param scrollOffset usage:偏移量，0为初始，1为最后
          */
         set scrollOffset(scrollOffset: number);
         /**
          * @description 滚动条定位到对应项目的位置
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @param targetItem usage:目标定位项目
          */
         scrollIntoView(targetItem: TreeViewItemDataBase): void;
         /**
          * @description 获取当前展示的条目的数量
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
+         * @returns 当前展示的条目的数量
          */
         getShowItemsCount(): number;
         /**
          * @description 获取子项缩进距离
-         * @effect  只在客户端调用生效
+         * @effect 只在客户端调用生效
          * @returns 返回子项缩进距离
          */
         get itemIndentAmount(): number;
         /**
          * @description 设置子项缩进距离
-         * @effect  只在客户端调用生效
-         * @param itemIndentAmount usage:偏移量, 具体值需>=0, 负数无效果
+         * @effect 只在客户端调用生效
+         * @param itemIndentAmount usage:偏移量, 具体值需>=0, 负数无效果 range: [0, Inf) type: 整形
          */
         set itemIndentAmount(itemIndentAmount: number);
         /**
          * @description 设置是否在点击空白后清除选中项（仅初始化时设置有效）
-         * @effect  只在客户端调用生效
-         * @param clearSelectionOnClick usage:是否在点击空白后清除选中项
+         * @effect 只在客户端调用生效
+         * @param clearSelectionOnClick usage:是否在点击空白后清除选中项 range: [true, false]
          */
         set clearSelectionOnClick(clearSelection: boolean);
         /**
@@ -5545,11 +5670,23 @@ declare namespace mw {
          */
         get onItemReleaseShow(): mw.MulticastDelegate<(targetItem: mw.Widget) => void>;
         /**
+          * @description 设置是否受Touch事件影响滚动
+          * @effect 只在客户端调用生效
+          * @param bCanControl usage:能否touch控制滚动
+          */
+        setTouchCanControlThisScroll(bCanControl: boolean): void;
+        /**
+          * @description 获取是否受Touch事件影响滚动
+          * @effect 只在客户端调用生效
+          * @returns 能否touch能控制滚动
+          */
+        getTouchCanControlThisScroll(): boolean;
+        /**
          * @description 创建 TreeView 控件，当parent和inName与已有的对象相同时，旧的对象会被销毁
-         * @effect  只在客户端调用生效
-         * @param uiAssetGUID usage: 设置视图绑定的节点UI
+         * @effect 只在客户端调用生效
+         * @param uiAssetGUID usage: 设置视图绑定的节点UI range: 无
          * @param parent usage:创建控件的外parent对象 default:null
-         * @param inName usage:创建控件的名称 default:null
+         * @param inName usage:创建控件的名称 default:null range: 无
          * @returns 创建的对象
          */
         static newObject(uiAssetGUID: string, parent?: mw.Canvas, inName?: string): TreeView;
@@ -5573,7 +5710,7 @@ declare namespace mw {
      * @author jie.wu
      * @description 创建 UIPrefab
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param UIPrefabName usage:指定 UI 自定义控件的相对于工程的路径或则相对于 UI 目录的路径  range: 路径长度不做限制
      * @returns 对应的UI
      */
@@ -5582,7 +5719,7 @@ declare namespace mw {
      * @author jie.wu
      * @description 创建 UIPrefab
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param UIPath usage:创建 UI 的完整路径  range: 路径长度
      * @returns 对应的UI
      */
@@ -5591,7 +5728,7 @@ declare namespace mw {
      * @author jie.wu
      * @description 异步创建UI，失败返回空
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param UIPath usage:创建 UI 的完整路径  range: 路径长度
      * @returns 对应的UI
      */
@@ -5600,7 +5737,7 @@ declare namespace mw {
      * @author jie.wu
      * @description 创建空的 UI
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param panelClass usage:指定 UI 控件身上的行为脚本
      * @returns 对应的UI
      */
@@ -5611,7 +5748,7 @@ declare namespace mw {
      * @author jie.wu
      * @description 创建UIPrefab
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param UIPrefabName usage:指定 UI 自定义控件的相对于工程的路径或则相对于 UI 目录的路径，为空的话等于 createUIOnlyClass  range: 路径长度不做限制
      * @param panelClass usage:继承至 UI 身上脚本的派生类
      * @returns 对应的UI
@@ -5623,8 +5760,8 @@ declare namespace mw {
      * @author jie.wu
      * @description 异步创建UI
      * @groups 界面
-     * @effect  只在客户端调用生效
-     * @param UIPrefabName usage:指定 UI 自定义控件的相对于工程的路径或则相对于 UI 目录的路径
+     * @effect 只在客户端调用生效
+     * @param UIPrefabName usage:指定 UI 自定义控件的相对于工程的路径或则相对于 UI 目录的路径 range: 无
      * @param panelClass usage:继承至 UI 身上脚本的派生类
      * @returns 对应的UI
      */
@@ -5634,9 +5771,9 @@ declare namespace mw {
     /**
      * @author jie.wu
      * @description 异步请求资源的ICON信息
-     * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口不再需要，直接设置ICON即可
+     * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口不再需要 replacement:直接设置ICON即可
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param assets usage:指定资源的id数组
      * @returns 异步回调
      */
@@ -5645,9 +5782,9 @@ declare namespace mw {
      * @author jie.wu
      * @description 获取资源的 ICON 信息
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param asset usage:指定资源的 id  range: 依据资源 ID 长度而定。
-     * @param size  usage:指定资源的分辨率尺寸
+     * @param size  usage:指定资源的分辨率尺寸 default: AssetIconSize.Icon_128px
      * @returns 资源的ICON信息
      */
     function getAssetIconDataByAssetID(asset: string, size?: mw.AssetIconSize): mw.AssetIconData;
@@ -5656,7 +5793,7 @@ declare namespace mw {
      * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:039 reason:接口调整 replacement: 使用 releaseTextureFromCache
      * @description 尝试标记资源的 ICON 图为待释放的等待释放
      * @groups 界面
-     * @effect  只在客户端调用生效
+     * @effect 只在客户端调用生效
      * @param asset usage:指定资源的 id  range: 依据资源 ID 长度而定。
      */
     function releaseAssetIconTextureFromCache(asset: string): void;
@@ -5664,10 +5801,10 @@ declare namespace mw {
      * @author jie.wu
      * @description 尝试标记资源的ICON或则一个URL地址用于释放本地缓存的资源数据
      * @groups 界面
-     * @effect  只在客户端调用生效
-     * @param asset usage:指定资源的 id  range: 依据资源 ID 长度而定。
+     * @effect 只在客户端调用生效
+     * @param id usage:指定资源的 id  range: 依据资源 ID 长度而定。
      */
-    function releaseTextureFromCache(data: string): void;
+    function releaseTextureFromCache(id: string): void;
     /**
      * @author jie.wu
      * @description 分辨率改变时的回调
@@ -5800,11 +5937,11 @@ declare namespace mw {
     * @description 他需要依赖 UIService 或 UIPrefab。
     * @description 2. 继承自 UIScript 脚本享受的生命周期有哪些？
     * @description :cactus: 这里有详细的描述
-    * @description https://docs-028.ark.online/UI/LifeCycleandEventDescriptionofUIScripts.html
+    * @description [LifeCycleandEventDescriptionofUIScripts](https://docs.ark.online/UI/LifeCycleandEventDescriptionofUIScripts.html)
     * @description 3. 什么时候编辑器会帮你调用 UI 的生命周期呢？
     * @description 有两种方式：
     * @description - 使用 UIService 帮你管理此脚本，当 UIService.create 并 show 时，会启动脚本的生命周期。
-    * @description - 使用 UIPrefab 。脚本挂载在 UIPrefab 上，并把 UIPrefab 放在对象管理器中。
+    * @description - 使用 UIPrefab。脚本挂载在 UIPrefab 上，并把 UIPrefab 放在对象管理器中。
     * @networkStatus usage:客户端
     */
     class UIScript {
@@ -6350,7 +6487,7 @@ declare namespace mw {
          * @description 显示一个界面,会把界面添加到界面上，从原有父节点移除
          * @effect  只在客户端调用生效
          * @param panel usage:界面
-         * @param layer usage:图层 default:UILayer.UILayerMiddle  range:不做限制，可使用 UILayerMiddle 类型枚举  type: 整数
+         * @param layer usage:图层 default:UILayer.UILayerMiddle  range:不做限制，可使用 UILayerMiddle 类型枚举  type: 整形
          * @param params usage:显示参数(这个参数可以传递给界面的onShow方法)
          * @returns 显示的界面
          */
@@ -6642,27 +6779,27 @@ declare namespace mw {
      */
     enum InsertNewLineType {
         /**
-         * @description 所有回车都是换行
+         * 所有回车都是换行
          */
         AllNewLine = 0,
         /**
-         * @description Ctrl + Enter 是换行
+         * Ctrl + Enter 是换行
          */
         CtrlEnterNewLine = 1,
         /**
-         * @description Alt + Enter 是换行
+         * Alt + Enter 是换行
          */
         AltEnterNewLine = 2,
         /**
-         * @description Shift + Enter 是换行
+         * Shift + Enter 是换行
          */
         ShiftEnterNewLine = 4,
         /**
-         * @description Command + Enter 是换行
+         * Command + Enter 是换行
          */
         CommandEnterNewLine = 8,
         /**
-         * @description 所有回车都是提交，不换行
+         * 所有回车都是提交，不换行
          */
         AllCommit = 16
     }
@@ -6851,19 +6988,33 @@ declare namespace mw {
      * @description 字体
      */
     enum UIFontFamily {
+        /** Roboto */
         Roboto = 0,
+        /** SourceHanSans */
         SourceHanSans = 1,
+        /** Objectivity */
         Objectivity = 2,
+        /** VinaSans */
         VinaSans = 3,
+        /** Facon */
         Facon = 4,
+        /** JustAnotherHand */
         JustAnotherHand = 5,
+        /** PTRootUI */
         PTRootUI = 6,
+        /** Melete */
         Melete = 7,
+        /** Jua */
         Jua = 8,
+        /** AlimamaFangYuanTi */
         AlimamaFangYuanTi = 9,
+        /** CangErYuYangTi */
         CangErYuYangTi = 10,
+        /** JingNanBoBoHei */
         JingNanBoBoHei = 11,
+        /** WenDaoChaoHei */
         WenDaoChaoHei = 12,
+        /** AlibabaPuHuiTi */
         AlibabaPuHuiTi = 13
     }
     /**  */
@@ -7790,22 +7941,26 @@ declare namespace mw {
         /**
          * @description 事件已处理
          * @effect 只在客户端调用生效
+         * @returns 事件回复
          */
         static get handled(): EventReply;
         /**
          * @description 事件未处理
          * @effect 只在客户端调用生效
+         * @returns 事件回复
          */
         static get unHandled(): EventReply;
         /**
          * @description 捕获光标
          * @effect 只在客户端调用生效
-         * @param widget 自身控件
+         * @param widget usage:自身控件
+         * @returns 事件回复
          */
         captureMouse(widget: mw.Widget): EventReply;
         /**
          * @description 释放光标
          * @effect 只在客户端调用生效
+         * @returns 事件回复
          */
         releaseMouseCapture(): EventReply;
     }
@@ -7876,33 +8031,34 @@ declare namespace mw {
      * @author jianke.feng
      * @description 图片信息类
      * @groups 界面/控件/图片
-     * @networkStatus 客户端
+     * @networkStatus usage:客户端
      */
     class ImageInfo {
         private constructor();
         /**
-         * @description 通过 ID 设置图片信息
+         * @description 通过 Id 设置图片信息
          * @effect 只在客户端调用生效
-         * @param id 图片 ID  <br> range: 依据 ID 长度而定
-         * @param bUseSRGB 是否贴图使用SRGB模式
+         * @param id usage:图片Id  <br> range: 依据 ID 长度而定
+         * @param bUseSRGB usage:是否贴图使用SRGB模式 default: true range: [true, false]
          * @returns 是否设置成功
          */
         asyncSetByID(id: string, bUseSRGB?: boolean): Promise<boolean>;
         /**
          * @description 设置图标
          * @effect 只在客户端调用生效
-         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口setByAssetIcon替代
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:接口废弃 replacement: setByAssetIcon
          * @param AssetID usage: 传入的 AssetIconData 对象
-         * @param bUseSRGB usage: 是否使用SRGB
+         * @param bUseSRGB usage: 是否使用SRGB default: true range: [true, false]
          * @returns 是否设置成功
          */
         asyncSetByAssetICON(AssetID: AssetIconData, bUseSRGB?: boolean): Promise<boolean>;
         /**
          * @description 用指定的 id 和分辨率，设置图标
          * @effect 只在客户端调用生效
-         * @param assetId usage: 传入图标的资源 id
-         * @param bUseSRGB usage: 是否使用SRGB
+         * @param assetId usage: 传入图标的资源 id range: 无
          * @param size usage: 传入图标的分辨率枚举
+         * @param bUseSRGB usage: 是否使用SRGB default: true range: [true, false]
+         * @returns 设置的结果
          */
         setByAssetIcon(assetId: string, size: mw.AssetIconSize, bUseSRGB?: boolean): Promise<boolean>;
         /**
@@ -7970,7 +8126,7 @@ declare namespace mw {
      * @author zheng.zeng
      * @description Checkbox 控件风格类型
      * @groups 界面/控件/勾选框
-     * @networkStatus 客户端
+     * @networkStatus usage:客户端
      */
     class CheckboxStyle {
         private constructor();
@@ -8033,7 +8189,7 @@ declare namespace mw {
      * @author zheng.zeng
      * @description Button 控件风格类型
      * @groups 界面/控件/按钮
-     * @networkStatus 客户端
+     * @networkStatus usage:客户端
      */
     class ButtonStyle {
         private constructor();
@@ -8066,7 +8222,7 @@ declare namespace mw {
      * @author zheng.zeng
      * @description Dropdown 控件风格类型
      * @groups 界面/控件/下拉框
-     * @networkStatus 客户端
+     * @networkStatus usage:客户端
      */
     class DropdownStyle {
         private constructor();
@@ -8575,7 +8731,7 @@ declare namespace mw {
         /**
          * @description 获取第几位子节点，本控件暂不生效
          * @effect  只在客户端调用生效
-         * @param index usage:下标  range: 大于 0   type: 整数
+         * @param index usage:下标  range: 大于 0   type: 整形
          * @returns 找到的控件
          */
         getChildAt(index: number): mw.Widget;
@@ -8594,7 +8750,7 @@ declare namespace mw {
         /**
          * @description 移除第几个节点,会销毁UI无法再使用，本控件暂不生效
          * @effect  只在客户端调用生效
-         * @param index usage:下标  range: 大于 0   type: 整数
+         * @param index usage:下标  range: 大于 0   type: 整形
          */
         removeChildAt(index: number): void;
         /**
@@ -8635,7 +8791,7 @@ declare namespace mw {
          * @description 创建 VirtualJoystickPanelDesigner 控件
          * @effect 只在客户端调用生效
          * @param Outer usage:创建控件的外 Outer 对象 default:null
-         * @param InName usage:创建控件的名称 default:null     range:设置合理的名称即可
+         * @param InName usage:创建控件的名称 default:null range:设置合理的名称即可
          * @returns 返回创建的控件
          */
         static newObject(Outer?: mw.Widget, InName?: string): VirtualJoystickPanel;
@@ -8935,6 +9091,12 @@ declare namespace mw {
      */
     class Widget {
         /**
+         * @description 判断控件有没有被销毁，是否是有效的控件
+         * @effect 只在客户端调用生效
+         * @returns boolean 是否还有效，判定有没有被销毁
+         */
+        isValid(): boolean;
+        /**
          * @description 立刻移除并销毁 不可以在使用
          * @effect 只在客户端调用生效
          */
@@ -9210,17 +9372,17 @@ declare namespace mw {
          */
         get autoSizeHorizontalEnable(): boolean;
         /**
-         * @description 获取是否自动垂直设置大小
-         * @effect  只在客户端调用生效
-         * @returns 是否自动垂直设置大小
-         */
-        get autoSizeVerticalEnable(): boolean;
-        /**
          * @description 获取是否自动水平设置大小
          * @effect  只在客户端调用生效
          * @returns 是否自动水平设置大小
          */
         set autoSizeHorizontalEnable(bEnabled: boolean);
+        /**
+         * @description 获取是否自动垂直设置大小
+         * @effect  只在客户端调用生效
+         * @returns 是否自动垂直设置大小
+         */
+        get autoSizeVerticalEnable(): boolean;
         /**
          * @description 获取是否自动垂直设置大小
          * @effect  只在客户端调用生效
@@ -9255,7 +9417,7 @@ declare namespace mw {
         /**
          * @description 获取第几位子节点
          * @effect  只在客户端调用生效
-         * @param index usage:下标  range: 大于 0   type: 整数
+         * @param index usage:下标  range:大于等于0  type: 整形
          * @returns 找到的控件
          */
         getChildAt(index: number): mw.Widget;
@@ -9274,7 +9436,7 @@ declare namespace mw {
         /**
          * @description 移除第几个节点,会销毁UI无法再使用
          * @effect  只在客户端调用生效
-         * @param index usage:下标  range: 大于 0   type: 整数
+         * @param index usage:下标  range: 大于 0   type: 整形
          */
         removeChildAt(index: number): void;
         /**
@@ -9291,8 +9453,8 @@ declare namespace mw {
         /**
          * @description 克隆UI控件及其子节点到指定父控件位置（默认到其父节点）
          * @effect  只在客户端调用生效
-         * @param position 克隆后控件生成的位置
-         * @param Parent 克隆后的控件需要在该控件下生成
+         * @param position usage:克隆后控件生成的位置
+         * @param Parent usage:克隆后的控件需要在该控件下生成 default: undefined
          * @returns 克隆生成的UI控件
         */
         clone(position: mw.Vector2, Parent?: Widget): Widget;
@@ -9302,7 +9464,6 @@ declare namespace mw {
           * @groups 界面
           * @effect 只在客户端调用生效
           * @returns 返回传入控件序列化后的JSON字符串
-          * @param U usage：需要序列化的UI控件
           */
         serialize(): string;
         /**
@@ -9311,22 +9472,22 @@ declare namespace mw {
           * @groups 界面
           * @effect 只在客户端调用生效
           * @returns 返回传入JSON字符串反序列化后得到的UI
-          * @param Data usage：需要反序列化的JSON字符串
-          * @param Parent usage：生成的UI控件的父节点
+          * @param Data usage:需要反序列化的JSON字符串 range: 无
+          * @param Parent usage:生成的UI控件的父节点  default: undefined
           */
         static deserialize(Data: string, Parent?: mw.Widget): mw.Widget;
-        /***************************************************************** 自定义属性接口 ******************************************************/
+        /** *************************************************************** 自定义属性接口 ******************************************************/
         /**
         * @description 给定对象属性修改时触发的事件代理
         * @effect 只在客户端调用生效
-        * @param property 对象属性名字
+        * @param property usage:对象属性名字 range: 无
         * @returns 代理对象
         */
         getCustomPropertyChangeDelegate(property: string): Readonly<mw.MulticastDelegate<(path: string, value: unknown, oldValue: unknown) => void>>;
         /**
          * @description 监听自定义属性同步事件
          * @effect  只在客户端调用生效
-         * @example
+         * @example 使用示例:监听自定义属性变化
          * ```ts
          * this.onCustomPropertyChange.add((path, value, oldValue) => {
          *     console.log(`属性 ${path} 改变了，新值为 ${value}，旧值为 ${oldValue}`);
@@ -9338,7 +9499,7 @@ declare namespace mw {
          * @description 获取所有自定义属性
          * @effect 只在客户端调用生效
          * @returns 属性名列表
-         * @example
+         * @example 使用示例:获取所有自定义属性
          * ```ts
          * const attributes = this.getAttributes();
          * console.log(attributes);
@@ -9349,15 +9510,15 @@ declare namespace mw {
         /**
          * @description 获取自定义属性
          * @effect 只在客户端调用生效
-         * @param propertyName 属性名
+         * @param propertyName usage:对象属性名字 range: 无
          * @returns 属性值
          */
         getCustomProperty<T extends mw.CustomPropertyType>(propertyName: string): T;
         /**
          * @description 设置自定义属性
          * @effect 只在客户端调用生效
-         * @param propertyName 属性名
-         * @param value 属性值
+         * @param propertyName usage:对象属性名字 range: 无
+         * @param value usage:属性值
          */
         setCustomProperty(propertyName: string, value: mw.CustomPropertyType | undefined): void;
     }

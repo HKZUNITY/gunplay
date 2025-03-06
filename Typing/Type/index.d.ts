@@ -36,20 +36,25 @@
     }
     /**
      * @author zhiqiang.tan
+     * @groups 玩法/物理
      * @description 空间查询碰撞参数
      */
     interface CollisionQueryParams {
         /** @description 一个对象数组，检测结果会忽略这个数组内的对象。 */
         objectsToIgnore?: Array<mw.GameObject>;
-        /** @description 一个对象数组，检测结果仅包含这个数组内的对象。 */
-        objectsToQuery?: Array<mw.GameObject>;
         /** @description 指定检测使用的碰撞通道。碰撞组中设置为不与该组碰撞的模型将被忽略。默认值为“Default”组。 */
         collisionGroup?: string;
         /** @description 如果此属性为true，则查询操作将使用交互模型的Model.collisionEnabled值优先于Model.queryEnabled值，用于确定该模型是否包含在空间查询结果数组中。 */
         respectCanCollide?: boolean;
+        /**
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 041 reason:接口设计错误 replacement:无
+         * @description 接口设计错误
+         */
+        objectsToQuery?: Array<mw.GameObject>;
     }
     /**
      * @author zhiqiang.tan
+     * @groups 玩法/物理
      * @description 空间查询渲染参数
      */
     interface RenderQueryParams {
@@ -1073,14 +1078,23 @@ declare namespace mw {
      * @groups 基础类型
      */
     enum LanguageCodeType {
+        /** English */
         English = "En",
+        /** ChineseSimplified */
         ChineseSimplified = "Zh_CN",
+        /** ChineseTraditional */
         ChineseTraditional = "Zh_HANT",
+        /** Spanish */
         Spanish = "Es",
+        /** French */
         French = "Fr",
+        /** Russian */
         Russian = "Ru",
+        /** Portuguese */
         Portuguese = "Pt",
+        /** Japanese */
         Japanese = "Ja",
+        /** Korean */
         Korean = "Ko"
     }
     /**
@@ -3998,6 +4012,7 @@ declare namespace mw {
     }
 }
 
+/// <reference types="engine" />
 declare namespace mw {
     // @ts-ignore
     import * as UE from "ue";

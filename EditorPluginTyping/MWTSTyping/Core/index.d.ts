@@ -8,7 +8,7 @@
     class Base {
         /**
          * @description 监听系统属性同步事件
-         * @example
+         * @example 使用示例:监听属性变化
          * ```ts
          * this.onPropertyChange.add((path, value, oldValue) => {
          *     console.log(`属性 ${path} 改变了，新值为 ${value}，旧值为 ${oldValue}`);
@@ -18,8 +18,8 @@
         onPropertyChange: Readonly<mw.MulticastDelegate<(path: string, value: unknown, oldValue: unknown) => void>>;
         /**
          * @description 获取给定对象属性修改时触发的事件代理。
-         * @effect 仅客户端
-         * @param property 对象属性名字 例如：'x' 'rotation.x'
+         * @effect 只在客户端调用生效
+         * @param property usage:对象属性名字 例如：'x' 'rotation.x' range:不为空
          * @returns 代理对象
          */
         getPropertyChangeDelegate(property: string): Readonly<mw.MulticastDelegate<(path: string, value: unknown, oldValue: unknown) => void>>;
@@ -31,6 +31,8 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author si.wu
+     * @groups 基础类型
      * @description 自定义属性类型
      */
     type CustomPropertyType = number | boolean | string | mw.Vector2 | mw.Vector | mw.Vector4 | mw.Rotation | mw.LinearColor;
@@ -290,6 +292,18 @@ declare namespace mw {
          * @effect 调用端生效
          * @param path usage:物体路径  <br> range: 字符串最大长度根据路径 ID 长度决定。不做限制。
          * @returns 返回第一个查找到的对象，如有多个同名对象，返回找到的第一个
+         * @example
+         * 使用示例:创建一个名为"GameObjectExample"的脚本，在场景中放置模型正方体、圆柱、圆台，父子关系树为：正方体/圆柱/圆台,并把GameObjectExample脚本挂载给正方体。代码如下：
+         * ```
+         * @Component
+         * export default class GameObjectExample extends Script {
+         *     protected onStart(): void {
+         *         const path = "正方体/圆柱";
+         *         const cylinderObj = GameObject.getGameObjectByPath(path);
+         *         console.log(`getGameObjectByPath = ${cylinderObj ? cylinderObj.name : "undefined"}`);
+         *     }
+         * }
+         * ```
          */
         static getGameObjectByPath(path: string): GameObject;
         /**
@@ -298,6 +312,18 @@ declare namespace mw {
          * @effect 调用端生效
          * @param path usage:物体路径  <br> range: 字符串最大长度根据路径 ID 长度决定。不做限制。
          * @returns 路径对应的物体
+         * @example
+         * 使用示例:创建一个名为"GameObjectExample"的脚本，在场景中放置模型正方体、圆柱、圆台，父子关系树为：正方体/圆柱/圆台,并把GameObjectExample脚本挂载给正方体。代码如下：
+         * ```
+         * @Component
+         * export default class GameObjectExample extends Script {
+         *     protected async onStart(): Promise<void> {
+         *         const path = "正方体/圆柱";
+         *         const cylinderObj = await GameObject.asyncGetGameObjectByPath(path);
+         *         console.log(`getGameObjectByPath = ${cylinderObj ? cylinderObj.name : "undefined"}`);
+         *     }
+         * }
+         * ```
          */
         static asyncGetGameObjectByPath(path: string): Promise<GameObject>;
         /**
@@ -326,7 +352,7 @@ declare namespace mw {
          * @description 在指定时间内从当前位置平滑移动至目标位置
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param targetPosition usage:目标位置
-         * @param time usage:缓动时间 range: > 0 type: number
+         * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
          * @example
@@ -367,7 +393,7 @@ declare namespace mw {
          * @description 在指定时间内从当前缩放平滑变化至目标缩放
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param targetScale usage:目标缩放
-         * @param time usage:缓动时间 range: > 0 type: number
+         * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
          * @example
@@ -408,7 +434,7 @@ declare namespace mw {
          * @description 在指定时间内从当前旋转平滑变化至目标旋转
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param targetRotation usage:目标朝向
-         * @param time usage:缓动时间 range: > 0 type: number
+         * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
          * @example
@@ -428,7 +454,7 @@ declare namespace mw {
          * @description 按给定的旋转量随时间平滑地旋转对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param rotation usage:旋转速度
-         * @param multiplier usage:旋转乘数 range: > 0 type: number
+         * @param multiplier usage:旋转乘数 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @example
          * 使用示例: 调用方式
@@ -491,6 +517,20 @@ declare namespace mw {
          * @returns Tag
          */
         get tag(): string;
+        /**
+         * @description 设置当前物体的场景捕捉标签
+         * @groups 基类/场景所有物体基类
+         * @effect 调用端生效
+         * @param tag usage:Tag range: 无
+         */
+        set sceneCaptureTag(tag: string);
+        /**
+         * @description 获取当前物体的捕捉标签
+         * @groups 基类/场景所有物体基类
+         * @effect 调用端生效
+         * @returns Tag
+         */
+        get sceneCaptureTag(): string;
         /**
          * @description 获取Actor等级
          * @effect 编辑器端生效
@@ -586,6 +626,19 @@ declare namespace mw {
          * @effect 调用端生效
          * @param path  usage:路径  <br> range: 字符串最大长度根据不同路径长度决定。
          * @returns 查找的物体
+         * @example
+         * 使用示例:创建一个名为"GameObjectExample"的脚本，在场景中放置模型正方体、圆柱、圆台，父子关系树为：正方体/圆柱/圆台,并把GameObjectExample脚本挂载给正方体。代码如下：
+         * ```
+         * @Component
+         * export default class GameObjectExample extends Script {
+         *     protected onStart(): void {
+         *         const obj: GameObject = this.gameObject;
+         *         const path = "圆柱/圆台";
+         *         const cylinderObj = obj.getChildByPath(path);
+         *         console.log(`getChildByPath = ${cylinderObj ? cylinderObj.name : "undefined"}`);
+         *     }
+         * }
+         * ```
          */
         getChildByPath(path: string): GameObject;
         /**
@@ -650,6 +703,7 @@ declare namespace mw {
         getBoundingBox(nonColliding?: boolean, includeFromChild?: boolean, outer?: mw.Vector): mw.Vector;
         /**
          * @description 获取所有子对象包围盒中心点(不包含父对象,父对象不可用返回[0,0,0])
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:041 reason:接口废弃 replacement:
          * @effect 调用端生效
          * @precautions 如果 outer 不为空, 返回 outer,否则返回一个新的 Vector 对象,建议传入 outer 来减少 new 对象
          * @param outer usage:接收转换数据的 Vector 对象  <br> default:null
@@ -729,22 +783,22 @@ declare namespace mw {
         asyncGetChildByName(name: string): Promise<GameObject>;
         /**
          * @description 设置自定义属性的值，双端对象需在服务器调用。当设置的属性不存在时会新增自定义属性。
-         * @effect 权威端生效
-         * @param attribute 属性名
-         * @param value 属性值
+         * @effect 只在服务端调用生效
+         * @param propertyName usage:属性名 range: 无
+         * @param value usage:属性值 range: 无
          */
         setCustomProperty(propertyName: string, value: mw.CustomPropertyType | undefined): void;
         /**
          * @description 获取给定自定义属性修改时触发的事件代理。双端对象在服务器修改自定义属性后，双端均会触发事件并执行绑定函数。
-         * @effect 仅客户端
-         * @param property 对象属性名字
+         * @effect 只在客户端调用生效
+         * @param property usage:对象属性名字 range: 不能为空
          * @returns 代理对象
          */
         getCustomPropertyChangeDelegate(property: string): Readonly<mw.MulticastDelegate<(path: string, value: unknown, oldValue: unknown) => void>>;
         /**
          * @description 获取自定义属性的值，服务器客户端均可调用，客户端调用需注意属性同步的延迟。
          * @effect 调用端生效
-         * @param attribute 属性名
+         * @param propertyName usage:属性名 range: 无
          * @returns 属性值
          */
         getCustomProperty<T extends mw.CustomPropertyType>(propertyName: string): T;
@@ -752,7 +806,7 @@ declare namespace mw {
          * @description 获取自定义属性名字数组，返回对象所有自定义属性。
          * @effect 调用端生效
          * @returns 属性名列表
-         * @example
+         * @example 使用示例:获取所有自定义属性
          * ```ts
          * const attributes = this.getAttributes();
          * console.log(attributes);
@@ -763,7 +817,7 @@ declare namespace mw {
         /**
          * @description 监听自定义属性同步事件
          * @effect 仅客户端
-         * @example
+         * @example 使用示例:监听自定义属性变化
          * ```ts
          * this.onCustomPropertyChange.add((path, value, oldValue) => {
          *     console.log(`属性 ${path} 改变了，新值为 ${value}，旧值为 ${oldValue}`);
@@ -946,8 +1000,19 @@ declare namespace mw {
          * @param value usage:属性值
          * @param oldVal usage:同步前的值
          * @effect 调用端生效
+         * @returns 同步结果
          */
         protected onReplicated(path: string, value: unknown, oldVal: unknown): void | boolean;
+        /**
+         * @description 生命周期函数 - target 禁用时调用
+         * @effect 调用端生效
+         */
+        protected onDeactivate(): void;
+        /**
+         * @description 生命周期函数 - target 激活时调用
+         * @effect 调用端生效
+         */
+        protected onActivate(): void;
         /**
          * @description 销毁组件对象
          * @effect 只在服务端调用生效
@@ -1002,11 +1067,13 @@ declare namespace mw {
     /**
      * @author zhaoyang.hou
      * @groups 基类
+     * @networkStatus usage:双端
      * @description main脚本的基类
      */
     class GameApplication {
         /**
          * @description 生命周期函数 - 在所有脚本onStart前执行
+         * @effect 调用端生效
          */
         protected onEnter(): void;
     }

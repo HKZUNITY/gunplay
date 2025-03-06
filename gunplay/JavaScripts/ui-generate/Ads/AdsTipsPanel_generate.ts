@@ -3,7 +3,7 @@
  * WARNING: DO NOT MODIFY THIS FILE,MAY CAUSE CODE LOST.
  * AUTHOR: 爱玩游戏的小胖子
  * UI: UI/Ads/AdsTipsPanel.ui
- * TIME: 2024.05.20-22.03.01
+ * TIME: 2025.03.05-22.33.22
  */
  
 @UIBind('UI/Ads/AdsTipsPanel.ui')

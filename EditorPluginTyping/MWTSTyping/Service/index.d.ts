@@ -153,11 +153,11 @@ declare namespace mw {
          */
         static fillAvatar(img: mw.Image): void;
         /**
-         * @description 上传角色形象资源到服务器  Character， Hair, UpperCloth, LowerCloth, Gloves, Shoe
+         * @description 上传角色形象资源到服务器  Character，Hair, UpperCloth, LowerCloth, Gloves, Shoe
          * @param character usage:要上传换装数据的角色
          * @param callback usage:设置是否成功的回调 default:默认没有回调
-         * @param index usage:角色位(0-5) default:0,主角资源位
-         * @param openStatus usage:开发状态 default:1,默认是开放状态
+         * @param index usage:角色资源位 default:0（主角资源位） range: [0,5] type: 整形
+         * @param openStatus usage:开放状态 default:1,默认是开放状态 range: [0,1] type: 整形
          * @effect 只在客户端调用生效
          */
         static uploadData(character: mw.Character, callback?: BoolResponse | VoidResponse, index?: number, openStatus?: number): void;
@@ -165,15 +165,15 @@ declare namespace mw {
          * @description 下载角色形象并应用到当前角色身上
          * @param character usage:要应用换装数据的角色
          * @param callback usage:设置是否成功的回调 default:默认没有回调
-         * @param index usage:角色位(0-5) default:0,主角资源位
+         * @param index usage:角色资源位 default:0（主角资源位） range: [0,5] type: 整形
          * @effect 只在客户端调用生效
          */
         static downloadData(character: mw.Character, callback?: BoolResponse | VoidResponse, index?: number): void;
         /**
          * @description 设置数据是否公开给其他用户
-         * @param index usage:资源位(0-5) default:0,主角资源位
+         * @param index usage:角色资源位 default:0（主角资源位） range: [0,5] type: 整形
          * @param isOpen usage:是否公开
-         * @param callback usage:设置是否成功的回调 default:无回调
+         * @param callback usage:设置是否成功的回调 default:无
          * @effect 只在客户端调用生效
          */
         static dataShowToOther(index: number, isOpen: boolean, callback?: BoolResponse): void;
@@ -187,15 +187,15 @@ declare namespace mw {
         /**
          * @description 应用分享Id的角色数据
          * @param character usage:分享换装数据的角色
-         * @param id usage:分享Id
+         * @param id usage:分享Id range: 无
          * @param callback usage: 回调参数，true:应用成功；false:应用失败
          * @effect 只在客户端调用生效
          */
         static applySharedId(character: mw.Character, id: string, callback: BoolResponse): void;
         /**
          * @description 获取用户存储在服务器上的角色形象数据
-         * @param userId usage:用户Id
-         * @param index usage:资源位(0-5)
+         * @param userId usage:用户Id range: 无
+         * @param index usage:角色资源位 default:0（主角资源位） range: [0,5] type: 整形
          * @param callback usage:返回获取的数据string.
          * @effect 只在客户端调用生效
          * @example
@@ -227,7 +227,7 @@ declare namespace mw {
         /**
          * @description 将角色形象数据应用至角色
          * @param character usage: 用于换装的角色
-         * @param dataString usage: 返回的数据
+         * @param dataString usage: 返回的数据 range: 无
          * @param callback usage:设置是否成功的回调 default:无回调
          * @effect 只在客户端调用生效
          * @example
@@ -258,34 +258,48 @@ declare namespace mw {
         static setUserData(character: mw.Character, dataString: string, callback?: BoolResponse): void;
         /**
          * @description 发起添加好友请求
-         * @effect  调用端生效
-         * @precautions 只在移动端生效
+         * @effect 只在客户端调用生效
+         * @precautions
+         * 1. 只在移动端生效
+         * 2. 查询的目标玩家需要和当前玩家在同一房间。否则返回的数据会是"参数格式不正确"。
          * @param resp usage:GameService的回调
-         * @param userId usage:要加的玩家UserId
-         * @param reason usage:申请理由
+         * @param userId usage:要加的玩家UserId range: 无
+         * @param reason usage:申请理由 range: 无
          */
         static addFriend(resp: MGSResponse, userId: string, reason: string): void;
         /**
          * @description 若需要检测玩家是否好友关系，可通过调用isFriend接口进行查看
-         * @effect  调用端生效
-         * @precautions 只在移动端生效
-         * @param resp usage:GameService的回调
-         * @param userId usage:要确定的玩家UserId
+         * @effect 只在客户端调用生效
+         * @precautions
+         * 1. 只在移动端生效
+         * 2. 查询的目标玩家需要和当前玩家在同一房间。否则返回的数据会是"参数格式不正确"。
+         * @param resp usage:GameService的回调。在收到结果时会触发该回调，参数含义如下：
+         * - isSuccess - 正常获取到了查询结果即为true，并不代表为好友关系。false表示请求出错。
+         * - jsonData - 当userId对应的角色和当前玩家不在同一房间，返回值为"参数格式不正确"；
+         * 当userId对应的角色和当前玩家在同一房间，且互为好友，返回值为"true"；
+         * 当userId对应的角色和当前玩家在同一房间，不为好友，返回值为"false"；
+         * @param userId usage:要确定的玩家UserId range: 无
          */
         static isFriend(resp: MGSResponse, userId: string): void;
         /**
          * @description 发起getUserInfo并获得回调，查询玩家的昵称、性别
-         * @effect 调用端生效
-         * @param userId usage:玩家UserId
-         * @param gameId usage:GameId
+         * @effect 只在客户端调用生效
+         * @precautions
+         * 1. 只在移动端生效
+         * 2. 查询的目标玩家需要和当前玩家在同一房间。否则返回的数据会是"参数格式不正确"。
+         * @param userId usage:玩家UserId range: 无
+         * @param gameId usage:GameId range: 无
          * @param callback usage:返回 nickname(string) 和 gender(number)
          */
         static getUserInfo(userId: string, gameId: string, callback: (nickname: string, gender: number) => void): void;
         /**
          * @description 发起checkVIP并获得回调，查询玩家的vip信息
-         * @effect  调用端生效
-         * @param userId usage:玩家UserId
-         * @param gameId usage:GameId
+         * @effect 只在客户端调用生效
+         * @precautions
+         * 1. 只在移动端生效
+         * 2. 查询的目标玩家需要和当前玩家在同一房间。否则返回的数据会是"参数格式不正确"。
+         * @param userId usage:玩家UserId range: 无
+         * @param gameId usage:GameId range: 无
          * @param callback usage:返回 result，玩家的vip是否正常
          */
         static checkVIP(userId: string, gameId: string, callback: (result: string) => void): void;
@@ -700,7 +714,7 @@ declare namespace mw {
          * @description 获取用户剩余钥匙数量
          * @effect 只在客户端调用生效
          * @param getUserKeyNumberResult usage:结果回调，查询到结果后执行回调函数。keyNumber : 剩余钥匙数量
-         * @param keyType usage:搜索的钥匙类型，暂时只有类型 1 <br> default: 1  range: 1  type: 整数
+         * @param keyType usage:搜索的钥匙类型，暂时只有类型 1 <br> default: 1  range: 1  type: 整形
          * @example
          * 使用示例:创建一个名为PurchaseExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，发布游戏在移动端测试，可以看到当前用户剩余钥匙数量
          * ```
@@ -728,7 +742,7 @@ declare namespace mw {
          * @description 大会员开宝箱消耗金钥匙
          * @effect 只在客户端调用生效
          * @param boxId usage:宝箱 ID，代表一种福利，暂时自定义id。后续会在开发者平台配制  range:依据 boxId 长度
-         * @param number usage:领取的宝箱数量 <br> default: 1  range: 不做限制  type: 整数
+         * @param number usage:领取的宝箱数量 <br> default: 1  range: 不做限制  type: 整形
          * @param keyType usage:钥匙类型，当前只有一种钥匙类型值为 1 <br> default: 1  range: 1  type:整数
          * @param placeOrderResult usage:订单结果。status 大会员扣除钥匙下单状态
          * @example
@@ -850,10 +864,14 @@ declare namespace mw {
          *     }
          *
          *     private async test(): Promise<void> {
-         *         let player = await  mw.Player.localPlayer;
-         *         await TimeUtil.delaySecond(5);
-         *         let arkCount = PurchaseService.getArkBalance();
-         *         player.character.name = "ArkCount: " + arkCount;
+         *         //在客户端注册刷新监听
+         *         const onArkUpdate = (amount: number) => {
+         *             //刷新逻辑，amount为当前代币数量
+         *         }
+         *         PurchaseService.onArkBalanceUpdated.add(onArkUpdate);
+         *
+         *         //触发代币余额刷新。接收更新的值要用PurchaseService.onArkBalanceUpdated监听
+         *         PurchaseService.getArkBalance();
          *     }
          * }
          * ```
@@ -992,98 +1010,179 @@ declare namespace mw {
     class RouteService {
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.asyncTeleportToGame()
+         * @description 组队跳游戏，可以携带数据
+         * @effect 只在服务端调用生效
+         * @param targetGameId usage: 要跳转的游戏的GameId range:无
+         * @param teammatePlayerIds usage: 队友的playerId数组
+         * @param carryingData usage: 要带入新游戏的数据 default: undefined
+         * @returns 组队跳转请求回调
          */
         static enterNewGameByTeam(targetGameId: string, teammatePlayerIds: string[], carryingData?: Record<string, unknown>[]): Promise<void>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.getTeleportData()
+         * @description 获取指定Team在组队跳转时带入游戏的数据
+         * @effect 只在服务端调用生效
+         * @param teamId usage: 要查询的 teamId  range: 字符串长度依据 teamId 长度而定
+         * @returns 指定队伍的数据
          */
         static getTeamCarryingData(teamId: string): Record<string, unknown>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 删除指定Team在组队跳转时带入游戏的数据
+         * @effect 只在服务端调用生效
+         * @param teamId usage: 目标 teamId  range: 字符串长度依据 teamId 长度而定
          */
         static clearTeamCarryingData(teamId: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description TS请求App刷新View
+         * @effect 只在客户端调用生效
          */
         static requestRefreshView(): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 注册View刷新的委托
+         * @effect 只在客户端调用生效
+         * @returns View刷新的委托
          */
         static get onViewRefreshed(): mw.MulticastDelegate<OnViewRefreshed>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 判断当前游戏是不是角色展示/编辑游戏
+         * @effect 只在客户端调用生效
+         * @precautions 在PIE或者服务端调用则固定返回false
+         * @returns true-当前游戏是角色展示/编辑游戏，false-不是
          */
         static isInDressUpGame(): boolean;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 切换角色展示/编辑游戏的显示模式。
+         * @effect 只在客户端调用生效
+         * @param newState usage: 新模式。range:[1, 2] newState = 1 为“角色展示模式”，newState = 2 为“角色编辑模式” type: 整形
          */
         static requestSwitchViewLayout(newState: number): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 通知App角色形象加载完毕
+         * @effect 只在客户端调用生效
          */
         static notifyCharacterLoaded(): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 通知App当前TS游戏加载状态(收到这个协议，App停止下载，清除Temp文件)
+         * @effect 只在客户端调用生效
+         * @param newState usage: 状态Id。range:[1, 2] 1-游戏加载成功，2-游戏加载失败 type: 整形
          */
         static notifyGameLoadingState(newState: number): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 获取角色展示/编辑游戏的显示模式切换的委托
+         * @effect 只在客户端调用生效
+         * @returns 角色展示/编辑游戏的显示模式切换的委托
          */
         static get onViewLayoutSwitched(): mw.MulticastDelegate<OnViewLayoutSwitched>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 将当前游戏进程恢复小窗，拉起新进程进入广场游戏。与默认的跳游戏模式不同。
+         * @effect 只在客户端调用生效
+         * @param squareMgsGameId usage: 新的广场游戏GameId，如果为空，则使用各环境默认的广场游戏Id default: null range:无
+         * @param carryingData usage: 跳游戏携带的数据 default: undefined range:无
          */
         static enterSquareGame(squareMgsGameId?: string, carryingData?: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 退出当前游戏进程，回到主线程的角色编辑游戏。
+         * @effect 只在客户端调用生效
+         * @param carryingData usage: 跳游戏携带的数据 default: undefined range:无
          */
         static enterDressUpGame(carryingData?: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.asyncTeleportToGame()
+         * @description 跳转到新游戏，同进程跳转
+         * @effect 只在客户端调用生效
+         * @param targetGameId usage: 要跳转的目标游戏ID，GameId range:无
+         * @param carryingData usage: 跳游戏携带的数据 default: undefined range:无
          */
         static enterNewGame(targetGameId: string, carryingData?: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 跳转本地游戏(可编辑的UGC工程) ，同进程跳转
+         * @effect 只在客户端调用生效
+         * @precautions 需要用创建本地工程时所对应模板游戏的gameId
+         * @param targetGameId usage: 目标游戏的GameId，一般来说，这里会是模板游戏的gameId range:无
+         * @param gamePath usage: 本地游戏工程的路径 range:无
+         * @param carryingData usage: 跳游戏携带的数据 default: undefined range:无
          */
         static enterLocalGame(targetGameId: string, gamePath: string, carryingData?: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 获取拉起游戏时传入的数据
+         * @effect 只在客户端调用生效
+         * @precautions 如果是组队跳游戏，请使用getTeamCarryingData在服务端获取数据。
+         * @returns 拉起游戏时传入的数据
          */
         static getGameCarryingData(): Promise<string>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.getSourceInfo()
+         * @description 获取游戏来源信息
+         * @effect 只在客户端调用生效
+         * @returns 当前游戏是从哪个游戏跳转过来的，为空则不是游戏跳转
          */
         static getJumpFromMGSGameId(): Promise<string>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 注册游戏跳转的回调，当跨进程从其他游戏跳转到当前游戏时触发。可以被动获取来源游戏Id和携带的数据
+         * @effect 只在客户端调用生效
+         * @param callback usage: 要注册的回调，在接收到跳转信息时触发
          */
         static addJumpGameCallback(callback: (jumpFromGameId: string, carryingData: string) => void): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 用内容库MGSGameId来换取gameId
+         * @effect 调用端生效
+         * @param targetMgsGameId usage: 目标游戏的内容库gameId range:无
+         * @returns 对应的gameId
          */
         static requestGameId(targetMgsGameId: string): Promise<string>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 用gameId来换取内容库MGSGameId
+         * @effect 调用端生效
+         * @param targetGameId usage: 目标游戏的gameId range:无
+         * @returns 对应的MGSGameId
          */
         static requestMGSGameId(targetGameId: string): Promise<string>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:SystemUtil.getGameId()
-         */
+         * @description 获取当前游戏GameId
+         * @effect 调用端生效
+         * @returns 当前游戏GameId
+        */
         static getGameId(): string;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:SystemUtil.getVersion()
+         * @description 获取当前游戏版本
+         * @effect 调用端生效
+         * @returns 当前游戏版本
          */
         static getGameVersion(): string;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @description 获取当前游戏的内容库MGSGameId
+         * @effect 调用端生效
+         * @returns 当前游戏的内容库MGSGameId
          */
         static getMGSGameId(): string;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.asyncTeleportToGame().catch(...)
+         * @description 组队请求失败时会触发的委托
+         * @networkStatus usage: 服务端
          */
         static get onTeamMatchFailure(): mw.MulticastDelegate<(failureInfo: TeamMatchFailureInfo) => void>;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:TeleportService.getTeleportData(player.teleportId)
+         * @description 收到队伍数据时会触发的委托
+         * @networkStatus usage: 服务端
          */
         static get onReceiveTeamData(): mw.MulticastDelegate<(teamId: string, data: Record<string, unknown>) => void>;
     }
@@ -1205,7 +1304,7 @@ declare namespace mw {
          * @description 异步传送到当前游戏的指定场景
          * @precautions 仅限当前游戏的场景间传送，场景名不存在则会传送失败
          * @effect 只在服务端调用生效
-         * @param sceneName usage:要传送的目标场景名称
+         * @param sceneName usage:要传送的目标场景名称 range: 无
          * @param userIds usage:要传送的玩家 userId 数组
          * @param options usage:可选的额外传送信息 default:undefined
          * @returns 本次请求正常则返回resolve，异常则返回reject
@@ -1272,16 +1371,12 @@ declare namespace mw {
          */
         static asyncTeleportToScene(sceneName: string, userIds: string[], options?: TeleportOptions): Promise<TeleportResult>;
         /**
-         * @deprecated info:该接口已废弃，且功能不可用。请改用游戏内的子场景传送 since: 037 reason: 删除接口 replacement:asyncTeleportToScene
-         */
-        static asyncTeleportToGame(gameId: string, userIds: string[], sceneName?: string, options?: TeleportOptions): Promise<TeleportResult>;
-        /**
          * @groups 服务/传送
          * @description 异步传送到指定房间
          * @precautions 指定房间不存在或者可容纳人数不足，则会失败。参与传送的玩家数量越多，失败率越高
          * @precautions 不支持 createNewPrivateRoom 参数，设置为true也不会创建新房间
          * @effect 只在服务端调用生效
-         * @param roomId usage:要传送的目标游戏Id
+         * @param roomId usage:要传送的目标游戏Id range: 无
          * @param userIds usage:要传送的玩家userId数组
          * @param options usage:可选的额外传送信息. 不支持 createNewPrivateRoom 参数，设置为true也不会创建新房间 default:undefined
          * @returns 本次请求正常则返回resolve，异常则返回reject
@@ -1358,7 +1453,7 @@ declare namespace mw {
          * @groups 服务/传送
          * @description 获取指定玩家所在的房间信息
          * @effect 调用端生效
-         * @param userId usage:目标玩家的userId
+         * @param userId usage:目标玩家的userId range: 无
          * @returns 指定玩家所在的房间信息
          * @example
          * 使用示例:创建一个名为"ServerScript"的脚本，放在场景中。代码如下：
@@ -1398,7 +1493,7 @@ declare namespace mw {
          * @groups 服务/传送
          * @description 获取传送的来源信息
          * @effect 只在服务端调用生效
-         * @param teleportId usage:要查询的传送Id
+         * @param teleportId usage:要查询的传送Id range: 无
          * @returns 玩家传送的来源信息
          * @example
          * 使用示例:创建一个名为"ServerScript"的脚本，放在场景中。代码如下：
@@ -1430,7 +1525,7 @@ declare namespace mw {
          * @groups 服务/传送
          * @description 获取调用传送接口时在TeleportOptions中设置的数据
          * @effect 只在服务端调用生效
-         * @param teleportId usage:要查询的传送Id
+         * @param teleportId usage:要查询的传送Id range: 无
          * @returns 传送时携带的数据
          * @example
          * 使用示例:创建一个名为"ServerScript"的脚本，放在场景中。代码如下：
@@ -1615,6 +1710,8 @@ declare namespace mw {
         productList?: CommodityInfo[];
     };
     /**
+     * @author huipeng.jia
+     * @groups 服务/货币
      * @description 账户余额信息
      */
     type BalanceInfo = {
@@ -1624,6 +1721,8 @@ declare namespace mw {
         point: number;
     };
     /**
+     * @author huipeng.jia
+     * @groups 服务/货币
      * @description 发货回调
      */
     type ShipOrderResponse = {
@@ -1647,12 +1746,14 @@ declare namespace mw {
          * @groups 服务/货币
          * @description 异步查询积分支付是否支持
          * @effect 只在客户端调用生效
+         * @returns 是否支持
          */
         static asyncGetPointPayEnabled(): Promise<boolean>;
         /**
          * @groups 服务/货币
          * @description 异步查询现金支付是否支持
          * @effect 只在客户端调用生效
+         * @returns 是否支持
          */
         static asyncGetCashPayEnabled(): Promise<boolean>;
         /**
@@ -1749,8 +1850,8 @@ declare namespace mw {
          * @groups 服务/货币
          * @description 本地图片路径转存成网络图
          * @effect 只在客户端调用生效
-         * @param locImgPath usage: 本地图片文件路径
-         * @param imgName usage: 本地图片文件名
+         * @param locImgPath usage: 本地图片文件路径 range: 无
+         * @param imgName usage: 本地图片文件名 range: 无
          * @returns 成功返回url，失败返回null
          */
         static asyncDumpImg(locImgPath: string, imgName: string): Promise<string>;
@@ -1782,12 +1883,14 @@ declare namespace mw {
          * @description 打开角编商城
          * @effect 只在客户端调用生效
          * @param extraInfo usage: 额外的传参 default: undefined
+         * @returns 打开结果
          */
         static asyncOpenAvatarEditorModule(extraInfo?: any): Promise<boolean>;
         /**
          * @groups 服务/货币
          * @description 打开角编商城
          * @effect 只在客户端调用生效
+         * @returns 异步void
          */
         static asyncCloseAvatarEditorModule(): Promise<void>;
         /**
@@ -1795,6 +1898,7 @@ declare namespace mw {
          * @description 角编商城状态发生变化时会触发的委托
          * @effect 只在客户端调用生效
          * @networkStatus usage:客户端
+         * @returns 角编商城状态发生变化时会触发的委托
          */
         static get avatarServiceDelegate(): mw.MulticastDelegate<(eventName: string, ...params: unknown[]) => void>;
     }
@@ -2789,10 +2893,18 @@ declare namespace mw {
     class RoomService {
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 获取当前环境是否支持MGS功能
+         * @effect  只在客户端调用生效
+         * @returns 当前环境是否支持MGS功能
          */
         static isSupported(): boolean;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:SystemUtil.roomId
+         * @groups 服务/社交
+         * @description 获取游戏的RoomService分配的RoomId
+         * @effect  只在客户端调用生效
+         * @returns 游戏的RoomService分配的RoomId
          */
         static getRoomId(): string;
         /**
@@ -2832,46 +2944,107 @@ declare namespace mw {
         static kick(player: mw.Player | number, message?: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 获取 MGS 平台的 RoomId
+         * @effect  只在客户端调用生效
+         * @returns MGS 平台的 RoomId
          */
         static getMGSRoomId(): string;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 若需要查看 app 玩家的资料信息，可通过调用 showUserProfile 进行查看，app会弹出资料卡片弹窗
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
+         * @param userId usage:要显示的用户的 userId  range:无
          */
         static showUserProfile(resp: mw.MGSResponse, userId: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 向 app 发起 showFloatingLayer 来展开悬浮层的内容，可展开聊天/好友功能
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
+         * @param tab usage:悬浮层功能位置 range:取值(0: 聊天 1: 好友) type:整数
          */
         static showFloatingLayer(resp: mw.MGSResponse, tab: number): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 游戏方可调用 showExitGameDialog 来显示退出游戏确认框
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
          */
         static showExitGameDialog(resp: mw.MGSResponse): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 游戏方可调用 joinAudio 加入语音频道，游戏用户可使用语音服务（可说话、可听到其他游戏用户声音）
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
          */
         static joinAudio(resp: mw.MGSResponse): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 向app发起SavePortrait并获得回调
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
+         * @param mgsData usage:要保存的 mgs 数据 range:无
          */
         static requestSavePortrait(resp: mw.MGSResponse, mgsData: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 向app发起SaveImage并获得回调
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
+         * @param mgsData usage:要保存的图片 Url 地址  range:无
          */
         static requestSaveImage(resp: mw.MGSResponse, mgsData: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 向 app 发起 shareScreenshot 并获得回调
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:app的回调
+         * @param mgsData usage:要保存的图片 Url 地址  range:无
          */
         static requestShareScreenShot(resp: mw.MGSResponse, mgsData: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 游戏方调用 reportLogInfo 接口上报运营所需的埋点数据
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效，数据需要是json格式
+         * @param eventName usage:事件名称  range:字符串长度不做限制，制定适合长度的字符串即可
+         * @param eventDesc usage:事件描述  range:字符串长度不做限制，制定适合长度的字符串即可
+         * @param jsonData usage:发送的 json 数据  range:字符串长度不做限制，制定适合长度的字符串即可
          */
         static reportLogInfo(eventName: string, eventDesc: string, jsonData: string): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 获取当前的环境
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param resp usage:获取到的当前的环境
          */
         static getCurrentEnvironment(resp: mw.MGSResponse): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:035 reason:接口废弃 replacement:
+         * @groups 服务/社交
+         * @description 注册聊天回调
+         * @effect  只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @param callback usage:有消息时的触发函数
          */
         static registerMGSChatMessageEvent(callback: MGSEvent): void;
     }

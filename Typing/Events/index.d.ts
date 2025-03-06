@@ -14,14 +14,6 @@
         /** 失败频率限制 */
         FailureRateLimit = 3
     }
-    enum EventType {
-        /** 本地事件 */
-        Local = 0,
-        /** 服务端触发客户端执行事件 */
-        ServerToClient = 1,
-        /** 客户端触发服务端执行事件 */
-        ClientToServer = 2
-    }
     /**
      * @author xiangkun.sun
      * @description 事件监听器
@@ -308,6 +300,7 @@
          * @effect 只在服务端调用生效
          * @param eventName usage:事件名称 <br> range: 长度不做限制，但建议设置合适的长度和名称。
          * @param callback usage:收到注册的事件时会触发的回调
+         * @returns EventListener
          */
         static addSceneEventListener(eventName: string, callback: (data: string) => void): EventListener;
         /**
@@ -316,6 +309,7 @@
          * @effect 只在服务端调用生效
          * @param eventName usage:事件名称 <br> range: 长度不做限制，但建议设置合适的长度和名称。
          * @param callback usage:收到注册的事件时会触发的回调
+         * @returns EventListener
          */
         static addGameEventListener(eventName: string, callback: (data: string) => void): EventListener;
         /**

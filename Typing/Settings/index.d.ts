@@ -45,6 +45,22 @@
          * @param useWave usage:该参数现已弃用
          */
         static setOptimization(character: mw.Character, useAnimationBudget: boolean, useWave: boolean): void;
+        /**
+         * @groups 设置
+         * @description 设置角色形象细节层次，0 表示  自动切换。 1， 2， 3 表示 3个等级，Level1细节最多。
+         * @param character usage:角色对象
+         * @param level usage:Lod等级：0 表示  自动切换。 1， 2， 3 表示 3个等级 range:[0, 3] type: 整形
+         * @effect 只在客户端调用生效
+         */
+        static setAvatarForcedLOD(character: mw.Character, level: number): void;
+        /**
+        * @groups 设置
+        * @description 获取角色形象细节层次，0 表示  自动切换。 1， 2， 3 表示 3个等级，Level1细节最多。
+        * @param character usage:角色对象
+        * @return level usage:Lod等级：0 表示  自动切换。 1， 2， 3 表示 3个等级
+        * @effect 只在客户端调用生效
+        */
+        static getAvatarForcedLOD(character: mw.Character): number;
     }
 }
 
@@ -260,7 +276,7 @@ declare namespace mw {
          * @description 设置TSR等级
          * @groups 设置
          * @effect 只在客户端调用生效
-         * @param FSRLevel usage:FSR等级
+         * @param FSRLevel usage:FSR等级 type: 整形 range: 无
          */
         static setFSRLevel(FSRLevel: number): void;
         /**
@@ -268,7 +284,7 @@ declare namespace mw {
          * @description 设置锐化程度
          * @groups 设置
          * @effect 只在客户端调用生效
-         * @param sharpness usage:锐化程度 0-1
+         * @param sharpness usage:锐化程度 range:[0, 1] type: 浮点型
          */
         static setSharpness(sharpness: number): void;
         /**

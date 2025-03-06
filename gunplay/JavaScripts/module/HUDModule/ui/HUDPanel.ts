@@ -85,6 +85,24 @@ export default class HUDPanel extends HUDPanel_Generate {
 		});
 		this.bindSetButton();
 		this.bindATKButton();
+
+		this.mClothButton.onClicked.add(async () => {
+			await AvatarEditorService.asyncOpenAvatarEditorModule();
+			this.mVirtualJoystickPanel.resetJoyStick();
+		});
+		mw.AvatarEditorService.avatarServiceDelegate.add(this.addAvatarServiceDelegate.bind(this));
+	}
+
+	private addAvatarServiceDelegate(eventName: string, ...params: unknown[]): void {
+		console.error(`eventName: ${eventName}`);
+		switch (eventName) {
+			case "AE_OnQuit":
+				Event.dispatchToLocal(EventType.OpenCloseHUDRadarUI, true);
+				break;
+			case "AE_OnOpen":
+				Event.dispatchToLocal(EventType.OpenCloseHUDRadarUI, false);
+				break;
+		}
 	}
 
 	private initKillTipItems(): void {

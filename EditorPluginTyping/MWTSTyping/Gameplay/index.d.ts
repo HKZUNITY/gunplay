@@ -59,6 +59,11 @@ declare namespace mw {
      * ```
      */
     class MaterialSlot {
+        /**
+         * @description 构造函数
+         * @param index usage:材质插槽的索引 default: 无 range: 无 type: 整形
+         * @param model usage:材质插槽引用的Model default: 无 range: 无
+         */
         constructor(index: number, model: Model);
         /**
          * @description 插槽的Model，只读
@@ -102,6 +107,10 @@ declare namespace mw {
          * @param value  重置插槽颜色
          */
         resetColor(): void;
+        /**
+         * @description 重置当前插槽材质为初始材质
+         * @effect 调用端生效
+         */
         resetMaterial(): void;
         /**
          * @description 获取自定义材质
@@ -595,7 +604,7 @@ declare namespace mw {
         /**
          * @description 还原物体材质
          * @effect 调用端生效
-         * @param index usage: 材质索引序号
+         * @param index usage: 材质索引序号 type: Integer default: undefined range: 无
          */
         resetMaterial(index?: number): void;
         /**
@@ -614,7 +623,7 @@ declare namespace mw {
         /**
          * @description 创建材质实例
          * @effect 调用端生效
-         * @param Index usage:第几个材质 <br> range: 不超过材质数 type: 整数
+         * @param Index usage:第几个材质 <br> range: 不超过材质数 type: 整形
          */
         createMaterialInstance(Index: number): void;
         /**
@@ -631,7 +640,8 @@ declare namespace mw {
          * @param status usage: 是否与其它对象进行碰撞交互
          * @example
          * 使用示例:
-         * 在场景中拖入一个方块，并创建一个名为Collision的脚本挂载在该方块下，并复制以下代码进入脚本：
+         * 在场景中拖入一个方块，并创建一个名为Collision的脚本挂载在该方块下，并复制以下代码进入脚本。
+         * 预期效果：进入游戏按1键，角色可以穿过方块，再按1键，角色无法穿过方块。
          * ```ts
          * @Component
          * export default class Collision extends Script {
@@ -653,7 +663,6 @@ declare namespace mw {
          *     }
          * }
          * ```
-         * 预期效果：进入游戏按1键，角色可以穿过方块，再按1键，角色无法穿过方块。
          */
         set collisionEnabled(status: boolean);
         /**
@@ -667,7 +676,8 @@ declare namespace mw {
          * @param status usage: 在空间查询模型是否纳入检测范围。
          * @example
          * 使用示例:
-         * 在场景中拖入一个方块，并创建一个名为Query的脚本挂载在该方块下，并复制以下代码进入脚本：
+         * 在场景中拖入一个方块，并创建一个名为Query的脚本挂载在该方块下，并复制以下代码进入脚本。
+         * 预期效果：按下1生成特效，被空间查询检测到，再按下1，特效被删除，没有被空间查询检测到。
          * ```ts
          * @Component
          * export default class Query extends Script {
@@ -711,7 +721,6 @@ declare namespace mw {
          *     }
          * }
          * ```
-         * 按下1生成特效，被空间查询检测到，再按下1，特效被删除，没有被空间查询检测到。
          */
         set queryEnabled(status: boolean);
         /**
@@ -725,7 +734,8 @@ declare namespace mw {
          * @param status usage: Touched和TouchEnded事件是否在模型上触发。
          * @example
          * 使用示例:
-         * 在场景中拖入一个方块，并创建一个名为Touch的脚本挂载在该方块下，并复制以下代码进入脚本：
+         * 在场景中拖入一个方块，并创建一个名为Touch的脚本挂载在该方块下，并复制以下代码进入脚本。
+         * 预期效果：角色走入方块，生成特效，走出方块，特效消失。按下1，角色走入走出方块无任何变化。
          * ```ts
          * @Component
          * export default class Touch extends Script {
@@ -773,7 +783,6 @@ declare namespace mw {
          *     }
          * }
          * ```
-         * 角色走入方块，生成特效，走出方块，特效消失。按下1，角色走入走出方块无任何变化。
          */
         set touchEnabled(status: boolean);
         /**
@@ -806,6 +815,7 @@ declare namespace mw {
          * @author qiming.jiang
          * @description 获取指定索引的材质插槽
          * @effect 调用端生效
+         * @param index 材质插槽索引 type: Integer usage: 索引 range: 无
          * @returns 返回指定索引的材质插槽
          */
         getMaterialSlot(index: number): MaterialSlot;
@@ -1075,6 +1085,15 @@ declare namespace mw {
      * @effect 只在客户端调用生效
      */
     function stopRecord(): void;
+    /**
+     * @author xinlei.nie
+     * @groups 角色系统/角色
+     * @description 获取强制更新移动时检测到的碰撞结果
+     * @effect 调用端生效
+     * @param character usage: 需要获取碰撞结果的角色 <br> default: null 必填参数   <br> type: Character
+     * @returns 强制移动检测到的碰撞数据
+     */
+    function getForcedMovementHits(character: mw.Character): Array<HitResult>;
 }
 
 declare namespace mw {
@@ -1835,48 +1854,6 @@ declare namespace mw {
          * @description 启用瞄准偏移
          * @effect 调用端生效
          * @precautions 角色是否启用瞄准偏移。true表示启用，false表示禁用。瞄准偏移用于创建多方向武器瞄准混合结构，然后叠加应用到默认的瞄准姿势。
-         * @example
-         * 使用示例:将使用到的资源:"234423,216081"拖入优先加载栏。创建一个名为"Example_Stance_AimOffsetEnabled"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，在玩家角色上加载一个二次元男性基础姿态和二次元女性基础姿态，按下键盘“1”，切换播放二次元男性基础姿态和二次元女性基础姿态。你将在场景中看到角色不同姿态的效果。按下键盘“2”， 停止播放基础姿态。代码如下：
-         * ```
-         * @Component
-         * export default class Example_Stance_AimOffsetEnabled extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected onStart(): void {
-         *         // 下列代码仅在客户端执行
-         *         if(SystemUtil.isClient()) {
-         *             // 获取当前客户端玩家
-         *             let myPlayer = Player.localPlayer;
-         *             // 获取玩家控制角色
-         *             let myCharacter = myPlayer.character;
-         *             // 给角色加载一个二次元男性基础姿态
-         *             let animeManStance = myCharacter.loadStance("234423");
-         *             console.log("animeManStance assetId " + animeManStance.assetId);
-         *             // 给角色加载一个二次元女性基础姿态（默认）,关闭瞄准偏移
-         *             let animeWomanStance = myCharacter.loadStance("216081");
-         *             animeWomanStance.aimOffsetEnabled = false;
-         *             console.log("animeWomanStance assetId " + animeWomanStance.assetId);
-         *             // 添加一个按键方法：按下键盘“1”，切换播放二次元男性基础姿态和二次元女性基础姿态
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 if(myCharacter.currentStance == animeWomanStance) {
-         *                     animeManStance.play();
-         *                     // 开启瞄准偏移
-         *                     animeManStance.aimOffsetEnabled = true;
-         *                 } else {
-         *                     animeWomanStance.play();
-         *                     // 关闭瞄准偏移
-         *                     animeWomanStance.aimOffsetEnabled = false;
-         *                 }
-         *             });
-         *             // 添加一个按键方法：按下键盘“2”，停止播放基础姿态
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 if(myCharacter.currentStance) {
-         *                     myCharacter.currentStance.stop();
-         *                 }
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          * @networkStatus usage:双端
          */
         get aimOffsetEnabled(): boolean;
@@ -2094,45 +2071,6 @@ declare namespace mw {
          * @precautions 姿态的播放位置(上半身, 下半身, 全身), 对正在播放的姿态修改时无效.
          * 如果这个姿态是通过预制姿态资源GUID创建的, 那么它的默认值会自动从资源上获取;
  如果是通过动画资源GUID创建的, 那么它的默认值为StanceBlendMode.WholeBody.
-         * @example
-         * 使用示例:将使用到的资源:"94261,14520"拖入优先加载栏。创建一个名为"Example_SubStance_BlendMode"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，在玩家角色上加载一个仅上半身的瞄准姿态和一个仅下半身的踢腿姿态，按下键盘“1”， 切换播放瞄准姿态和踢腿姿态。你将在场景中看到角色不同姿态的效果。按下键盘“2”， 停止播放姿态。代码如下：
-         * ```
-         * @Component
-         * export default class Example_SubStance_BlendMode extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected onStart(): void {
-         *         // 下列代码仅在客户端执行
-         *         if(SystemUtil.isClient()) {
-         *             // 获取当前客户端玩家
-         *             let myPlayer = Player.localPlayer;
-         *             // 获取玩家控制角色
-         *             let myCharacter = myPlayer.character;
-         *             // 给角色加载仅上半身瞄准姿态
-         *             let aimStance = myCharacter.loadSubStance("94261");
-         *             aimStance.blendMode = StanceBlendMode.BlendUpper;
-         *             console.log("aimStance assetId " + aimStance.assetId);
-         *             // 给角色加载仅下半身踢腿姿态
-         *             let kickStance = myCharacter.loadSubStance("14520");
-         *             kickStance.blendMode = StanceBlendMode.BlendLower;
-         *             console.log("kickStance assetId " + kickStance.assetId);
-         *             // 添加一个按键方法:按下键盘“1”，切换播放瞄准姿态和踢腿姿态
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 if(myCharacter.currentSubStance == aimStance) {
-         *                     kickStance.play();
-         *                 } else {
-         *                     aimStance.play();
-         *                 }
-         *             });
-         *             // 添加一个按键方法:按下键盘“2”，停止播放姿态
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 if(myCharacter.currentSubStance) {
-         *                     myCharacter.currentSubStance.stop();
-         *                 }
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          * @networkStatus usage:双端
          */
         get blendMode(): mw.StanceBlendMode;
@@ -2295,6 +2233,13 @@ declare namespace mw {
     /**
      * @author guang.deng
      * @groups 基础类型
+     * @description 外观主体（前发，后发，头，上衣，下衣，手套，鞋）加载失败委托
+     * @precautions 当角色外观加载失败时执行绑定函数
+     */
+    type OnLoadDescriptionFailed = (Character: Character) => void;
+    /**
+     * @author guang.deng
+     * @groups 基础类型
      * @description 外观加载细节变化委托
      */
     type OnDescriptionChange = (operationCode: number, index: number, value: unknown) => void;
@@ -2369,9 +2314,13 @@ declare namespace mw {
      */
     class Character extends mw.Pawn {
         /**
+         * @description 角色开启强制位移后，移动中碰撞检测结果的代理
          * @groups 角色系统/角色
-         * @description 角色外观配置\
-         * 返回值为 CharacterDescription 类。调用 description 变量可以修改角色的外观，可更改角色的外观参数详见 CharacterDescription 类。
+         */
+        onSweepCollision: mw.MulticastDelegate<(velocities: Array<mw.Vector>, hitActors: Array<mw.GameObject>, impactPoints: Array<mw.Vector>, impactNormals: Array<mw.Vector>) => void>;
+        /**
+         * @groups 角色系统/角色
+         * @description 角色外观配置。返回值为 CharacterDescription 类。调用 description 变量可以修改角色的外观，可更改角色的外观参数详见 CharacterDescription 类。
          * @effect 调用端生效
          * @returns 返回值为 CharacterDescription 类型对象。
          * @example
@@ -2450,8 +2399,7 @@ declare namespace mw {
         get description(): mw.CharacterDescription;
         /**
          * @groups 角色系统/角色
-         * @description 获取当前角色外观是否准备完毕。\
-         * 刚进入场景中或角色还未加载出外观衣服等时，isDescriptionReady为false，完全加载完成后变为true。
+         * @description 获取当前角色外观是否准备完毕。刚进入场景中或角色还未加载出外观衣服等时，isDescriptionReady为false，完全加载完成后变为true。
          * @effect 只在客户端调用生效
          * @returns true表示准备完毕，false表示未准备好。
          * @example
@@ -2694,9 +2642,7 @@ declare namespace mw {
         get velocity(): mw.Vector;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色的最大行走速度\
-         * 角色移动时，并不是直接变为最大速度，而是随着输入或其他控制，速度逐渐增加，最大行走速度为角色可以达到的最大速度。\
-         * 同时也是跌倒时的最大横向速度。
+         * @description 获取角色的最大行走速度。角色移动时，并不是直接变为最大速度，而是随着输入或其他控制，速度逐渐增加，最大行走速度为角色可以达到的最大速度。同时也是跌倒时的最大横向速度。
          * @effect 调用端生效
          * @returns 角色最大行走速度浮点数。<br> 默认值为450
          * @example
@@ -2817,9 +2763,7 @@ declare namespace mw {
         set maxWalkSpeedCrouched(maxSpeed: number);
         /**
          * @groups 角色系统/角色
-         * @description 设置角色行走制动速率。\
-         * 行走制动速率是指角色在行走状态下的刹车减速度。当角色在行走状态下停止移动或改变方向时，刹车减速度会影响角色减速的速率。\
-         * 较高的值将导致角色更快地减速，而较低的值将导致角色减速得更慢。
+         * @description 设置角色行走制动速率。行走制动速率是指角色在行走状态下的刹车减速度。当角色在行走状态下停止移动或改变方向时，刹车减速度会影响角色减速的速率。较高的值将导致角色更快地减速，而较低的值将导致角色减速得更慢。
          * @effect 调用端生效
          * @returns 行走制动速率。 <br> 默认值为：2048
          * @example
@@ -2881,8 +2825,7 @@ declare namespace mw {
         set brakingDecelerationWalking(InBrakingDecelerationWalking: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大飞行速度\
-         * 角色在飞行状态下进行移动时，角色可达到的最大移动速度
+         * @description 获取角色最大飞行速度。角色在飞行状态下进行移动时，角色可达到的最大移动速度
          * @effect 调用端生效
          * @returns 最大飞行速度。 <br> 默认值为：800
          * @example
@@ -2964,8 +2907,7 @@ declare namespace mw {
         set maxFlySpeed(InMaxFlySpeed: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大可跨越高度\
-         * 角色跨越台阶时，台阶的最大高度，大于等于该高度角色均无法跨越。
+         * @description 获取角色最大可跨越高度。角色跨越台阶时，台阶的最大高度，大于等于该高度角色均无法跨越。
          * @effect 调用端生效
          * @returns 最大可跨越高度。 <br> 默认值为45。
          * @example
@@ -3036,8 +2978,7 @@ declare namespace mw {
         set maxStepHeight(InMaxStepHeight: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色可行走的最大角度\
-         * 角色站立在斜坡上时，斜坡的最大角度，超过该角度，角色将无法站立在这个斜坡上，角色会存在坠落的表现。使用范围在0-90之间。
+         * @description 获取角色可行走的最大角度。角色站立在斜坡上时，斜坡的最大角度，超过该角度，角色将无法站立在这个斜坡上，角色会存在坠落的表现。使用范围在0-90之间。
          * @effect 调用端生效
          * @returns 最大角度。<br> 默认值为45（角度值）
          * @example
@@ -3169,8 +3110,7 @@ declare namespace mw {
         set groundFriction(inGroundFriction: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取单独制动摩擦状态\
-         * 开启后使用行走制动速率进行计算摩擦效果，不开启则使用的是地面摩擦力进行计算摩擦效果。
+         * @description 获取单独制动摩擦状态。开启后使用行走制动速率进行计算摩擦效果，不开启则使用的是地面摩擦力进行计算摩擦效果。
          * @effect 调用端生效
          * @returns 是否开启制动摩擦，true 为开启，false 为关闭。<br> 默认值为 false。
          * @example
@@ -3223,8 +3163,7 @@ declare namespace mw {
         get groundFrictionEnabled(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 设置单独制动摩擦状态\
-         * 当角色处于运动状态，制动摩擦用于让角色去停止移动（当没有加速时）。
+         * @description 设置单独制动摩擦状态。当角色处于运动状态，制动摩擦用于让角色去停止移动（当没有加速时）。
          * @effect 调用端生效
          * @param used usage: 制动摩擦。
          * @networkStatus usage:双端
@@ -3306,8 +3245,7 @@ declare namespace mw {
         get brakingDecelerationFlying(): number;
         /**
          * @groups 角色系统/角色
-         * @description 设置角色飞行制动速率\
-         * 角色在空中飞行时减速且不施加加速度。
+         * @description 设置角色飞行制动速率。角色在空中飞行时减速且不施加加速度。
          * @effect 调用端生效
          * @param InBrakingDecelerationFlying usage:制动速率。 <br> range: (0,+∞)
          * @networkStatus usage:双端
@@ -3315,8 +3253,7 @@ declare namespace mw {
         set brakingDecelerationFlying(InBrakingDecelerationFlying: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大游泳速度\
-         * 角色在游泳状态下，可达到的最大移动速度。
+         * @description 获取角色最大游泳速度。角色在游泳状态下，可达到的最大移动速度。
          * @effect 调用端生效
          * @returns 最大游泳速度。<br> 默认值为300
          * @example
@@ -3420,8 +3357,7 @@ declare namespace mw {
         set maxSwimSpeed(InMaxSwimSpeed: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色游泳制动速率\
-         * 角色在游泳状态下移动时受到的减速度。
+         * @description 获取角色游泳制动速率。角色在游泳状态下移动时受到的减速度。
          * @effect 调用端生效
          * @returns 制动速率。<br> 默认值为2048。
          * @example
@@ -3622,8 +3558,7 @@ declare namespace mw {
         get canJumpOutOfWater(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 设置角色是否可以跳出水面到陆地上\
-         * 角色通过 swimUp 接口上浮到水面时，可打开此属性跳出水面。
+         * @description 设置角色是否可以跳出水面到陆地上。角色通过 swimUp 接口上浮到水面时，可打开此属性跳出水面。
          * @effect 调用端生效
          * @param value usage: true表示可以跳出水面，false表示不可以跳出水面，只会浮在水中。
          * @networkStatus usage:双端
@@ -3738,8 +3673,7 @@ declare namespace mw {
         set outOfWaterVerticalSpeed(value: number);
         /**
          * @groups 角色系统/角色
-         * @description 设置角色最大下落速度\
-         * 角色在下落状态下移动时，角色可达到的最大移动速度
+         * @description 设置角色最大下落速度。角色在下落状态下移动时，角色可达到的最大移动速度
          * @effect 调用端生效
          * @returns 下落速度。<br> 默认值为2048。
          * @example
@@ -3785,8 +3719,7 @@ declare namespace mw {
         set maxFallingSpeed(speed: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色下落制动速率\
-         * 角色在下落状态下移动时受到的减速度。
+         * @description 获取角色下落制动速率。角色在下落状态下移动时受到的减速度。
          * @effect 调用端生效
          * @returns 制动速率。<br> 默认值为500。
          * @example
@@ -3832,8 +3765,7 @@ declare namespace mw {
         set horizontalBrakingDecelerationFalling(InBrakingDecelerationFalling: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色在空中的灵活度\
-         * 角色在空中时, 控制水平方向移动的灵活度；范围:0~1, 0表示不能控制, 1表示能按地面最大移动速率完全控制
+         * @description 获取角色在空中的灵活度。角色在空中时, 控制水平方向移动的灵活度；范围:0~1, 0表示不能控制, 1表示能按地面最大移动速率完全控制
          * @effect 调用端生效
          * @returns 空中灵活度。<br> 默认值为0.2。
          * @example
@@ -3879,8 +3811,7 @@ declare namespace mw {
         set driftControl(InAirControl: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大加速度\
-         * 角色移动时，角色可以达到的最大加速度
+         * @description 获取角色最大加速度。角色移动时，角色可以达到的最大加速度
          * @effect 调用端生效
          * @returns 最大加速度。<br> 默认值为2048。
          * @example
@@ -3941,8 +3872,7 @@ declare namespace mw {
         set maxAcceleration(InMaxAcceleration: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大转向速度\
-         * 角色每秒旋转的最大速度。设置为负值时，转向速度被视为无限大，可以瞬间转向。
+         * @description 获取角色最大转向速度。角色每秒旋转的最大速度。设置为负值时，转向速度被视为无限大，可以瞬间转向。
          * @effect 调用端生效
          * @returns 最大转向速度。<br> 默认值为180度/秒。
          * @example
@@ -4003,8 +3933,7 @@ declare namespace mw {
         set rotateRate(InRotateRate: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取重力的倍率\
-         * 对于角色来说，重力会乘以该值。范围0~10, 过大和过小的值都会被限制。
+         * @description 获取重力的倍率。对于角色来说，重力会乘以该值。范围0~10, 过大和过小的值都会被限制。
          * @effect 调用端生效
          * @returns 倍率。<br> 默认值为1.0。
          * @example
@@ -4089,8 +4018,7 @@ declare namespace mw {
         get isJumping(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大跳跃高度\
-         * 角色跳跃时，从起跳位置到最高位置的距离。该值受重力影响。
+         * @description 获取角色最大跳跃高度。角色跳跃时，从起跳位置到最高位置的距离。该值受重力影响。
          * @effect 调用端生效
          * @returns 跳跃高度。<br> 默认值为50.0。
          * @example
@@ -4137,8 +4065,7 @@ declare namespace mw {
         set maxJumpHeight(InMaxJumpHeight: number);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色最大可跳跃次数\
-         * 角色能够执行跳跃的最大次数。
+         * @description 获取角色最大可跳跃次数。角色能够执行跳跃的最大次数。
          * @effect 调用端生效
          * @returns 跳跃次数。
          * @example
@@ -4235,10 +4162,9 @@ declare namespace mw {
         get isCrouching(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色运动面朝方向\
-         * 角色模型运动时朝向的方向：\
-         * 1. 始终朝向移动方向:主角模型面朝方向始终朝向移动方向。\
-         * 2. 始终朝向固定方向:主角模型面朝方向始终朝向固定方向。\
+         * @description 获取角色运动面朝方向。角色模型运动时朝向的方向：
+         * 1. 始终朝向移动方向:主角模型面朝方向始终朝向移动方向。
+         * 2. 始终朝向固定方向:主角模型面朝方向始终朝向固定方向。
          * 3. 始终朝向控制器方向:主角模型面朝方向始终朝向控制器
          * @effect 调用端生效
          * @returns 面朝方向枚举值。
@@ -4290,12 +4216,9 @@ declare namespace mw {
         set moveFacingDirection(InMoveFacingDirection: mw.MoveFacingDirection);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色运动正方向\
-         * 角色运动时依据的正方向。\
+         * @description 获取角色运动正方向。角色运动时依据的正方向。
          * 1. 控制器方向，就以控制器坐标系为轴;
-\
          * 2. 如果是定轴方向，就以世界坐标系中movementAxisDirection为轴;
-\
          * 3. 如果是视线方向，就以相机坐标系的为轴。在玩家相机不存在Z轴旋转时，控制器方向和视线方向效果一致，人形对象的控制器方向和视线方向效果永远一致。
          * @effect 调用端生效
          * @returns 运动正方向。
@@ -4347,8 +4270,7 @@ declare namespace mw {
         set movementDirection(InMovementDirection: mw.MovementDirection);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色碰撞形状（胶囊体型、球型、盒型）\
-         * 角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。球体取xyz最小值，胶囊体半径取xy最小值，z为半长，盒体xyz为半长宽高。
+         * @description 获取角色碰撞形状（胶囊体型、球型、盒型）。角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。球体取xyz最小值，胶囊体半径取xy最小值，z为半长，盒体xyz为半长宽高。
          * @effect 调用端生效
          * @returns 碰撞形状。
          * @example
@@ -4405,8 +4327,7 @@ declare namespace mw {
         set collisionShape(CustomShapeType: mw.CustomShapeType);
         /**
          * @groups 角色系统/角色
-         * @description 获取包裹角色碰撞体的形状大小\
-         * 角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。
+         * @description 获取包裹角色碰撞体的形状大小。角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。
          * @effect 调用端生效
          * @returns 形状大小。
          * @example
@@ -4463,8 +4384,7 @@ declare namespace mw {
         set collisionExtent(extent: mw.Vector);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色当前是否使用胶囊体修正\
-         * true代表应用角色编辑中的数据自动计算胶囊体大小。false 代表应用"capsuleHalfHeight"和"capsuleRadius"设置胶囊体的大小。
+         * @description 获取角色当前是否使用胶囊体修正。true代表应用角色编辑中的数据自动计算胶囊体大小。false 代表应用"capsuleHalfHeight"和"capsuleRadius"设置胶囊体的大小。
          * @effect 调用端生效
          * @returns 是否使用胶囊体修正。<br> 默认值为true。
          * @example
@@ -4636,8 +4556,7 @@ declare namespace mw {
         set collisionWithOtherCharacterEnabled(value: boolean);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色是否可以被其他玩家站立。\
-         * true表示其他角色可以站到玩家头上。false表示其他角色不可以站到玩家头上。
+         * @description 获取角色是否可以被其他玩家站立。。true表示其他角色可以站到玩家头上。false表示其他角色不可以站到玩家头上。
          * @effect 调用端生效
          * @returns 可否被站立。<br> 默认值为true。
          * @example
@@ -4727,8 +4646,7 @@ declare namespace mw {
         get overheadUI(): mw.UIWidget;
         /**
          * @groups 角色系统/角色
-         * @description 为角色加载一个动画资源\
-         * loadAnimation 会将给定的动画加载到角色上，返回一个可播放的Animation。
+         * @description 为角色加载一个动画资源。该接口会将给定的动画加载到角色上，返回一个可播放的Animation。
          * @effect 调用端生效
          * @param assetId usage:动画资源 ID（编辑器左侧栏动画，选中某一个动画资源右键可复制资源ID） <br> range:字符串长度根据具体的资源 ID 而定
          * @returns 动画对象
@@ -4892,8 +4810,7 @@ declare namespace mw {
         get currentStance(): mw.Stance;
         /**
          * @groups 角色系统/角色
-         * @description 为角色加载一个基础姿态\
-         * loadStance会将给定的基础姿态加载到角色上，返回一个可播放的基础姿态 stance 类型。
+         * @description 为角色加载一个基础姿态。loadStance会将给定的基础姿态加载到角色上，返回一个可播放的基础姿态 stance 类型。
          * @effect 调用端生效
          * @param assetId usage: 基础姿态资源ID  <br> range:字符串长度根据具体的资源 ID 而定
          * @returns 基础姿态对象
@@ -4992,9 +4909,8 @@ declare namespace mw {
         loadSubStance(assetId: string): mw.SubStance;
         /**
          * @groups 角色系统/角色
-         * @description 设置角色外观数据\
-         * 此函数无法更换基础角色。\
-         * setStyle 设置角色的外观，可以传入 CharacterDescription 对象 / 角色外观文件的数组 / 挂件数据文件的 guid。
+         * @description 设置角色外观数据。此函数无法更换基础角色。
+         * 该接口设置角色的外观，可以传入 CharacterDescription 对象 / 角色外观文件的数组 / 挂件数据文件的 guid。
          * @effect 调用端生效
          * @param data usage:外观数据
          * @example
@@ -5073,8 +4989,7 @@ declare namespace mw {
         setDescription(data: mw.CharacterDescription | Array<string> | string): void;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色外观数据\
-         * 该接口获取角色当前外观数据的拷贝
+         * @description 获取角色外观数据。该接口获取角色当前外观数据的拷贝
          * @effect 调用端生效
          * @returns 角色外观数据的拷贝
          * @example
@@ -5153,8 +5068,7 @@ declare namespace mw {
         getDescription(): mw.CharacterDescription;
         /**
          * @groups 角色系统/角色
-         * @description 清空角色外观数据\
-         * 清空角色外观数据，此时角色不具备任何视觉表现。
+         * @description 清空角色外观数据。清空角色外观数据，此时角色不具备任何视觉表现。
          * @effect 调用端生效
          * @param appearance usage:是否清空形象数据 default:true
          * @param slotAndDecoration usage:是否清空插槽和物品数据 default:true
@@ -5234,8 +5148,7 @@ declare namespace mw {
         clearDescription(appearance?: boolean, slotAndDecoration?: boolean): void;
         /**
          * @groups 角色系统/角色
-         * @description 同步角色外观数据\
-         * 角色在客户端设置外观后只会更换本地角色的外观，其他客户端角色外观未修改。通过该接口可以将本地外观广播至其他客户端。
+         * @description 同步角色外观数据。角色在客户端设置外观后只会更换本地角色的外观，其他客户端角色外观未修改。通过该接口可以将本地外观广播至其他客户端。
          * @effect 只在客户端调用生效
          * @param appearance usage:角色同步 default:true
          * @param slotAndDecoration usage:插槽和装饰同步 default:true
@@ -5315,8 +5228,7 @@ declare namespace mw {
         syncDescription(appearance?: boolean, slotAndDecoration?: boolean): void;
         /**
          * @groups 角色系统/角色
-         * @description 将物体附着到人物角色的指定插槽\
-         * 只适用于人形角色，附加规则是 KeepRelative，会保留物体之前的 localTransform
+         * @description 将物体附着到人物角色的指定插槽。只适用于人形角色，附加规则是 KeepRelative，会保留物体之前的 localTransform
          * @effect 调用端生效
          * @param gameObject usage: 被附着的物体
          * @param slotName usage: 插槽名字，被附着到指定的插槽名
@@ -5394,10 +5306,10 @@ declare namespace mw {
         attachToSlot(gameObject: mw.GameObject, slotName: mw.HumanoidSlotType | mw.NonHumanoidSlotType): void;
         /**
          * @groups 角色系统/角色
-         * @description 获取附着到人物角色指定插槽的所有物体\
-         * 只适用于人形角色，附加规则是 KeepRelative，会保留物体之前的 localTransform
+         * @description 获取附着到人物角色指定插槽的所有物体。只适用于人形角色，附加规则是 KeepRelative，会保留物体之前的 localTransform
          * @effect 调用端生效
          * @param slotName usage: 插槽名字，被附着到指定的插槽名
+         * @returns 符合条件的物体数组
          * @example
          * 使用示例:将使用到的资源:"27704,29052,118149,122953,26168"拖入优先加载栏。创建一个名为"Example_Character_AttachToSlot"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，按下键盘“1”，添加 / 移除角色的头顶光环。按下键盘“2”，给角色插槽装备模型。按下键盘“3”，将角色左手，右手，左背的插槽挂载的对象全部移除。按下键盘“4”，在角色头顶顶点0位置和头顶UI位置分别生成一个特效。代码如下：
          * ```
@@ -5549,8 +5461,7 @@ declare namespace mw {
         detachFromSlot(gameObject: mw.GameObject): void;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色插槽的世界坐标\
-         * 受角色外观中插槽偏移影响，仅对高级人型角色生效。
+         * @description 获取角色插槽的世界坐标。受角色外观中插槽偏移影响，仅对高级人型角色生效。
          * @effect 调用端生效
          * @param slotName usage:插槽名字
          * @returns 坐标位置
@@ -5628,8 +5539,7 @@ declare namespace mw {
         getSlotWorldPosition(slotName: mw.HumanoidSlotType): mw.Vector;
         /**
          * @groups 角色系统/角色
-         * @description 通过头部模型顶点 index 实时获取顶点位置\
-         * 目前顶点 index 只能从内部工程中查看
+         * @description 通过头部模型顶点 index 实时获取顶点位置。目前顶点 index 只能从内部工程中查看
          * @effect 调用端生效
          * @param index usage: 模型顶点 index <br> range: 根据骨架网格物体顶点的数据而定。 type:整数
          * @returns 顶点位置
@@ -5699,21 +5609,19 @@ declare namespace mw {
         /**
          * @description 通过头部模型MorphName实时获取中心顶点位置
          * @effect 调用端生效
-         * @param morphName usage: MorphName
+         * @param morphName usage: MorphName range: 无
          * @returns 顶点位置
-         * ```
          * @networkStatus usage:双端
          */
         getCenterVertexByMorphName(morphName: string): mw.Vector;
         /**
          * @groups 角色系统/角色
-         * @description 将角色插槽附着的对象全部分离\
-         * 如果不填入插槽则将全部插槽的附着对象分离。仅对高级人型角色生效。
+         * @description 将角色插槽附着的对象全部分离。如果不填入插槽则将全部插槽的附着对象分离。仅对高级人型角色生效。
          * @effect 调用端生效
          * @param param usage: (可选参数)插槽数据，以下两个为 param 的数据结构 slotName: mw.HumanoidSlotType;
  isDestroy: boolean <br> default:null
          * @param param.isDestroy usage: 是否销毁这些分离的插槽
-         * @param param.slotName usage：分离的插槽名称
+         * @param param.slotName usage:分离的插槽名称
          * @example
          * 使用示例:将使用到的资源:"27704,29052,118149,122953,26168"拖入优先加载栏。创建一个名为"Example_Character_DetachAllFromSlot"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，按下键盘“1”，添加 / 移除角色的头顶光环。按下键盘“2”，给角色插槽装备模型。按下键盘“3”，将角色左手，右手，左背的插槽挂载的对象全部移除。按下键盘“4”，在角色头顶顶点0位置和头顶UI位置分别生成一个特效。代码如下：
          * ```
@@ -5798,8 +5706,7 @@ declare namespace mw {
         getCollision(): mw.PropertyStatus | mw.CollisionStatus;
         /**
          * @groups 角色系统/角色
-         * @description 设置角色碰撞状态\
-         * 如果关闭碰撞, 角色将无法执行移动相关逻辑
+         * @description 设置角色碰撞状态。如果关闭碰撞, 角色将无法执行移动相关逻辑
          * @effect 调用端生效
          * @param status usage: 碰撞状态（CollisionStatus枚举中选取状态 或者从 PropertyStatus中选取枚举状态）
          * @param propagateToChildren usage: 是否传递给子节点 default: false
@@ -5825,17 +5732,14 @@ declare namespace mw {
         get complexMovementEnabled(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 是否启用复杂移动策略\
-         * 当开启复杂移动策略时，会根据当前的移动模式决定应该采取的移动逻辑。它会根据角色的输入、物理属性（如质量、摩擦力等）计算角色在当前帧应该移动的距离和方向。\
-         * 实现了角色的高级移动逻辑和物理模拟，确保角色在游戏世界中按照预期的方式进行移动，并与周围的环境进行交互。
+         * @description 是否启用复杂移动策略。当开启复杂移动策略时，会根据当前的移动模式决定应该采取的移动逻辑。它会根据角色的输入、物理属性（如质量、摩擦力等）计算角色在当前帧应该移动的距离和方向。实现了角色的高级移动逻辑和物理模拟，确保角色在游戏世界中按照预期的方式进行移动，并与周围的环境进行交互。
          * @param inValue usage: ture为开启，false为关闭。
          */
         set complexMovementEnabled(inValue: boolean);
         /**
          * @groups 角色系统/角色
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:039 reason:旧版接口 replacement:swimUpDown
-         * @description 使角色在水中上浮\
-         * 不能超过 MaxSwimSpeed (游泳最大速度)
+         * @description 使角色在水中上浮。不能超过 MaxSwimSpeed (游泳最大速度)
          * @effect 调用端生效
          * @param speed usage:上浮速度 <br> range: 不做限制。 type: 浮点数
          * @example
@@ -5932,8 +5836,7 @@ declare namespace mw {
         /**
          * @groups 角色系统/角色
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:039 reason:旧版接口 replacement:swimUpDown
-         * @description 使角色在水中下潜\
-         * 不能超过MaxSwimSpeed(游泳最大速度)
+         * @description 使角色在水中下潜。不能超过MaxSwimSpeed(游泳最大速度)
          * @effect 调用端生效
          * @param speed usage:下潜速度  <br> range: 不做限制。 type: 浮点数
          * @example
@@ -6077,9 +5980,7 @@ declare namespace mw {
         swimUpDown(speed: number): void;
         /**
          * @groups 角色系统/角色
-         * @description 沿着给定的方向向量添加移动输入\
-         * 不会自动应用移动，由开发者在 onUpdate 事件中执行此操作。\
-         * 效果受 movementDirection 属性影响。如果此时同时有用户输入效果是叠加而不是覆盖。
+         * @description 沿着给定的方向向量添加移动输入。不会自动应用移动，由开发者在 onUpdate 事件中执行此操作。效果受 movementDirection 属性影响。如果此时同时有用户输入效果是叠加而不是覆盖。
          * @effect 调用端生效
          * @param direction usage:输入的方向
          * @example
@@ -6126,8 +6027,7 @@ declare namespace mw {
         addMovement(direction: mw.Vector): void;
         /**
          * @groups 角色系统/角色
-         * @description 添加冲量，相同冲量值在布娃娃与正常状态时，力效果会有差异。\
-         * 质量固定为100，受质量影响的算法为: 冲量按位除以质量
+         * @description 添加冲量，相同冲量值在布娃娃与正常状态时，力效果会有差异。质量固定为100，受质量影响的算法为: 冲量按位除以质量
          * @effect 只在服务端调用生效
          * @param vector usage:应用的冲量
          * @param ignoreMass usage:是否忽略质量对冲量的影响 default:false
@@ -6258,6 +6158,13 @@ declare namespace mw {
          */
         setVisibility(status: mw.PropertyStatus | boolean, propagateToChildren?: boolean): void;
         /**
+         * @description 角色对象裁剪距离
+         * @description 最终的裁剪距离会和画质等级有关；修改此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能)
+         * @effect 只在客户端调用生效
+         * @param inCullDistance usage:裁剪距离 range: 建议 (2000, 4000)  type: 浮点数
+         */
+        setCullDistance(inCullDistance: number): void;
+        /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:027 reason:旧版接口 replacement:请查阅接口文档
          * @description 获取mesh相对角色坐标点的偏移
          * @groups 角色系统/角色
@@ -6299,8 +6206,7 @@ declare namespace mw {
         get meshRotationOffset(): mw.Rotation;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色是什么类型\
-         * 角色类型分为基础人形、高级人形和四足类型。
+         * @description 获取角色是什么类型。角色类型分为基础人形、高级人形和四足类型。
          * @example
          * 使用示例:将使用到的资源:"14521,35391,161245,75674,57731,63910,58694,58700,60384,58696,136183"拖入优先加载栏。创建一个名为"Example_Character"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，你将在场景中看到玩家控制角色玩家外观准备未完成播放摊手的效果。【角色外观描述完成】委托添加函数来播放换装完成特效，并保存角色初始默认外观数据。【角色外观描述变化】委托添加函数在控制台打印当前角色外观描述变化的具体子项和索引。按下键盘“1”，重置为默认角色外观。按下键盘“2”，修改角色外观。按下键盘“3”，同步角色外观。按下键盘“4”，清空角色外观。代码如下：
          * ```ts
@@ -6383,7 +6289,7 @@ declare namespace mw {
         static get nameVisible(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 设置当前客户端所有角色头顶显示名称是否可见
+         * @description 设置当前客户端所有角色头顶显示名称是否可见，当角色头顶显示名称可见时会受设置面板控制，不可见时不受设置面板控制。
          * @effect 只在客户端调用生效
          * @param isVisible usage: 为true时角色头顶显示名称可见，为false时角色头顶显示名称不可见。
          */
@@ -6559,10 +6465,18 @@ declare namespace mw {
         onDescriptionComplete: mw.MulticastDelegate<OnDescriptionComplete>;
         /**
          * @groups 角色系统/角色
+         * @description 外观主体（前发，后发，头，上衣，下衣，手套，鞋）加载失败委托
+         * @effect 调用端生效
+         * @precautions 当角色外观加载失败时执行绑定函数
+         * @networkStatus usage:双端
+         */
+        onLoadDescriptionFailed: mw.MulticastDelegate<OnLoadDescriptionFailed>;
+        /**
+         * @groups 角色系统/角色
          * @description 角色向上游泳到达游泳区域水面时，调用委托
          * @effect 调用端生效
          * @precautions 当角色对象向上游泳到达游泳区域水面时执行绑定函数
-         * @example
+         * @example 使用示例: 如下代码将实现出水面后自动跳跃的功能
          * ```ts
          * @Component
          * export default class Example_Character extends Script {
@@ -6901,6 +6815,8 @@ declare namespace mw {
         get movementEnabled(): boolean;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason:功能改变 replacement: setStateEnabled
+         * @description 设置角色是否启用移动能力
+         * @param value usage: true为启用，false为不启用 range: [true,false]
          */
         set movementEnabled(value: boolean);
         /**
@@ -6944,8 +6860,7 @@ declare namespace mw {
         get jumpEnabled(): boolean;
         /**
         * @groups 角色系统/角色
-        * @description 设置角色是否开启了跳跃能力\
-        * true表示角色可以跳跃，false表示角色不可跳跃。
+        * @description 设置角色是否开启了跳跃能力。true表示角色可以跳跃，false表示角色不可跳跃。
         * @effect 调用端生效
         * @param value usage: 跳跃能力。
         * @networkStatus usage:双端
@@ -7003,8 +6918,7 @@ declare namespace mw {
         get crouchEnabled(): boolean;
         /**
          * @groups 角色系统/角色
-         * @description 启用下蹲能力\
-         * true表示角色可以下蹲，false表示角色不可下蹲。
+         * @description 启用下蹲能力。true表示角色可以下蹲，false表示角色不可下蹲。
          * @effect 调用端生效
          * @param canCrouch usage: 下蹲能力。
          * @networkStatus usage:双端
@@ -7549,8 +7463,7 @@ declare namespace mw {
         lookAt(target: mw.Vector): void;
         /**
          * @groups 角色系统/角色
-         * @description 获取角色名称\
-         * 角色名称默认会显示在角色头顶上方。
+         * @description 获取角色名称。角色名称默认会显示在角色头顶上方。
          * @returns 角色名称字符串
          * @example
          * 使用示例: 创建一个名为"Example_Character"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，按下键盘“1”，场景中角色显示的名称发生了变化。代码如下：
@@ -7579,8 +7492,7 @@ declare namespace mw {
         get displayName(): string;
         /**
          * @groups 角色系统/角色
-         * @description 设置角色名称\
-         * 名字为随机初始化的一个英文名，可根据自己的喜好随意更换角色名字。
+         * @description 设置角色名称。名字为随机初始化的一个英文名，可根据自己的喜好随意更换角色名字。
          * @param inName usage: 想要更改的角色名称   range:设置合理的名称即可
          */
         set displayName(inName: string);
@@ -7934,27 +7846,27 @@ declare namespace mw {
         /** 二次元成年女性 */
         AnimeFemale = 2,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * Lowpoly成年男性 */
         LowpolyAdultMale = 3,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * Lowpoly成年女性 */
         LowpolyAdultFemale = 4,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 写实成年男性 */
         RealisticAdultMale = 5,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 写实成年女性 */
         RealisticAdultFemale = 6,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 美卡男性 */
         CartoonyMale = 7,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 美卡女性 */
         CartoonyFemale = 8
     }
@@ -7971,27 +7883,27 @@ declare namespace mw {
         /** 二次元成年女性 */
         AnimeFemale = 2,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          *  Lowpoly成年男性 */
         LowpolyAdultMale = 3,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          *  Lowpoly成年女性 */
         LowpolyAdultFemale = 4,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 写实成年男性 */
         RealisticAdultMale = 5,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 写实成年女性 */
         RealisticAdultFemale = 6,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 美卡男性 */
         CartoonyMale = 7,
         /**
-         * @deprecated info:该枚举已废弃，在该枚举被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:040 reason:下架此风格 replacement:用现存风格替换
          * 美卡女性 */
         CartoonyFemale = 8
     }
@@ -8130,25 +8042,62 @@ declare namespace mw {
         Climbing = 12
     }
     /**
-     * @author denghongbing
+     * @author guang.deng
      * @groups 角色系统
      * @description 动画曲线
      */
     enum AnimationBlendMode {
+        /** Linear interpolation */
         Linear = 0,
+        /** Cubic-in interpolation */
         Cubic = 1,
+        /** Hermite-Cubic */
         HermiteCubic = 2,
+        /** Sinusoidal interpolation */
         Sinusoidal = 3,
+        /** Quadratic in-out interpolation */
         QuadraticInOut = 4,
+        /** Cubic in-out interpolation */
         CubicInOut = 5,
+        /** Quartic in-out interpolation */
         QuarticInOut = 6,
+        /** Quintic in-out interpolation */
         QuinticInOut = 7,
+        /** Circular-in interpolation */
         CircularIn = 8,
+        /** Circular-out interpolation */
         CircularOut = 9,
+        /** Circular in-out interpolation */
         CircularInOut = 10,
+        /** Exponential-in interpolation */
         ExpIn = 11,
+        /** Exponential-Out interpolation */
         ExpOut = 12,
+        /** Exponential in-out interpolation */
         ExpInOut = 13
+    }
+    /**
+     * @author liaoyun.hao
+     * @groups 角色系统
+     * @description 动态挂件枚举
+     */
+    enum EDynamicAttachmentIndex {
+        /** 第一个插槽 */
+        First = 0,
+        /** 第二个插槽 */
+        Two = 1,
+        /** 第三个插槽 */
+        Three = 2,
+        /** 第四个插槽 */
+        Four = 3,
+        /** 第五个插槽 */
+        Five = 4,
+        /** 第六个插槽 */
+        Six = 5,
+        /** 第七个插槽 */
+        Seven = 6,
+        /** 第八个插槽 */
+        Eight = 7
     }
 }
 
@@ -8413,6 +8362,7 @@ declare namespace mw {
         readonly attachmentAssetId: string;
         readonly attachmentOffset?: Readonly<mw.Transform>;
         readonly attachmentGameObject?: mw.GameObject;
+        readonly bSync?: boolean;
     }> {
         /**
          * @description 向当前外观插槽中添加一个挂件
@@ -9589,6 +9539,11 @@ declare namespace mw {
                     readonly decoration?: mw.CharacterDecoration;
                 }>;
             };
+            /** @description: 动态挂件 */
+            readonly dynamicAttachments?: ArrayLike<{
+                /** @description: 动态挂件样式 */
+                style?: string;
+            }>;
         };
         /**
          * @groups 角色系统/角色
@@ -10589,6 +10544,101 @@ declare namespace mw {
         set fadeObstructionOpacity(value: number);
         /**
          * @groups 玩法/摄像机
+         * @description 获取横纵比约束
+         * @effect 只在客户端调用生效
+         * @precautions 设置FOV是约束X轴方向视角角度还是Y轴方向视角角度
+         * @example
+         * 使用示例: 创建一个名为"Example_Camera_AspectRatioAxisConstraint"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，代码如下：
+         * ```
+         * @Component
+         * export default class Example_Camera_AspectRatioAxisConstraint extends Script {
+         *     // 当脚本被实例后，会在第一帧更新前调用此函数
+         *     protected onStart(): void {
+         *         // 下列代码仅在客户端执行
+         *         if(SystemUtil.isClient()) {
+         *             // 获取当前客户端的玩家(自己)
+         *             let myPlayer = Player.localPlayer;
+         *             // 获取玩家角色
+         *             let myCharacter = myPlayer.character;
+         *             // 获取当前摄像机
+         *             let myCamera = Camera.currentCamera;
+         *             // 开启透明效果
+         *             myCamera.transparencyEnabled = true;
+         *             // 添加一个按键方法：按下键盘“1”，设置为保持X轴FOV
+         *             InputUtil.onKeyDown(Keys.One, () => {
+         *                 myCamera.aspectRatioAxisConstraint = AspectRatioAxisConstraint.maintainXFOV;
+         *             });
+         *             // 添加一个按键方法：按住键盘“2”，设置为保持Y轴FOV
+         *             InputUtil.onKeyPress(Keys.Two, () => {
+         *                 myCamera.aspectRatioAxisConstraint = AspectRatioAxisConstraint.maintainYFOV;
+         *             });
+         *         }
+         *     }
+         * }
+         * ```
+         * @networkStatus usage:客户端
+         */
+        get aspectRatioAxisConstraint(): mw.AspectRatioAxisConstraint;
+        /**
+         * @groups 玩法/摄像机
+         * @description 设置透明度
+         * @effect 只在客户端调用生效
+         * @precautions 范围0-1，值越大透明度越高，1是完全透明
+         * @networkStatus usage:客户端
+         */
+        set aspectRatioAxisConstraint(value: mw.AspectRatioAxisConstraint);
+        /**
+         * @groups 玩法/摄像机
+         * @description 获取是否每帧捕获
+         * @effect 只在客户端调用生效
+         * @precautions false时只会捕获一次，节省性能
+         * @example
+         * 使用示例: 创建一个名为"Example_Camera_FrameCaptured"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，在UI编辑器中添加图片，运行游戏，代码如下：
+         * ```
+         * @Component
+         * export default class Example_Camera_FrameCaptured extends Script {
+         *     // 当脚本被实例后，会在第一帧更新前调用此函数
+         *     private camera: Camera;
+         *     protected onStart(): void {
+         *         // 下列代码仅在客户端执行
+         *         if(SystemUtil.isClient()) {
+         *             // 获取当前客户端的玩家(自己)
+         *             let myPlayer = Player.localPlayer;
+         *             // 获取玩家角色
+         *             let myCharacter = myPlayer.character;
+         *             // 生成摄像机
+         *             GameObject.asyncSpawn("Camera").then((obj)=>{
+         *                this.camera = obj as Camera;
+         *             })
+         *             // 获取UI图片
+         *             const image = this.uiWidgetBase.findChildByPath('RootCanvas/Image') as Image
+         *             // 设置图片来源为生成的摄像机
+         *             image.currentCamera = this.camera;
+         *             // 添加一个按键方法：按下键盘“1”，开启每帧捕获
+         *             InputUtil.onKeyDown(Keys.One, () => {
+         *                 myCamera.isFrameCaptured = true;
+         *             });
+         *             // 添加一个按键方法：按住键盘“2”，关闭每帧捕获
+         *             InputUtil.onKeyPress(Keys.Two, () => {
+         *                 myCamera.isFrameCaptured = false;
+         *             });
+         *         }
+         *     }
+         * }
+         * ```
+         * @networkStatus usage:客户端
+         */
+        get isFrameCaptured(): boolean;
+        /**
+         * @groups 玩法/摄像机
+         * @description 设置是否每帧捕获
+         * @effect 只在客户端调用生效
+         * @precautions false时只会捕获一次，节省性能
+         * @networkStatus usage:客户端
+         */
+        set isFrameCaptured(value: boolean);
+        /**
+         * @groups 玩法/摄像机
          * @description 切换摄像机
          * @effect 只在客户端调用生效
          * @param newCamera usage: 想要切换的目标摄像机对象，当传入的参数类型为 Transform 时会使用该 Transform 的位置跟旋转生成一个 Camera 再进行切换。
@@ -11461,6 +11511,19 @@ declare namespace mw {
     /**
      * @author yunhao.liao
      * @groups 玩法/摄像机
+     * @description 横纵比约束
+     */
+    enum AspectRatioAxisConstraint {
+        /** 保持Y轴FOV */
+        MaintainYFOV = 0,
+        /** 保持X轴FOV */
+        MaintainXFOV = 1,
+        /** 保持主轴FOV */
+        MajorAxisFOV = 2
+    }
+    /**
+     * @author yunhao.liao
+     * @groups 玩法/摄像机
      * @description 抖动数据
      */
     interface CameraShakeInfo {
@@ -11653,14 +11716,16 @@ declare namespace mw {
          * @author qiming.jiang
          * @description 获取材质指定名称属性
          * @effect 调用端生效
-         * @param  属性名称 propertyName
+         * @param propertyName usage:属性名称 range: 无
+         * @returns 属性
          */
         getProperty(propertyName: string): any;
         /**
          * @author qiming.jiang
          * @description 设置材质属性
          * @effect 调用端生效
-         * @param 属性名称 propertyName  属性值 value
+         * @param propertyName usage:属性名称 range: 无
+         * @param value usage:属性值 range: 无
          */
         setProperty(propertyName: string, value: any): void;
     }
@@ -12292,8 +12357,6 @@ declare namespace mw {
          * @returns 指定轮胎绑定对象GUID
          */
         getWheelModel(wheelId: number): string;
-        /** ------------------------------------------ 内部属性/函数 ------------------------------------------ */
-        private vehicleLog;
         /**
          * @description 销毁
          * @groups 玩法/载具
@@ -12719,26 +12782,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 是否启用
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾开启关闭
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 开启雾效
-         *                 Fog.enabled = true;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 关闭雾效
-         *                 Fog.enabled = false;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get enabled(): boolean;
         /**
@@ -12774,27 +12817,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾密度
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾密度
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加雾密度
-         *                 Fog.density += 1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少雾密度
-         *                 Fog.density -= 1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get density(): number;
         /**
@@ -12830,27 +12852,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾衰弱高度
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾衰弱高度
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加雾衰弱高度
-         *                 Fog.heightFalloff += 1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少雾衰弱高度
-         *                 Fog.heightFalloff -= 1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get heightFalloff(): number;
         /**
@@ -12886,27 +12887,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾高度
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾高度
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加雾高度
-         *                 Fog.height += 1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少雾高度
-         *                 Fog.height -= 1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get height(): number;
         /**
@@ -12942,23 +12922,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾散射颜色
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1键控制雾散射颜色
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 设置雾散射颜色
-         *                 Fog.inscatteringColor = LinearColor.red;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get inscatteringColor(): mw.LinearColor;
         /**
@@ -12990,27 +12953,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾最大透明度
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾最大透明度
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加雾最大透明度
-         *                 Fog.maxOpacity += 0.1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少雾最大透明度
-         *                 Fog.maxOpacity -= 0.1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get maxOpacity(): number;
         /**
@@ -13046,27 +12988,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 雾起始距离
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制雾起始距离
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加雾起始距离
-         *                 Fog.startDistance += 0.1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少雾起始距离
-         *                 Fog.startDistance -= 0.1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get startDistance(): number;
         /**
@@ -13102,27 +13023,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 太阳光散射指数
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制太阳光散射指数
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加太阳光散射指数
-         *                 Fog.directionalInscatteringExponent += 0.1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少太阳光散射指数
-         *                 Fog.directionalInscatteringExponent -= 0.1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get directionalInscatteringExponent(): number;
         /**
@@ -13158,27 +13058,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 太阳光散射初始距离
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1和2键控制太阳光散射初始距离
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 增加太阳光散射初始距离
-         *                 Fog.directionalInscatteringStartDistance += 0.1;
-         *             });
-         *             InputUtil.onKeyDown(Keys.Two, () => {
-         *                 // 减少太阳光散射初始距离
-         *                 Fog.directionalInscatteringStartDistance -= 0.1;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get directionalInscatteringStartDistance(): number;
         /**
@@ -13214,23 +13093,6 @@ declare namespace mw {
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
          * @returns 太阳光散射颜色
-         * @example
-         * 使用示例: 可按如下操作控制编辑器后处理实时效果
-         * 创建一个名为"FogExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏，你将可以通过1键控制太阳光散射颜色
-         * ```
-         * @Component
-         * export default class FogExample extends Script {
-         *     // 当脚本被实例后，会在第一帧更新前调用此函数
-         *     protected async onStart(): Promise<void> {
-         *         if (SystemUtil.isClient()) {
-         *             InputUtil.onKeyDown(Keys.One, () => {
-         *                 // 太阳光散射颜色
-         *                 Fog.directionalInscatteringColor = LinearColor.red;
-         *             });
-         *         }
-         *     }
-         * }
-         * ```
          */
         static get directionalInscatteringColor(): mw.LinearColor;
         /**
@@ -13283,6 +13145,7 @@ declare namespace mw {
     }
 }
 
+/// <reference types="engine" />
 declare namespace mw {
     // @ts-ignore
     import * as UE from "ue";
@@ -13336,7 +13199,7 @@ declare namespace mw {
          */
         onTouchEnd(index: number): void;
         /**
-         * @description 添加需要被坐标轴忽略的object
+         * @description 添加需要被坐标轴忽略的object，被忽略的对象集合设为A , 正在移动的对象为B. B在移动中寻找吸附的对象将会把所有的集合A给忽略掉。B将永远不会吸附到集合A中的任何对象上。
          * @effect 只在客户端调用生效
          * @param actor usage:忽略的object
          */
@@ -13802,6 +13665,21 @@ declare namespace mw {
          */
         removeIgnoredObjectForBoundingBox(object: mw.GameObject): void;
         /**
+         * @description 获取gizmo选中对象的包围盒中心点
+         * @effect 只在客户端调用生效
+         */
+        getBoundingBoxCenter(): mw.Vector;
+        /**
+         * @description 获取gizmo选中对象的包围盒中心点
+         * @effect 只在客户端调用生效
+         */
+        setMoveGuidelines(enabled: boolean): void;
+        /**
+         * @description 获取gizmo选中对象的包围盒中心点
+         * @effect 只在客户端调用生效
+         */
+        setMovePlanes(enabled: boolean): void;
+        /**
          * @description 获取位移轴长度
          * @effect 只在客户端调用生效
          */
@@ -13958,6 +13836,7 @@ declare namespace mw {
     }
 }
 
+/// <reference types="engine" />
 declare namespace mw {
     // @ts-ignore
     import * as UE from "ue";
@@ -14106,14 +13985,62 @@ declare namespace mw {
     enum ParticleEmitterShape {
         /** 点*/
         /** 球 */
+        Sphere = 1,
         /** 圆柱 */
+        Cylinder = 2,
         /** 三棱柱 */
         /** 盒体 */
-        Box = 4
+        Box = 4,
+        /** 圆盘 */
+        Disc = 5
+    }
+    /**
+     * @author baoqiang.han
+     * @description 序列帧布局
+     * @groups 场景/特效
+     */
+    enum ParticleFlipbookLayout {
+        /** 关闭序列帧*/
+        FlipbookUnenabled = 0,
+        /** 2x2 */
+        X2 = 1,
+        /** 4x4 */
+        X4 = 2,
+        /** 6x6 */
+        X6 = 3,
+        /** 8x8 */
+        X8 = 4
+    }
+    /**
+     * @author baoqiang.han
+     * @description 序列帧播放模式
+     * @groups 场景/特效
+     */
+    enum ParticleFlipbookMode {
+        /** 顺序播放 */
+        Sequence = 0,
+        /** 来回播放 */
+        Pingpong = 1
+    }
+    /**
+     * @author baoqiang.han
+     * @description 发射内外朝向
+     * @groups 场景/特效
+     */
+    enum ParticleEmitterShapeInOut {
+        /** 关 */
+        Off = 0,
+        /** 向外发射 */
+        Outward = 1,
+        /** 向内发射 */
+        Inward = 2,
+        /** 内外发射 */
+        InAndOut = 3
     }
     /**
      * @author baoqiang.han
      * @description 特效标量值曲线节点
+     * @networkStatus usage:客户端
      * @groups 场景/特效
      */
     class numberSequencePoint {
@@ -14125,11 +14052,18 @@ declare namespace mw {
          * @description 标量值
          */
         value: number;
+        /**
+         * @description 构造函数
+         * @param inTimeKey usage:时间点 type: 浮点型 range:[0, 1]
+         * @param inValue usage:时间点 type: 浮点型 range: 无
+         * @param inTolerance usage:时间点 type: 浮点型 range: 无 default: 0
+         */
         constructor(inTimeKey: number, inValue: number, inTolerance?: number);
     }
     /**
      * @author baoqiang.han
      * @description 特效三维向量值曲线节点
+     * @networkStatus usage:客户端
      * @groups 场景/特效
      */
     class vectorSequencePoint {
@@ -14141,11 +14075,18 @@ declare namespace mw {
          * @description 向量值
          */
         value: mw.Vector;
+        /**
+         * @description 构造函数
+         * @param inTimeKey usage:时间点 type: 浮点型 range:[0, 1]
+         * @param inValue usage:时间点 type: 浮点型 range: 无
+         * @param inTolerance usage:时间点 type: 浮点型 range: 无 default: mw.Vector(0, 0, 0)
+         */
         constructor(inTimeKey: number, inValue: mw.Vector, inTolerance?: mw.Vector);
     }
     /**
      * @author baoqiang.han
      * @description 特效二维向量值曲线节点
+     * @networkStatus usage:客户端
      * @groups 场景/特效
      */
     class vector2DSequencePoint {
@@ -14157,11 +14098,18 @@ declare namespace mw {
          * @description 向量值
          */
         value: mw.Vector2;
+        /**
+         * @description 构造函数
+         * @param inTimeKey usage:时间点 type: 浮点型 range:[0, 1]
+         * @param inValue usage:时间点 type: 浮点型 range: 无
+         * @param inTolerance usage:时间点 type: 浮点型 range: 无 default: mw.Vector2(0, 0)
+         */
         constructor(inTimeKey: number, inValue: mw.Vector2, inTolerance?: mw.Vector2);
     }
     /**
      * @author baoqiang.han
      * @description 特效颜色值曲线节点
+     * @networkStatus usage:客户端
      * @groups 场景/特效
      */
     class colorSequencePoint {
@@ -14173,6 +14121,11 @@ declare namespace mw {
          * @description 颜色值
          */
         value: mw.LinearColor;
+        /**
+         * @description 构造函数
+         * @param inTimeKey usage:时间点 type: 浮点型 range:[0, 1]
+         * @param inValue usage:时间点 type: LinearColor range: 无
+         */
         constructor(inTimeKey: number, inValue: mw.LinearColor);
     }
     /**
@@ -14329,7 +14282,7 @@ declare namespace mw {
         /**
          * @description 获取生命周期内大小变化曲线
          * @effect 只在客户端调用生效
-         * @param size usage:特效标量值曲线节点数组
+         * @returns 大小变化曲线节点数组
          */
         get size(): Array<vector2DSequencePoint>;
         /**
@@ -14441,6 +14394,30 @@ declare namespace mw {
          */
         get maskRadius(): number;
         /**
+         * @description 形状
+         * @effect 只在客户端调用生效
+         * @param shape usage:特效的形状
+         */
+        set shape(shape: ParticleEmitterShape);
+        /**
+         * @description 形状
+         * @effect 只在客户端调用生效
+         * @returns 特效的形状
+         */
+        get shape(): ParticleEmitterShape;
+        /**
+         * @description 设置发射内外朝向
+         * @effect 只在客户端调用生效
+         * @param shape usage:特效的发射朝向
+         */
+        set shapeInOut(shape: ParticleEmitterShapeInOut);
+        /**
+         * @description 获取发射内外朝向
+         * @effect 只在客户端调用生效
+         * @returns 特效的发射朝向
+         */
+        get shapeInOut(): ParticleEmitterShapeInOut;
+        /**
          * @description 发射取向/对齐方式
          * @effect 只在客户端调用生效
          * @param value usage:特效的发射取向
@@ -14480,6 +14457,60 @@ declare namespace mw {
          * @returns 特效的形状样式
          */
         get shapeExtents(): mw.Vector;
+        /**
+         * @description 序列帧贴图的布局
+         * @effect 只在客户端调用生效
+         * @param Layout usage:序列帧贴图的布局
+         */
+        set flipbookLayout(Layout: ParticleFlipbookLayout);
+        /**
+         * @description 序列帧贴图的布局
+         * @effect 只在客户端调用生效
+         * @returns 序列帧贴图的布局
+         */
+        get flipbookLayout(): ParticleFlipbookLayout;
+        /**
+         * @description 序列帧布局可用单元数量
+         * @effect 只在客户端调用生效
+         * @param avalidNum usage:序列帧布局拆分后使用的拆分单元数量
+         */
+        set flipbookCellCount(avalidNum: number);
+        /**
+         * @description 序列帧布局可用单元数量
+         * @effect 只在客户端调用生效
+         * @returns 序列帧布局可用单元数量
+         */
+        get flipbookCellCount(): number;
+        /**
+         * @description 序列帧的播放模式
+         * @effect 只在客户端调用生效
+         * @param Layout usage:序列帧的播放模式
+         */
+        set flipbookMode(Layout: ParticleFlipbookMode);
+        /**
+         * @description 序列帧的播放模式
+         * @effect 只在客户端调用生效
+         * @returns 序列帧的播放模式
+         */
+        get flipbookMode(): ParticleFlipbookMode;
+        /**
+         * @description 序列帧动画循环次数
+         * @effect 只在客户端调用生效
+         * @param value usage:序列帧在生命周期内循环播放的次数
+         */
+        set flipbookCirculationTime(value: number);
+        /**
+         * @description 序列帧动画循环次数
+         * @effect 只在客户端调用生效
+         * @returns 序列帧动画循环次数
+         */
+        get flipbookCirculationTime(): number;
+        /**
+         * @description 发射固定数量粒子
+         * @effect 只在客户端调用生效
+         * @param emitCount usage:需要发射的粒子数量 range: 不做限制 type: 浮点数
+         */
+        emit(emitCount: number): void;
     }
 }
 
@@ -15478,9 +15509,10 @@ declare namespace mw {
         /**
          * @description 开始切换天空盒背景
          * @effect 只在客户端调用生效
-         * @param targetTexture usage:要切换到的天空球贴图
+         * @param targetTexture usage:要切换到的天空球贴图 range: 无
          * @param switchMode usage:过渡方式
-         * @param switchTime usage:过渡时间,单位：秒
+         * @param switchTime usage:过渡时间,单位：秒 range: 无 type: 浮点型
+         * @returns 是否在切换
          */
         static startSwitch(targetTexture: string, switchMode: SkyboxBackgroundSwitchMode, switchTime: number): boolean;
         /**
@@ -15802,132 +15834,132 @@ declare namespace mw {
         /**
          * @description 获取样条线点的数量
          * @effect 调用端生效
-         * @retuns 样条线点的数量
+         * @returns 样条线点的数量
          */
         get pointCount(): number;
         /**
          * @description 设置样条线点的数量
          * @effect 调用端生效
-         * @param value usage:样条线点的数量
+         * @param value usage:样条线点的数量 type: 整型 range: 无
          */
         set pointCount(value: number);
         /**
          * @description 获取是否自动闭合，起点和终点生成一条连接线
          * @effect 调用端生效
-         * @retuns 是否自动闭合
+         * @returns 是否自动闭合
          */
         get loop(): boolean;
         /**
          * @description 设置是否自动闭合，起点和终点生成一条连接线
          * @effect 调用端生效
-         * @param value usage:是否自动闭合
+         * @param value usage:是否自动闭合 range:[true,false]
          */
         set loop(value: boolean);
         /**
          * @description 获取样条线颜色
          * @effect 调用端生效
-         * @retuns 样条线颜色
+         * @returns 样条线颜色
          */
         get color(): mw.LinearColor;
         /**
          * @description 设置样条线颜色
          * @effect 调用端生效
-         * @param value usage:样条线颜色
+         * @param value usage:样条线颜色 range: 无
          */
         set color(value: mw.LinearColor);
         /**
          * @description 获取样条线的宽度
          * @effect 调用端生效
-         * @retuns 样条线宽度
+         * @returns 样条线宽度
          */
         get width(): number;
         /**
          * @description 设置样样条线的宽度
          * @effect 调用端生效
-         * @param value usage:样条线宽度
+         * @param value usage:样条线宽度 type: 浮点型 range: 无
          */
         set width(value: number);
         /**
          * @description 获取线条中指定索引处的顶点位置
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 顶点位置
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 顶点位置
          */
         getPointPosition(index: number): mw.Vector;
         /**
          * @description 设置线条中指定索引处的顶点位置
          * @effect 调用端生效
-         * @param index usage:索引
+         * @param index usage:索引 type: 整型 range: 无
          * @param position usage:顶点位置
          */
         setPointPosition(index: number, position: mw.Vector): void;
         /**
          * @description 获取线条中指定索引处的顶点旋转
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 顶点旋转
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 顶点旋转
          */
         getPointRotation(index: number): mw.Rotation;
         /**
          * @description 设置线条中指定索引处的顶点旋转
          * @effect 调用端生效
-         * @param index usage:索引
+         * @param index usage:索引 type: 整型 range: 无
          * @param rotation usage:顶点旋转
          */
         setPointRotation(index: number, rotation: mw.Rotation): void;
         /**
          * @description 获取线条中指定索引处的顶点X轴缩放
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 顶点X轴缩放
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 顶点X轴缩放
          */
         getPointXScale(index: number): number;
         /**
          * @description 设置线条中指定索引处的顶点X轴缩放
          * @effect 调用端生效
-         * @param index usage:索引
-         * @param xScale usage:顶点X轴缩放 default:1  range: [0.01, 1000] type: 浮点数
+         * @param index usage:索引 type: 整型 range: 无
+         * @param xScale usage:顶点X轴缩放 default:1  range: [0.01, 1000] type: 浮点型
          */
         setPointXScale(index: number, xScale: number): void;
         /**
          * @description 获取线条类型
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 顶点线条类型
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 顶点线条类型
          */
         getPointType(index: number): PointType;
         /**
          * @description 设置线条类型
          * @effect 调用端生效
-         * @param index usage:索引
+         * @param index usage:索引 type: 整型 range: 无
          * @param type usage:顶点线条类型
          */
         setPointType(index: number, type: PointType): void;
         /**
          * @description 获取到达切线
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 到达切线
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 到达切线
          */
         getArriveTangent(index: number): mw.Vector;
         /**
          * @description 设置到达切线
          * @effect 调用端生效
-         * @param index usage:索引
+         * @param index usage:索引 type: 整型 range: 无
          * @param tangent usage:到达切线
          */
         setArriveTangent(index: number, tangent: mw.Vector): void;
         /**
          * @description 获取离开切线
          * @effect 调用端生效
-         * @param index usage:索引
-         * @retuns 离开切线
+         * @param index usage:索引 type: 整型 range: 无
+         * @returns 离开切线
          */
         getLeaveTangent(index: number): mw.Vector;
         /**
          * @description 设置离开切线
          * @effect 调用端生效
-         * @param index usage:索引
+         * @param index usage:索引 type: 整型 range: 无
          * @param tangent usage:离开切线
          */
         setLeaveTangent(index: number, tangent: mw.Vector): void;
@@ -15940,11 +15972,11 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制点
          * @groups 玩法
-         * @effect 客户端生效
-         * @param position usage:位置 default:
-         * @param size usage:尺寸 default:
-         * @param color usage:颜色 default:
-         * @param duration usage:持续时间 default:
+         * @effect 只在客户端调用生效
+         * @param position usage:位置
+         * @param size usage:尺寸 range: 无 type: 浮点型
+         * @param color usage:颜色
+         * @param duration usage:持续时间 range: 无 type: 浮点型
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -15967,12 +15999,12 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制线段
          * @groups 玩法
-         * @effect 客户端生效
-         * @param start usage:开始位置 default:
-         * @param end usage:结束位置 default:
-         * @param color usage:颜色 default:
-         * @param duration usage:持续时间 default:
-         * @param thickness usage:厚度 default:
+         * @effect 只在客户端调用生效
+         * @param start usage:开始位置
+         * @param end usage:结束位置
+         * @param color usage:颜色
+         * @param duration usage:持续时间 range: 无 type: 浮点型
+         * @param thickness usage:厚度 range: 无 type: 浮点型
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -15995,16 +16027,16 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制圆圈
          * @groups 玩法
-         * @effect 客户端生效
-         * @param center usage:中心位置 default:
-         * @param radius usage:半径 default:
-         * @param segments usage:段数 default:
+         * @effect 只在客户端调用生效
+         * @param center usage:中心位置
+         * @param radius usage:半径 range: 无 type: 浮点型
+         * @param segments usage:段数 range: 无 type: 整形
          * @param color usage:颜色 default:
-         * @param duration usage:持续时间 default:
-         * @param thickness usage:厚度 default:
-         * @param yAxis usage:Y轴方向 default:
-         * @param zAxis usage:Z轴方向 default:
-         * @param drawAxis usage:是否绘制轴 default:
+         * @param duration usage:持续时间 range: 无 type: 浮点型
+         * @param thickness usage:厚度 range: 无 type: 浮点型
+         * @param yAxis usage:Y轴方向 default: undefined
+         * @param zAxis usage:Z轴方向 default: undefined
+         * @param drawAxis usage:是否绘制轴 range:[true,false] default: undefined
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -16027,13 +16059,13 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制球体
          * @groups 玩法
-         * @effect 客户端生效
-         * @param center usage:中心位置 default:
-         * @param radius usage:半径 default:
-         * @param segments usage:段数 default:
-         * @param color usage:颜色 default:
-         * @param duration usage:持续时间 default:
-         * @param thickness usage:厚度 default:
+         * @effect 只在客户端调用生效
+         * @param center usage:中心位置
+         * @param radius usage:半径 range: 无 type: 浮点型
+         * @param segments usage:段数 range: 无 type: 整形
+         * @param color usage:颜色
+         * @param duration usage:持续时间 range: 无 type: 浮点型
+         * @param thickness usage:厚度 range: 无 type: 浮点型
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -16056,13 +16088,14 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制胶囊体
          * @groups 玩法
-         * @effect 客户端生效
-         * @param center usage:中心位置 default:
-         * @param halfHeight usage:胶囊体半高 default:
-         * @param radius usage:胶囊体半径 default:
-         * @param color usage:颜色 default:
-         * @param duration usage:持续时间 default:
-         * @param thickness usage:厚度 default:
+         * @effect 只在客户端调用生效
+         * @param center usage:中心位置
+         * @param halfHeight usage:胶囊体半高 range: 无 type: 浮点型
+         * @param radius usage:胶囊体半径 range: 无 type: 浮点型
+         * @param rotation usage:胶囊体朝向
+         * @param color usage:颜色
+         * @param duration usage:持续时间 range: 无 type: 浮点型
+         * @param thickness usage:厚度 range: 无 type: 浮点型
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -16085,13 +16118,13 @@ declare namespace mw {
          * @author yunhao.liao
          * @description 绘制盒体
          * @groups 玩法
-         * @effect 客户端生效
-         * @param center usage:中心位置 default:
-         * @param extent usage:盒体范围 default:
-         * @param color usage:颜色 default:
-         * @param rotation usage:盒体朝向 default:
-         * @param duration usage:持续时间 default:
-         * @param thickness usage:厚度 default:
+         * @effect 只在客户端调用生效
+         * @param center usage:中心位置
+         * @param extent usage:盒体范围
+         * @param color usage:颜色
+         * @param rotation usage:盒体朝向
+         * @param duration usage:持续时间 range: 无 type: 浮点型
+         * @param thickness usage:厚度 range: 无 type: 浮点型
          * @example
          * 使用示例: 可按如下操作控制编辑器后处理实时效果。创建一个名为"SplineExample"的脚本，放置在对象栏中，打开脚本，输入以下代码，运行游戏
          * ```
@@ -17169,6 +17202,7 @@ declare namespace mw {
     }
 }
 
+/// <reference types="engine" />
 declare namespace mw {
     // @ts-ignore
     import * as UE from "ue";
@@ -17709,34 +17743,6 @@ declare namespace mw {
          * @param character usage: 该武器的装备对象
          * @param slotName usage: 要装备到角色上的插槽名称
          * @example
-         * 使用示例: 创建一个名为"HotWeaponSample"的脚本，放置在对象管理器中热武器对象子级，并选择一个武器资源放置在热武器子级（记得打开武器资源属性面板，设置碰撞为关闭碰撞）。打开脚本，输入以下代码保存，运行游戏，按E键，一个热武器装备到角色右手上，代码如下：
-         * ```ts
-         * @Component
-         * export default class HotWeaponSample extends Script {
-         *     protected onStart(): void {
-         *
-         *        const hotWeapon = this.gameObject as HotWeapon;
-         *
-         *        if (SystemUtil.isServer()) {
-         *            mw.Event.addClientListener("weaponEquipment", (player) => {
-         *                // 目前装备方法只能在服务端调用
-         *                hotWeapon.equip(player.character, HumanoidSlotType.RightHand);
-         *            });
-         *        }
-         *
-         *        if (SystemUtil.isClient()) {
-         *            // 装备
-         *            InputUtil.onKeyDown(Keys.One, () => {
-         *                mw.Event.dispatchToServer("weaponEquipment");
-         *            });
-         *            InputUtil.onKeyDown(Keys.Two, () => {
-         *                hotWeapon.unequip();
-         *            });
-         *        }
-         *     }
-         * }
-         * ```
-         * @example
          * 使用示例: 创建一个名为"HotWeaponSample"的脚本，打开脚本，输入以下代码保存，此示例为动态加载热武器与武器模型资源，不需要在右侧栏配置，运行游戏，一个热武器装备到角色右手上，代码如下：
          * ```ts
          * @Component
@@ -17833,7 +17839,7 @@ declare namespace mw {
          * @description 换弹
          * @groups 玩法/热武器
          * @effect 调用端自动广播
-         * @param bulletSize usage: 子弹数 <br> range:[1,  ClipSize]  type: 整数
+         * @param bulletSize usage: 子弹数 <br> range:[1,  ClipSize]  type: 整形
          * @example
          * 使用示例: 创建一个名为"HotWeaponSample9"的脚本，放置在对象管理器中热武器对象子级，打开脚本，输入以下代码保存，运行游戏，按下"2"键，热武器换弹，中止换弹，代码如下：
          * ```ts
@@ -21317,6 +21323,7 @@ declare namespace mw {
          *          }
          *      }
          *  }
+         * ```
          */
         spawnProjectileInstanceLaunch(childObjectId: string, startPosition?: mw.Vector, direction?: mw.Vector, isAllClientLaunch?: boolean): ProjectileInst;
         /**
@@ -22713,7 +22720,7 @@ declare namespace mw {
          * @groups 角色系统/角色管理
          * @description 异步获取玩家
          * @effect 调用端生效
-         * @param uniqueId usage:玩家ID  range: 依据玩家 ID 决定  type: 整数
+         * @param uniqueId usage:玩家ID  range: 依据玩家 ID 决定  type: 整形
          * @returns 玩家对象
          * @example
          * 使用示例:创建一个名为"Example_Player_GetPlayer"的脚本，放置在对象栏中，打开脚本，输入以下代码保存，运行游戏，你将通过getPlayer接口获取玩家,按下键盘“1”，使用getPlayer函数通过userId或playerId获取玩家对象并打印名字在控制台中看到getPlayer的效果。代码如下：
