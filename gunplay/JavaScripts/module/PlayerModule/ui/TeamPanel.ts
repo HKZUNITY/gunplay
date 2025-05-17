@@ -91,6 +91,7 @@ export class TeamItem extends TeamItem_Generate {
 	}
 
 	public showHideBtn(isShow: boolean): void {
+		return;
 		this.mButton1.visibility = isShow ? mw.SlateVisibility.Visible : mw.SlateVisibility.Collapsed;
 	}
 }

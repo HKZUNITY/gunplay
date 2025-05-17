@@ -9801,7 +9801,7 @@ class TeamItem extends TeamItem_Generate$1 {
         this.inputPanel.onSureAction.clear();
     }
     showHideBtn(isShow) {
-        this.mButton1.visibility = isShow ? mw.SlateVisibility.Visible : mw.SlateVisibility.Collapsed;
+        return;
     }
 }
 
