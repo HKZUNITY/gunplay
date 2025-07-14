@@ -17,6 +17,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author lei.zhao
      * @groups 拓展/背包
      * @networkStatus 双端
      * @description 背包数据结构
@@ -40,6 +41,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:双端
     * @description 背包实例
@@ -74,6 +76,7 @@ declare namespace mwext {
     class BagModule {
         /**
          * @groups 拓展/背包
+        * @author lei.zhao
         * @description 设置背包皮肤
         * @effect 只在客户端调用生效
         * @param bagSkin usage:背包UI皮肤,null为默认皮肤
@@ -106,6 +109,7 @@ declare namespace mwext {
         static skin(bagSkin: new (...args: any[]) => mwext.IBagSkin, itemSkin: new (...args: any[]) => mwext.IBagItemSkin, itemBgSkin: new (...args: any[]) => mw.UIScript, deleteDialogSkin: new (...args: any[]) => mwext.IItemDeleteSkin): typeof BagModule;
         /**
          * @groups 拓展/背包
+        * @author lei.zhao
         * @description 打开背包界面
         * @effect 调用端生效
         * @param player usage:背包的所有者 default:服务端填写，客户端不填写
@@ -114,6 +118,7 @@ declare namespace mwext {
         static open(player?: mw.Player): typeof BagModule;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 是否可以拖拽
          * @effect 只在客户端调用生效
          * @param isDragable usage:是否可以拖拽
@@ -121,6 +126,7 @@ declare namespace mwext {
         static set dragEnabled(isDragable: boolean);
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 是否可以拖拽
          * @effect 只在客户端调用生效
          * @returns 返回是否可以拖拽
@@ -128,6 +134,7 @@ declare namespace mwext {
         static get dragEnabled(): boolean;
         /**
          * @groups 拓展/背包
+        * @author lei.zhao
         * @description 物品名称是否可见
         * @effect 只在客户端调用生效
         * @param labelVisible usage:是否可见
@@ -135,6 +142,7 @@ declare namespace mwext {
         static set labelVisible(isLabelVisible: boolean);
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 物品名称是否可见
          * @effect 只在客户端调用生效
          * @returns 返回物品名称是否可见
@@ -142,6 +150,7 @@ declare namespace mwext {
         static get labelVisible(): boolean;
         /**
          * @groups 拓展/背包
+        * @author lei.zhao
         * @description 背包容量
         * @effect 只在客户端调用生效
         * @param capacity usage:背包容量 <br> range: [1,128]
@@ -149,6 +158,7 @@ declare namespace mwext {
         static set capacity(capacity: number);
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 背包容量
          * @effect 只在客户端调用生效
          * @returns 背包容量
@@ -156,6 +166,7 @@ declare namespace mwext {
         static get capacity(): number;
         /**
          * @groups 拓展/背包
+        * @author lei.zhao
         * @description 是否显示搜索框
         * @effect 只在客户端调用生效
         * @param isSearchEnabled usage:是否显示搜索框
@@ -163,6 +174,7 @@ declare namespace mwext {
         static set searchEnabled(isSearchEnabled: boolean);
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 是否显示搜索框
          * @effect 只在客户端调用生效
          * @returns 返回是否显示搜索框
@@ -170,6 +182,7 @@ declare namespace mwext {
         static get searchEnabled(): boolean;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 背包注册道具信息，道具需要在客户端注册
          * @effect 调用端生效
          * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
@@ -198,6 +211,7 @@ declare namespace mwext {
         static registerItem(itemId: number, icon: string, name: string, quality?: mwext.ItemQuality, stackCount?: number, customData?: any): typeof BagModule;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 获取背包指定道具数量
          * @effect 调用端生效
          * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
@@ -207,6 +221,7 @@ declare namespace mwext {
         static getItemCount(itemId: number, player?: mw.Player): number;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 添加道具
          * @effect 调用端生效
          * @param itemId usage:道具ID <br> range: 不做限制  type: 整形
@@ -231,6 +246,7 @@ declare namespace mwext {
         static addItem(itemId: number, count?: number, player?: mw.Player): Promise<number>;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 删除道具
          * @effect 调用端生效
          * @param itemId usage:道具ID <br> range: 根据道具ID确定  type: 整形
@@ -241,6 +257,7 @@ declare namespace mwext {
         static removeItem(itemId: number, count?: number, player?: mw.Player): typeof BagModule;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 关闭背包界面
          * @effect 调用端生效
          * @param player usage:服务端调用时需要传入player default:服务端必传入
@@ -249,6 +266,7 @@ declare namespace mwext {
         static close(player?: mw.Player): typeof BagModule;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 增加道具点击回调
          * @effect 只在客户端调用生效
          * @param clickCallback usage:点击回调
@@ -258,6 +276,7 @@ declare namespace mwext {
         static addItemClickListener(clickCallback: (cfg: mwext.ItemConfig) => void, thisObject: any): typeof BagModule;
         /**
          * @groups 拓展/背包
+         * @author lei.zhao
          * @description 移除道具点击回调
          * @effect 只在客户端调用生效
          * @param clickCallback usage:点击回调
@@ -289,6 +308,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus 双端
     * @description 道具配置
@@ -319,6 +339,7 @@ declare namespace mwext {
  */
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus 双端
     * @description 道具品质
@@ -361,6 +382,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:客户端
     * @description 背包道具父类,继承这个类来实现自己的道具格子界面，使用BagModule.skin来指定皮肤
@@ -382,6 +404,7 @@ declare namespace mwext {
          */
         abstract get nameText(): mw.TextBlock;
         /**
+         * @author lei.zhao
          * @description 界面创建时被调用
          * @effect 只在客户端调用生效
          */
@@ -391,6 +414,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author lei.zhao
      * @groups 拓展/背包
      * @networkStatus usage:客户端
      * @description 背包界面父类,继承这个类来实现自己的背包界面，使用BagModule.skin来指定皮肤
@@ -436,6 +460,7 @@ declare namespace mwext {
  */
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:客户端
     * @description 背包删除界面父类,继承这个类来实现自己的道具删除界面，使用BagModule.skin来指定皮肤
@@ -494,6 +519,7 @@ declare namespace mwext {
  */
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:客户端
     * @description 格子皮肤
@@ -530,6 +556,7 @@ declare namespace mwext {
  */
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:客户端
     * @description 背包皮肤
@@ -572,6 +599,7 @@ declare namespace mwext {
  */
 declare namespace mwext {
     /**
+    * @author lei.zhao
     * @groups 拓展/背包
     * @networkStatus usage:客户端
     * @description 道具删除皮肤
@@ -616,6 +644,7 @@ declare namespace mwext {
 declare namespace mwext {
     /**
      * @instance
+     * @author shilong.wang
      * @groups 拓展/排行榜
      * @description 编辑器内置排行榜
      * @networkStatus usage: 双端
@@ -717,6 +746,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+    * @author shilong.wang
     * @groups 拓展/排行榜
     * @description 排行榜玩家数据类型
     * @networkStatus usage: 双端
@@ -730,16 +760,19 @@ declare namespace mwext {
         };
     };
     /**
+    * @author shilong.wang
     * @description 排行榜模块-服务端
     * @groups 拓展/排行榜
     */
     type LeaderboardModuleTypeS = LeaderboardModuleBaseS<any>;
     /**
+    * @author shilong.wang
     * @description 排行榜模块-客户端
     * @groups 拓展/排行榜
     */
     type LeaderboardModuleTypeC = LeaderboardModuleBaseC<any>;
     /**
+    * @author shilong.wang
     * @groups 拓展/排行榜
     * @description 排行榜模块-客户端
     * @networkStatus usage: 客户端
@@ -773,6 +806,7 @@ declare namespace mwext {
         protected hidePanel(): void;
     }
     /**
+    * @author shilong.wang
     * @groups 拓展/排行榜
     * @description 排行榜模块-服务端
     * @networkStatus usage: 服务端
@@ -817,6 +851,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 拓展/排行榜
      * @description 排行榜面板一条数据的UI结构接口
      * @networkStatus usage: 客户端
@@ -828,6 +863,7 @@ declare namespace mwext {
         mContent: mw.Canvas;
     }
     /**
+     * @author shilong.wang
      * @groups 拓展/排行榜
      * @description 排行榜面板的UI结构接口
      * @networkStatus usage: 客户端
@@ -860,6 +896,7 @@ declare namespace mwext {
         mClose_btn: mw.StaleButton;
     }
     /**
+     * @author shilong.wang
      * @groups 拓展/排行榜
      * @description 排行榜主界面中的子UI，用来显示一条记录
      * @networkStatus usage: 客户端
@@ -906,6 +943,7 @@ declare namespace mwext {
         protected get playerId(): number;
     }
     /**
+    * @author shilong.wang
     * @groups 拓展/排行榜
     * @description 排行榜主界面
     * @networkStatus usage: 客户端
@@ -1002,6 +1040,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/数据拓展
      * @description 数据控制类的基类
      * @description 1. 为什么需要数据控制中心？
@@ -1138,6 +1177,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/数据拓展
      * @description 客户端数据中心，里面存放着当前玩家的数据
      * @networkStatus usage: 客户端
@@ -1226,6 +1266,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/数据拓展
      * @description 服务端数据中心，管理所有玩家的数据。
      * @networkStatus usage: 服务端
@@ -1386,6 +1427,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/C&S拓展
      * @description 客户端模块的基类
      * @description 所有的客户端模块都必须继承这个类，才能被 ModuleService 管理。
@@ -1541,6 +1583,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/C&S拓展
      * @description 服务端模块的基类
      * @description 所有的服务端模块都必须继承这个类，才能被 ModuleService 管理。
@@ -1726,6 +1769,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 基类/C&S拓展
      * @description 服务端客户端及数据模块管理
      * @description 当你真正开始开发一个联机游戏时发现，客户端服务端总是需要你去考虑的。多人游戏的实现并不简单，如果你想在游戏中加入多人游戏，应该尽早在设计和开发中考虑妥当。
@@ -2067,6 +2111,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @description 面板类的基类，可用于控制一个界面
      * @groups 拓展/排行榜
      * @networkStatus usage: 客户端
@@ -2111,6 +2156,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @groups 拓展/排行榜
      * @description 界面类的基类
      * @networkStatus usage: 客户端
@@ -2179,6 +2225,7 @@ declare namespace mwext {
     namespace Decorator {
         /**
          * @description 类装饰器-自动执行某个方法
+         * @author shilong.wang
          * @groups 拓展
          * @precautions 调用发生在所有游戏脚本的生命周期之前
          * @effect 调用端生效
@@ -2187,6 +2234,7 @@ declare namespace mwext {
          */
         function autoExecute(fnName: string): (target?: unknown) => void;
         /**
+         * @author shilong.wang
          * @groups 拓展
          * @description 属性注解-持久化存储属性
          * @precautions 用于设置数据类(继承Subdata的类)哪些属性是要永久存储的
@@ -2196,6 +2244,7 @@ declare namespace mwext {
          */
         function persistence(name?: string): (target: mwext.Subdata, propertyKey: string) => void;
         /**
+         * @author shilong.wang
          * @groups 拓展
          * @description 方法注解-被注解的net方法不需要回复客户端
          * @effect 只在服务端调用生效
@@ -2207,6 +2256,7 @@ declare namespace mwext {
 
 declare namespace mwext {
     /**
+     * @author shilong.wang
      * @description GameObject对象池资源来源类型，不同类型的资源创建方式不一样，需要正确选择
      * @groups 基类/对象池
      */
@@ -2219,6 +2269,7 @@ declare namespace mwext {
         Prefab = 2
     }
     /**
+     * @author shilong.wang
      * @groups 基类/对象池
      * @description 用于缓存GameObject的对象池，适用资源库资源、场景对象、预制体的复用缓存
      * @networkStatus usage: 双端
@@ -2446,6 +2497,7 @@ declare namespace mwext {
         static clearAll(): void;
     }
     /**
+     * @author shilong.wang
      * @groups 基类/对象池
      * @description 通用对象池，可用于各种类型对象的复用
      * @networkStatus usage: 双端

@@ -181,9 +181,9 @@ declare namespace mw {
      */
     class Model extends mw.GameObject {
         /**
-         * @description 进入Model事件
+         * @description 进入Model事件,HitResult是个临时对象，不要持有他得引用
          */
-        get onTouch(): mw.MulticastGameObjectDelegate;
+        get onTouch(): mw.MulticastDelegate<(go: mw.GameObject, hitResult: mw.HitResult) => unknown>;
         /**
          * @description 离开Model事件
          */
@@ -627,8 +627,8 @@ declare namespace mw {
          */
         createMaterialInstance(Index: number): void;
         /**
-         * @description 与玩家之间超出此距离的对象将被剪裁
-         * @description 最终的裁剪距离会和画质等级有关；修改此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能)
+         * @description 与摄像机之间超出此距离的对象将被剪裁
+         * @description 此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能,最终的裁剪距离会和画质等级有关),属性>0 时使用绝对值裁剪距离；
          * @effect 只在客户端调用生效
          * @precautions 最终的裁剪距离会和画质等级有关
          * @param inCullDistance usage:裁剪距离 range: 建议 (2000, 4000)  type: 浮点数
@@ -2483,6 +2483,16 @@ declare namespace mw {
          * @groups 角色系统/角色
          */
         onSweepCollision: mw.MulticastDelegate<(velocities: Array<mw.Vector>, hitActors: Array<mw.GameObject>, impactPoints: Array<mw.Vector>, impactNormals: Array<mw.Vector>) => void>;
+        /**
+         * @description 角色开启强制位移后，输出移动中碰撞检测结果中新增的接触物体。
+         * @groups 角色系统/角色
+         */
+        onTouch: mw.MulticastDelegate<(velocities: Array<mw.Vector>, hitActors: Array<mw.GameObject>, impactPoints: Array<mw.Vector>, impactNormals: Array<mw.Vector>) => void>;
+        /**
+         * @description 角色开启强制位移后，输出移动中碰撞检测结果中已停止的接触物体。
+         * @groups 角色系统/角色
+         */
+        onTouchEnd: mw.MulticastDelegate<(velocities: Array<mw.Vector>, hitActors: Array<mw.GameObject>, impactPoints: Array<mw.Vector>, impactNormals: Array<mw.Vector>) => void>;
         /**
          * @groups 角色系统/角色
          * @description 角色外观配置。返回值为 CharacterDescription 类。调用 description 变量可以修改角色的外观，可更改角色的外观参数详见 CharacterDescription 类。
@@ -4444,7 +4454,11 @@ declare namespace mw {
         set movementDirection(InMovementDirection: mw.MovementDirection);
         /**
          * @groups 角色系统/角色
-         * @description 获取角色碰撞形状（胶囊体型、球型、盒型）。角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。球体取xyz最小值，胶囊体半径取xy最小值，z为半长，盒体xyz为半长宽高。
+         * @description 获取角色碰撞形状（胶囊体型、球型、盒型）。角色碰撞盒形状的大小，决定角色与场景对象交互时检测碰撞范围的大小。
+         * 垂直胶囊体：XY取最小为胶囊体直径，Z为胶囊体高度
+         * 水平胶囊体：XY取最大为胶囊体长度，Z为胶囊体直径
+         * 盒体：XYZ为盒体长宽高
+         * 球体：XYZ取最大为球体直径
          * @effect 调用端生效
          * @returns 碰撞形状。
          * @example
@@ -6332,8 +6346,8 @@ declare namespace mw {
          */
         setVisibility(status: mw.PropertyStatus | boolean, propagateToChildren?: boolean): void;
         /**
-         * @description 角色对象裁剪距离
-         * @description 最终的裁剪距离会和画质等级有关；修改此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能)
+         * @description 与摄像机的距离超过此距离会被裁剪
+         * @description 此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能,最终的裁剪距离会和画质等级有关),属性>0 时使用绝对值裁剪距离；
          * @effect 只在客户端调用生效
          * @param inCullDistance usage:裁剪距离 range: 建议 (2000, 4000)  type: 浮点数
          */
@@ -8172,7 +8186,9 @@ declare namespace mw {
         /** 下半身插槽 */
         Lower = 2,
         /** 全身插槽 */
-        FullyBody = 3
+        FullyBody = 3,
+        /** 第一人称插槽 */
+        FirstPerson = 4
     }
     /**
      * @author jiamin.guio
@@ -9344,6 +9360,8 @@ declare namespace mw {
                     }>;
                     /** @description: 主贴图 */
                     readonly baseColorTexture?: ArrayLike<string>;
+                    /** @description: 是否为套装 */
+                    readonly bIsSuit?: boolean;
                 };
                 /** @description: 下装 */
                 readonly lowerCloth?: {
@@ -9383,6 +9401,8 @@ declare namespace mw {
                     }>;
                     /** @description: 主贴图 */
                     readonly baseColorTexture?: ArrayLike<string>;
+                    /** @description: 是否为套装 */
+                    readonly bIsSuit?: boolean;
                 };
                 /** @description: 手套 */
                 readonly gloves?: {
@@ -12256,7 +12276,8 @@ declare namespace mw {
      */
     class AdvancedVehicle extends mw.GameObject {
         /**
-          * @description 与玩家之间超出此距离的对象将被剪裁，最终的裁剪距离会和画质等级有关；修改此属性≤0时，裁剪距离会根据对象尺寸自动调整(自动启用CullDistanceVolume功能)
+          * @description 与摄像机之间超出此距离的对象将被剪裁，此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能,最终的裁剪距离会和画质等级有关),属性>0 时
+          *使用绝对值裁剪距离；
           * @groups 玩法/载具
           * @effect 调用端生效
           * @precautions 最终的裁剪距离会和画质等级有关
@@ -12880,7 +12901,8 @@ declare namespace mw {
          */
         get timeLength(): number;
         /**
-          * @description 与玩家之间超出此距离的对象将被剪裁，最终的裁剪距离会和画质等级有关；修改此属性≤0时，裁剪距离会根据对象尺寸自动调整(自动启用CullDistanceVolume功能)
+          * @description 与摄像机之间超出此距离的对象将被剪裁，此属性 ≤0 时，裁剪距离会根据对象尺寸自动调整 (自动启用 CullDistanceVolume 功能,最终的裁剪距离会和画质等级有关),属性>0 时使用
+          *绝对值裁剪距离；
           * @groups 场景/特效
           * @effect 只在客户端调用生效
           * @precautions 最终的裁剪距离会和画质等级有关
@@ -20608,6 +20630,11 @@ declare namespace mw {
          * @description 摆动：延迟启动回调
          */
         onSwingEnable: mw.MulticastDelegate<() => void>;
+        /**
+         * @groups 玩法/物理
+         * @description 运动停止时间回调
+         */
+        onSportStop: mw.MulticastDelegate<() => void>;
         /**
          * @groups 玩法/物理
          * @description 获取运动模式

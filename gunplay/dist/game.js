@@ -435,7 +435,7 @@ class Utils {
         }
     }
     static getRoleName() {
-        return this.roleNames[this.getRandomInteger(0, this.roleNames.length - 1)];
+        return "电脑人";
     }
 }
 

@@ -649,7 +649,7 @@ declare namespace mw {
          * @param gameObjectInfo usage:克隆物体的信息  <br> default: null
          * @returns 克隆的对象
          */
-        clone(gameObjectInfo?: mw.GameObjectInfo): this;
+        clone(gameObjectInfo?: mw.CloneInfo): this;
         /**
          * @description 获得当前物体下的指定脚本
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:027 reason:脚本API优化 replacement:getComponent
@@ -820,6 +820,9 @@ declare namespace mw {
          */
         onCustomPropertyChange: Readonly<mw.MulticastDelegate<(path: string, value: unknown, oldValue: unknown) => void>>;
     }
+}
+
+declare namespace mw {
 }
 
 declare namespace mw {

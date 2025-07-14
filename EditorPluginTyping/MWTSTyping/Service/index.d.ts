@@ -47,6 +47,52 @@ declare namespace mw {
      */
     type MGSResponse = (isSuccess: boolean, jsonData: string) => void;
     /**
+     * @author jun.zhang
+     * @description GameService的错误回调编码枚举
+     * @groups 基础类型
+     */
+    enum AvatarCheckStatusCode {
+        /** 正常 */
+        WellDone = 0,
+        /** 参数错误 */
+        InvalidParams = 1,
+        /** http 请求错误：可能是网络问题 */
+        HttpRequestFailure = 2,
+        /** 所属对象已失效：可能在完成任务之前角色已失效 */
+        OwnerCharacterDestroyed = 3,
+        /** 平台形象下载失败：网络连接成功，但是响应中没有有效的数据，可能是账号权限或者服务器权限设置，也可能数据结构不对 */
+        AvatarDescDownloadFailure = 4,
+        /** 资源上传版本高于当前引擎版本：需要更新引擎了 */
+        AssetEngineVersionHigher = 5,
+        /** 资源不可访问：可能没有购买所以没有权限 */
+        AssetNoAccess = 6,
+        /** 资源下载失败：是不是访问了无效的资源 GUID，或者服务器内部错误 */
+        AssetDownloadFailure = 7,
+        /** 资源错误使用：可能衣服部位混用了 */
+        AssetMisuse = 8,
+        /** 换装任务失败 */
+        AvatarTaskFailure = 9
+    }
+    /**
+     * @author jun.zhang
+     * @description GameService的回调参数类型
+     * @groups 基础类型
+     */
+    interface AvatarBaseError {
+        /** @description 错误编码 */
+        code: AvatarCheckStatusCode;
+        /** @description 错误描述 */
+        message: string;
+    }
+    /**
+     * @author jun.zhang
+     * @description GameService的回调参数类型
+     * @groups 基础类型
+     */
+    type AvatarCheckResponse = (isSuccess: boolean, errors: Array<AvatarBaseError | (AvatarBaseError & {
+        assetId: string;
+    })>) => void;
+    /**
      * @author huipeng.jia, guang.deng
      * @groups 服务/社交
      * @description 用户账号信息管理服务
@@ -168,7 +214,7 @@ declare namespace mw {
          * @param index usage:角色资源位 default:0（主角资源位） range: [0,5] type: 整形
          * @effect 只在客户端调用生效
          */
-        static downloadData(character: mw.Character, callback?: BoolResponse | VoidResponse, index?: number): void;
+        static downloadData(character: mw.Character, callback?: AvatarCheckResponse, index?: number): void;
         /**
          * @description 如果本地有缓存，则优先使用缓存，否则下载角色形象并应用到当前角色身上,
          * @param character usage:要应用换装数据的角色
@@ -194,12 +240,29 @@ declare namespace mw {
         static createSharedId(character: mw.Character, callback: StringResponse): void;
         /**
          * @description 应用分享Id的角色数据
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:045 reason: api 迭代支持更多检查选项，replacement:
          * @param character usage:分享换装数据的角色
          * @param id usage:分享Id range: 无
          * @param callback usage: 回调参数，true:应用成功；false:应用失败
          * @effect 只在客户端调用生效
          */
         static applySharedId(character: mw.Character, id: string, callback: BoolResponse): void;
+        /**
+         * @description 应用分享Id的角色数据
+         * @param character usage:分享换装数据的角色
+         * @param id usage:分享Id range: 无
+         * @param isSkipPreCheck usage:是否跳过检查 range: 无
+         * @param callback usage: 回调参数，true:应用成功；false:应用失败
+         * @effect 只在客户端调用生效
+         */
+        static applySharedId(character: mw.Character, id: string, isSkipPreCheck: boolean, callback: AvatarCheckResponse): void;
+        /**
+         * @description 检查分享Id的角色数据
+         * @param id usage:分享Id range: 无
+         * @param callback usage: 回调参数，true:应用成功；false:应用失败
+         * @effect 只在客户端调用生效
+         */
+        static checkSharedId(id: string, callback: AvatarCheckResponse): void;
         /**
          * @description 获取用户存储在服务器上的角色形象数据
          * @param userId usage:用户Id range: 无
@@ -263,7 +326,7 @@ declare namespace mw {
          * }
          * ```
          */
-        static setUserData(character: mw.Character, dataString: string, callback?: BoolResponse): void;
+        static setUserData(character: mw.Character, dataString: string, callback?: AvatarCheckResponse): void;
         /**
          * @description 发起添加好友请求
          * @effect 只在客户端调用生效

@@ -382,6 +382,14 @@ declare namespace UGC {
     function markActorDirty(target: mw.Base): void;
     /**
      * @author jie.wu
+     * @description 当任意需要序列化的属性改变时需要把当前actor标记为脏以保存时能收集到数据
+     * @groups SCRIPTING
+     * @effect 只在客户端调用生效
+     * @param target usage:标记的对象
+     */
+    function markActorDirtyEditorOrRuntime(target: mw.Base, bGetRuntime?: boolean): void;
+    /**
+     * @author jie.wu
      * @description 计算actor的等比缩放
      * @groups SCRIPTING
      * @effect 只在客户端调用生效
@@ -629,6 +637,7 @@ declare namespace UGC {
      * @param name usage:名字
      * @param comment usage:资源描述
      * @param imagePath usage:512*512的透明png缩略图
+     * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
      * @returns {Promise<UploadPrefabResult>} 上传预制体返回结果
      * @example
      * 使用示例:调用方法 新建一个脚本 NewScript
@@ -645,7 +654,7 @@ declare namespace UGC {
      * }
      * ```
      */
-    function uploadPrefab(assetId: string, name: string, imagePath: string, comment?: string): Promise<UploadPrefabResult>;
+    function uploadPrefab(assetId: string, name: string, imagePath: string, comment?: string, isReplaceGameThumb?: boolean): Promise<UploadPrefabResult>;
     /**
     * @author tangbin.zhang
     * @groups 基础类型
@@ -656,6 +665,7 @@ declare namespace UGC {
     * @param name usage:名字
     * @param comment usage:资源描述
     * @param imagePath usage:512*512的透明png缩略图
+    * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
     * @returns {Promise<UploadPrefabResult>} 上传预制体返回结果
     * @example
     * 使用示例:调用方法 新建一个脚本 NewScript
@@ -672,7 +682,7 @@ declare namespace UGC {
     * }
     * ```
     */
-    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string): Promise<UploadPrefabResult>;
+    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean): Promise<UploadPrefabResult>;
     /**
      * @author tangbin.zhang
      * @groups 基础类型
@@ -705,6 +715,11 @@ declare namespace UGC {
      * @param aspectRatio usage:当mw.Vector2(0, 0)时返回的时图片的原图，否则是裁剪图
      */
     function selectPhoto(callback: StringCallback, format?: MobileEditor_Type.UGCTextureFormat, aspectRatio?: mw.Vector2, maxSize?: number): Promise<void>;
+    /**
+     * @param aspectRatio usage:当mw.Vector2(0, 0)时返回的时图片的原图，否则是裁剪图
+     * @param formatList usage:数组为空时会拉起所有
+     */
+    function selectPhoto_Multi(callback: StringCallback, formatList: Array<UGC.UGCMultiTextureFormat>, aspectRatio?: mw.Vector2, maxSize?: number): Promise<void>;
     /**
      * @author yongfei.zheng
      * @description 刷新本地资源表
@@ -752,8 +767,8 @@ declare namespace UGC {
     /**
      * @author hao.wu
      * @groups SCRIPTING
-     * @description 通过URL设置图片控件图片
-     * @effect  只在客户端调用生效,下载图片需要时间，失败时暂无回调
+     * @description 设置Ship日志参数
+     * @effect  只在客户端调用生效
      * @param MaxLogFileCounter usage:最多支持缓存多少次的游玩日志，设置后会删除之前超期的日志文件
      * @param MaxLogLinesCounter usage:最多支持每个日志切片的行数
      */
@@ -974,11 +989,20 @@ declare namespace UGC {
      * @groups SCRIPTING
      * @description 保存配置
      * @effect 只在客户端调用生效
-     * @param fileName usage:存储的文件名
+     * @param filePath usage:存储的文件名
      * @param content usage:保存的内容
      * @return 返回保存的状态
      */
-    function asyncSave(fileName: string, content: string): Promise<MobileEditor_Type.SaveFileResult>;
+    function asyncSave(filePath: string, content: string): Promise<MobileEditor_Type.SaveFileResult>;
+    /**
+     * @author si.wu
+     * @groups SCRIPTING
+     * @description 删除配置
+     * @effect 只在客户端调用生效
+     * @param filePath usage:删除的文件名
+     * @return 返回删除结果
+     */
+    function deleteFile(filePath: string): boolean;
     /**
      * @description 存档信息
      */
@@ -1455,10 +1479,10 @@ declare namespace UGC {
         UnsupportedFormat = 7
     }
     /**
- * @author guang.deng
- * @description 贴图格式
- * @groups 基础类型
- */
+     * @author guang.deng
+     * @description 贴图格式
+     * @groups 基础类型
+     */
     enum UGCTextureFormat {
         /** Default */
         Default = 0,
@@ -1468,6 +1492,19 @@ declare namespace UGC {
         JPEG = 2,
         /** GIF */
         GIF = 3
+    }
+    /**
+     * @author guang.deng
+     * @description 贴图格式
+     * @groups 基础类型
+     */
+    enum UGCMultiTextureFormat {
+        /** PNG */
+        PNG = 0,
+        /** JPEG */
+        JPEG = 1,
+        /** GIF */
+        GIF = 2
     }
     /**
      * @author xiangkun.sun
@@ -1505,7 +1542,7 @@ declare namespace UGC {
         Success = 0,
         /** 名字不符合规范 */
         NameIncludeIllegalText = 1,
-        /** 超出10MB限制 */
+        /** 超出50MB限制 */
         OutOfSizeLimit = 2
     }
     /**

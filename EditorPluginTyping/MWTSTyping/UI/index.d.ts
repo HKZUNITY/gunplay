@@ -1190,6 +1190,16 @@ declare namespace mw {
      */
     class DrawBoard extends mw.Widget {
         /**
+         * @description 全局触摸抬起事件
+         * @groups 界面/控件/绘图画板
+         */
+        private static onGlobalTouchEndPrivate;
+        /**
+         * @description 撤销恢复回调事件
+         * @groups 界面/控件/绘图画板
+         */
+        private static onBufferRedoUndoPrivate;
+        /**
          * @groups 界面/控件/绘图画板
          * @description 创建绘画控件
          * @description 当parent和inName与已有的对象相同时，旧的对象会被销毁
@@ -7155,7 +7165,9 @@ declare namespace mw {
         /** WenDaoChaoHei */
         WenDaoChaoHei = 12,
         /** AlibabaPuHuiTi */
-        AlibabaPuHuiTi = 13
+        AlibabaPuHuiTi = 13,
+        /** Poppins */
+        Poppins = 15
     }
     /**  */
     /**

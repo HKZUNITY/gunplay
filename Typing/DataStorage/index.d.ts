@@ -1,6 +1,7 @@
 ﻿declare namespace mw {
     /**
      * @description 数据储存返回代码
+     * @author xiangkun.sun
      * @groups 数据处理
      */
     enum DataStorageResultCode {
@@ -39,6 +40,7 @@
     }
     /**
      * @description 数据储存返回值
+     * @author xiangkun.sun
      * @groups 数据处理
      */
     interface DataStorageResult {
@@ -52,6 +54,7 @@
         data: any;
     }
     /**
+     * @author xiangkun.sun
      * @groups 数据处理
      * @description 数据存储
      * @precautions 在调用DataStorage相关接口时，每一个Key的对应值在数据服务器的读取和修改都有频率限制，主要表现在：接口调用时至一分钟前的时间区间内，某个Key的对应值在后端数据服务器上被获取Get、改写Set、删除Remove的总次数不能超过 (60+游戏设定的最大人数×10)次，不管它是在哪个服务器被操作的；如果时间区间内超限，请求会失败，然后Set、Remove会返回 FREQUENCY_OVERRUN(操作失败：请求频率超限) 而Get会catch到error timeout。
@@ -63,6 +66,7 @@
     class DataStorage {
         /**
          * @description 返回data的当前大小。单位为byte（字节）。
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 调用端生效
          * @param data usage: 数据键值对对象。
@@ -71,6 +75,7 @@
         static getDataSize(data: any): number;
         /**
          * @description 异步设置自定义数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:字符串类型的键，用来唯一标识存储的数据。<br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -80,6 +85,7 @@
         static asyncSetData(key: string, value: any): Promise<DataStorageResultCode>;
         /**
          * @description 异步获取自定义数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:字符串类型键，用来查找唯一标识存储的数据 <br> range: 字符串长度依据 asyncSetData 设置的而定。
@@ -88,6 +94,7 @@
         static asyncGetData(key: string): Promise<DataStorageResult>;
         /**
          * @description 异步删除自定义数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:字符串类型键，用来查找唯一标识存储的数据 <br> range: 字符串长度依据 asyncSetData 设置的而定。
@@ -97,6 +104,7 @@
         /**
          * @description 设置数据存储环境是否是临时的
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:037 reason:接口废弃 replacement:客户端本地存储请使用LocalData相关接口,接口移除后，服务端将默认为永久存储。
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param isTemporary usage:true代表临时存储，数据在游戏服务器进程中，游戏退出时数据被删除。false为永久存储，数据存储在专用服务器，游戏退出时数据不会被删除。
@@ -104,6 +112,7 @@
         static setTemporaryStorage(isTemporary: boolean): void;
         /**
          * @description 异步获取其他游戏保存的数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param gameId usage:开发者后台其他游戏的 gameId。<br> range: 字符串长度依据 gameId 长度而定。
@@ -113,6 +122,7 @@
         static asyncGetOtherGameData(gameId: string, key: string): Promise<DataStorageResult>;
         /**
          * @description 异步设置其他游戏保存的数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param gameId usage:开发者后台其他游戏的 gameId <br> range: 字符串长度依据 gameId 长度而定。
@@ -124,6 +134,7 @@
         /**
          * @description 设置本地数据
          * @precautions 每条数据最多存储64kb的编码数据且本地存储的总数据大小不可以超过5mb，超过此限制的数据都不能被存储。
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在客户端调用生效
          * @param key usage:字符串类型的键，用来唯一标识存储的数据。<br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -133,6 +144,7 @@
         static asyncSetLocalData(key: string, value: any): Promise<DataStorageResultCode>;
         /**
          * @description 获取本地数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在客户端调用生效
          * @param key usage:字符串类型的键，用来唯一标识存储的数据。<br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -141,6 +153,7 @@
         static asyncGetLocalData(key: string): Promise<DataStorageResult>;
         /**
          * @description 删除本地数据
+         * @author xiangkun.sun
          * @groups 数据处理
          * @effect 只在客户端调用生效
          * @param key usage:字符串类型的键，用来唯一标识存储的数据。<br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -151,12 +164,14 @@
 }
 
 /**
+ * @author zhaoyang.hou
  * @groups 数据处理
  * @description 数据存储
  * @description MemoryStorage
  */
 declare namespace mw {
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description 内存存储结果状态码
@@ -192,6 +207,7 @@ declare namespace mw {
         SetTimeoutError = 1070
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description 排序映射数据结果
@@ -211,6 +227,7 @@ declare namespace mw {
         sortKey: string | number;
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description 范围排序映射数据回调函数结果
@@ -230,6 +247,7 @@ declare namespace mw {
         }>;
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description SortedMapGetRankResult
@@ -245,6 +263,7 @@ declare namespace mw {
         rank: number;
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description 队列数据结果
@@ -264,6 +283,7 @@ declare namespace mw {
         values: any[];
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description MemoryStorageSortedMap
@@ -272,6 +292,7 @@ declare namespace mw {
     class MemoryStorageSortedMap {
         /**
          * @description 添加项或覆盖项
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:键名称 <br> range: max:128Byte
@@ -283,6 +304,7 @@ declare namespace mw {
         asyncSetData(key: string, value: any, sortKey: string | number, expiration?: number): Promise<MemoryStorageResultCode>;
         /**
          * @description 获得键对应项的值和排序键
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:键名称 <br>.SaveStringToFile range: max:128Byte
@@ -291,6 +313,7 @@ declare namespace mw {
         asyncGetData(key: string): Promise<SortedMapGetDataResult>;
         /**
          * @description 获得键和排序键范围内的项的值和排序键
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param isAscending usage:输出数据的排序方向，为true时升序排列，为false时倒序排列
@@ -302,6 +325,7 @@ declare namespace mw {
         asyncGetRangeData(isAscending: boolean, count: number, lowerSortKey?: string | number, upperSortKey?: string | number): Promise<SortedMapGetRangeDataResult>;
         /**
          * @description 删除项
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:键名称 <br> range: max:128Byte
@@ -310,6 +334,7 @@ declare namespace mw {
         asyncRemoveData(key: string): Promise<MemoryStorageResultCode>;
         /**
          * @description 获取键在排序映射中的位置
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param key usage:键名称 <br> range: max:128Byte
@@ -319,6 +344,7 @@ declare namespace mw {
         asyncGetRank(key: string, isAscending: boolean): Promise<SortedMapGetRankResult>;
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description MemoryStorageQueue
@@ -327,6 +353,7 @@ declare namespace mw {
     class MemoryStorageQueue {
         /**
          * @description 添加项
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param value usage:值 <br> range: max:32KB
@@ -337,6 +364,7 @@ declare namespace mw {
         asyncAddData(value: any, expiration?: number, priority?: number): Promise<MemoryStorageResultCode>;
         /**
          * @description 从队首读出固定数量的项
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param count usage:需要读出的项数量 range:(0, 50000] type: number
@@ -346,6 +374,7 @@ declare namespace mw {
         asyncReadData(count: number, allOrNothing?: boolean): Promise<QueueReadDataResult>;
         /**
          * @description 删除项
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param id usage:由asyncReadData得到的指向要删除的数据的指针 range: 无限制
@@ -354,6 +383,7 @@ declare namespace mw {
         asyncRemoveData(id: string): Promise<MemoryStorageResultCode>;
     }
     /**
+     * @author zhaoyang.hou
      * @groups 数据处理
      * @description 数据存储
      * @description MemoryStorage
@@ -362,6 +392,7 @@ declare namespace mw {
     class MemoryStorage {
         /**
          * @description 创建或获取排序映射
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param name usage:排序映射名 <br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -370,6 +401,7 @@ declare namespace mw {
         static getSortedMap(name: string): MemoryStorageSortedMap;
         /**
         * @description 删除排序映射
+        * @author zhaoyang.hou
         * @groups 数据处理
         * @effect 只在服务端调用生效
         * @param sortMap usage:想要删除的排序映射
@@ -378,6 +410,7 @@ declare namespace mw {
         static asyncRemoveSortedMap(sortMap: MemoryStorageSortedMap): Promise<MemoryStorageResultCode>;
         /**
          * @description 创建或获取队列
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param name usage:队列名 <br> range: 字符串长度不做限制，但请设置合适的标识。
@@ -388,6 +421,7 @@ declare namespace mw {
         static getQueue(name: string, invisibilityTimeout?: number): MemoryStorageQueue;
         /**
          * @description 检查value大小
+         * @author zhaoyang.hou
          * @groups 数据处理
          * @effect 只在服务端调用生效
          * @param value usage:任何值

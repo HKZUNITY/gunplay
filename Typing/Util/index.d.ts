@@ -1,11 +1,13 @@
 ﻿declare namespace mw {
     /**
+     * @author xiangkun.sun
      * @description 数据文件获取工具
      * @groups 工具
      * @networkStatus usage:双端
      */
     class DataFile {
         /**
+         * @author xiangkun.sun
          * @description 判断配置是否存在
          * @precautions 文件名不合法将返回false，文件名称要求为a-z、A-Z、0-9、_
          * @effect 调用端生效
@@ -25,6 +27,7 @@
          */
         static exists(fileName: string): boolean;
         /**
+         * @author xiangkun.sun
          * @description 读取配置
          * @precautions 配置文件不存在或文件名不合法将返回空字符串
          * @effect 调用端生效
@@ -43,6 +46,25 @@
          * ```
          */
         static asyncLoad(fileName: string): Promise<string>;
+        /**
+         * @author yingjie.zhong
+         * @description 查询指定目录是否存在
+         * @effect 调用端生效
+         * @param directoryRelativePath usage: 要查找的目录于DataFile目录的相对路径(若为空则查找DataFile目录) range: 有效目录路径,末尾带‘/’与否皆可
+         * @returns 目标目录是否存在
+         */
+        static DirectoryExists(directoryRelativePath: string): boolean;
+        /**
+         * @author yingjie.zhong
+         * @description 获取指定目录下所有文件夹和.data文件
+         * @precautions 指定目录不存在会返回false
+         * @effect 调用端生效
+         * @param fileNames usage: 存储.data文件的数组 default: undefined
+         * @param directoryNames usage: 存储文件夹的数组 default: undefined
+         * @param targetDirectoryRelativePath usage: 要查找的目录于DataFile目录的相对路径(若为空则查找DataFile目录)  default: undefined range: 有效目录路径,末尾带‘/’与否皆可
+         * @returns 目标目录是否存在
+         */
+        static findDataFiles(fileNames: Array<string>, directoryNames: Array<string>, targetDirectoryRelativePath: string): boolean;
     }
 }
 
@@ -51,6 +73,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author xiangkun.sun
      * @description 资源管理工具
      * @description 在使用左侧工具栏中的资源时，需要预先下载并加载。
      * @description 可使用asyncDownloadAsset接口在代码中动态下载对应资源。也可将资源手动拖入编辑器右边优先加载队列中。
@@ -60,6 +83,7 @@ declare namespace mw {
     class AssetUtil {
         /**
          * @groups 工具
+         * @author xiangkun.sun
          * @groups 基础类型
          * @description 资源是否加载
          * @effect 调用端生效
@@ -91,6 +115,7 @@ declare namespace mw {
         static assetLoaded(InAssetId: string): boolean;
         /**
          * @groups 工具
+         * @author xiangkun.sun
          * @description 资源下载并加载
          * @description 此函数只能传入资源 ID
          * @groups 基础类型
@@ -123,6 +148,7 @@ declare namespace mw {
         static asyncDownloadAsset(InAssetId: string): Promise<boolean>;
         /**
          * @groups 工具
+         * @author qiming.jiang
          * @groups 基础类型
          * @description 判断材质资源是否为本地资源
          * @effect 调用端生效
@@ -135,6 +161,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author jun.zhang
      * @description 游戏性能数据，辅助 Debug 和性能优化
      * @groups 工具
      * @networkStatus usage:双端
@@ -190,7 +217,11 @@ declare namespace mw {
 }
 
 declare namespace mw {
+}
+
+declare namespace mw {
     /**
+     * @author jie.wu
      * @description 输入事件工具
      * @groups 输入
      * @networkStatus usage:双端
@@ -227,6 +258,7 @@ declare namespace mw {
      */
     class InputUtil {
         /**
+         * @author jie.wu
          * @description 键盘输入事件-点击
          * @groups 输入
          * @effect 调用端生效
@@ -255,6 +287,7 @@ declare namespace mw {
          */
         static onKeyDown(Key: mw.Keys, listener: () => void): mw.EventListener;
         /**
+         * @author jie.wu
          * @description 键盘输入事件-抬起
          * @groups 输入
          * @effect 调用端生效
@@ -283,6 +316,7 @@ declare namespace mw {
          */
         static onKeyUp(Key: mw.Keys, listener: () => void): mw.EventListener;
         /**
+         * @author jie.wu
          * @description 键盘输入事件-按压
          * @groups 输入
          * @effect 调用端生效
@@ -310,6 +344,7 @@ declare namespace mw {
          */
         static onKeyPress(Key: mw.Keys, listener: () => void): mw.EventListener;
         /**
+         * @author jie.wu
          * @description 获取是否允许通过快捷方式切换鼠标的使用组合模式
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -337,6 +372,7 @@ declare namespace mw {
          */
         static get isCursorLockEnabled(): boolean;
         /**
+         * @author jie.wu
          * @description 设置是开启光标锁功能，开启后可以按shift键切换光标是否显示。
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -365,6 +401,7 @@ declare namespace mw {
         static set isCursorLockEnabled(isEnableMouseLock: boolean);
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement: 使用isCursorLockEnabled
+         * @author jie.wu
          * @description 设置是开启光标锁功能，开启后可以按shift键切换光标是否显示。
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -392,6 +429,7 @@ declare namespace mw {
          */
         static set enableCursorLock(isEnableMouseLock: boolean);
         /**
+         * @author jie.wu
          * @description 获取鼠标指针是否可见
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -419,6 +457,7 @@ declare namespace mw {
          */
         static get isCursorVisible(): boolean;
         /**
+         * @author jie.wu
          * @description 设置鼠标指针是否可见
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -447,6 +486,7 @@ declare namespace mw {
         static set isCursorVisible(isVisible: boolean);
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement: 使用isCursorVisible
+         * @author jie.wu
          * @description 设置鼠标指针是否可见
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -474,6 +514,7 @@ declare namespace mw {
          */
         static set setCursorVisible(isVisible: boolean);
         /**
+         * @author jie.wu
          * @description 设置鼠标指针是否可以自由移动或是被锁定
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -481,6 +522,7 @@ declare namespace mw {
          */
         static get isLockMouse(): boolean;
         /**
+         * @author jie.wu
          * @description 决定玩家的鼠标是否可以自由移动或是被锁定
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -488,6 +530,7 @@ declare namespace mw {
          */
         static set isLockMouse(b: boolean);
         /**
+         * @author baolin.li
          * @description 玩家鼠标移动镜头的灵敏度
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -495,6 +538,7 @@ declare namespace mw {
          */
         static get mouseSensitivity(): number;
         /**
+         * @author baolin.li
          * @description 设置玩家鼠标移动镜头的灵敏度
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -502,6 +546,7 @@ declare namespace mw {
          */
         static set mouseSensitivity(InRange: number);
         /**
+         * @author jie.wu
          * @description 玩家是否可以使用shift,切换鼠标锁定状态
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -509,6 +554,7 @@ declare namespace mw {
          */
         static get mouseLockOptionEnabled(): boolean;
         /**
+         * @author jie.wu
          * @description 玩家是否可以使用shift,切换鼠标锁定状态
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -539,6 +585,7 @@ declare namespace mw {
          */
         static set mouseLockOptionEnabled(b: boolean);
         /**
+         * @author jie.wu
          * @description 获取鼠标指针是否锁定
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -566,6 +613,7 @@ declare namespace mw {
          */
         static get isCursorLocked(): boolean;
         /**
+         * @author jie.wu
          * @description 设置鼠标指针是否锁定
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -594,6 +642,7 @@ declare namespace mw {
         static set isCursorLocked(isLock: boolean);
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement: 使用isCursorLocked
+         * @author jie.wu
          * @description 设置鼠标指针是否锁定
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -621,6 +670,7 @@ declare namespace mw {
          */
         static set setCursorLocked(isLock: boolean);
         /**
+         * @author jie.wu
          * @description 设置鼠标指针是否能与UI交互
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -648,6 +698,7 @@ declare namespace mw {
          */
         static set isCursorInteractiveWithUI(canInteract: boolean);
         /**
+         * @author jie.wu
          * @description 获取鼠标指针是否能与 UI 交互
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -675,6 +726,7 @@ declare namespace mw {
          */
         static get isCursorInteractiveWithUI(): boolean;
         /**
+         * @author jie.wu
          * @description 将二维屏幕位置转换为世界空间三维位置和方向
          * @groups 基础类型
          * @effect 调用端生效
@@ -707,6 +759,7 @@ declare namespace mw {
          */
         static convertScreenLocationToWorldSpace(screenX: number, screenY: number): mw.ConvertScreenResult;
         /**
+         * @author jie.wu
          * @description 获取角色在世界中的位置，投射到屏幕上
          * @groups 输入
          * @effect 调用端生效
@@ -777,6 +830,7 @@ declare namespace mw {
         static projectWorldPositionToWidgetPosition(worldLocation: mw.Vector, playerViewportRelative?: boolean): mw.ConvertScreenResult;
         /**
           * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 026 reason: 删除接口 replacement: 采用GameUI 控件接口addKey
+          * @author jie.wu
           * @description 绑定按键
           * @groups 输入
           * @effect 只在客户端调用生效
@@ -843,6 +897,7 @@ declare namespace mw {
         static bindButton(key: mw.Keys, Widget: mw.StaleButton | mw.Button): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement:采用GameUI 控件接口removeKey
+         * @author jie.wu
          * @description 此操作只会解绑动态绑定的按键无法解除editor下绑定的按键
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -908,6 +963,7 @@ declare namespace mw {
         static unbindButton(key: mw.Keys): void;
         /**
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 026 reason: 删除接口 replacement: InputUtil.mouseLockOptionEnabled
+         * @author jie.wu
          * @description 设置是否可以锁定鼠标
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -939,6 +995,7 @@ declare namespace mw {
          */
         static set setMouseLockable(can: boolean);
         /**
+         * @author xiangkun.sun
          * @description 触摸事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -947,6 +1004,7 @@ declare namespace mw {
          */
         static onTouch(listener: (index: number, location: mw.Vector2, touchType: mw.TouchInputType) => void): mw.EventListener;
         /**
+         * @author xiangkun.sun
          * @description 触摸开始事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -955,6 +1013,7 @@ declare namespace mw {
          */
         static onTouchBegin(listener: (index: number, location: mw.Vector2, touchType: mw.TouchInputType) => void): mw.EventListener;
         /**
+         * @author xiangkun.sun
          * @description 触摸移动事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -963,6 +1022,7 @@ declare namespace mw {
          */
         static onTouchMove(listener: (index: number, location: mw.Vector2, touchType: mw.TouchInputType) => void): mw.EventListener;
         /**
+         * @author xiangkun.sun
          * @description 触摸结束事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -971,6 +1031,7 @@ declare namespace mw {
          */
         static onTouchEnd(listener: (index: number, location: mw.Vector2, touchType: mw.TouchInputType) => void): mw.EventListener;
         /**
+         * @author jie.wu
          * @description 获取手指按下代理,不被UI等影响的输入事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -978,6 +1039,7 @@ declare namespace mw {
          */
         static onRawTouchBegin(): mw.MulticastDelegate<(FingerIndex: number, Position: mw.Vector2) => void>;
         /**
+         * @author jie.wu
          * @description 获取手指滑动代理,不被UI等影响的输入事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -985,6 +1047,7 @@ declare namespace mw {
          */
         static onRawTouchMove(): mw.MulticastDelegate<(FingerIndex: number, Position: mw.Vector2) => void>;
         /**
+         * @author jie.wu
          * @description 获取手指抬起代理,不被UI等影响的输入事件
          * @groups 输入
          * @effect 只在客户端调用生效
@@ -996,6 +1059,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author baoqiang.han
      * @description 触摸类型
      * @groups 输入
      */
@@ -1008,6 +1072,7 @@ declare namespace mw {
         TouchEnd = 2
     }
     /**
+     * @author baoqiang.han
      * @hidden
      * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:027 reason:接口废弃 replacement:请使用InputUtil下的onTouchBegin、onTouchMove、onTouchEnd接口
      * @groups 输入
@@ -1054,12 +1119,14 @@ declare namespace mw {
          */
         onTouchEnd: mw.MulticastDelegate<(index: number, location: mw.Vector2, touchType: TouchInputType) => void>;
         /**
+         * @author baoqiang.han
          * @description 设置玩家控制器，使用前需调用一次
          * @effect 只在客户端调用生效
          */
         setPlayerController(): void;
         /**
             /**
+             * @author baoqiang.han
              * @description 获取屏幕手指数的数组
              * @effect 只在客户端调用生效
              * @returns 当前Touch数组
@@ -1070,6 +1137,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author xiaobo.qi
      * @description 多语言工具
      * @groups 工具
      * @networkStatus usage:双端
@@ -1077,6 +1145,7 @@ declare namespace mw {
     class LanguageUtil {
         /**
          * @groups 工具
+         * @author xiaobo.qi
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.addKey("");
          * @description 多语言标记
          * @effect 只在客户端调用生效
@@ -1086,6 +1155,7 @@ declare namespace mw {
         static locText(textkey: string): string;
         /**
          * @groups 工具
+         * @author xiaobo.qi
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.getText("key");
          * @description 根据key获取翻译内容
          * @effect 只在客户端调用生效
@@ -1095,6 +1165,7 @@ declare namespace mw {
         static getLocTextValue(textkey: string): string;
         /**
          * @groups 工具
+         * @author xiaobo.qi
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.setLanguage(Type);
          * @description 游戏语言设置
          * @effect 只在客户端调用生效
@@ -1104,6 +1175,7 @@ declare namespace mw {
         static useLocalizedLanguage(type: mw.LanguageType): boolean;
         /**
                  * @groups 工具
+                 * @author xiaobo.qi
                  * @description 多语言标记
                  * @effect 只在客户端调用生效
                  * @param textkey usage:用户多语言配置表收集的 Key range: 不做限制
@@ -1112,6 +1184,7 @@ declare namespace mw {
         static addKey(textkey: string): string;
         /**
          * @groups 工具
+         * @author xiaobo.qi
          * @description 根据key获取翻译内容
          * @effect 只在客户端调用生效
          * @param textkey usage:需要查找的翻译的 key range: 不做限制
@@ -1120,6 +1193,7 @@ declare namespace mw {
         static getText(textkey: string): string;
         /**
          * @groups 工具
+         * @author xiaobo.qi
          * @description 游戏语言设置
          * @effect 只在客户端调用生效
          * @param type usage:切换游戏语言种类
@@ -1127,6 +1201,7 @@ declare namespace mw {
          */
         static setLanguage(type: mw.LanguageCodeType): boolean;
         /**
+         * @author xiaobo.qi
          * @description 获取当前本地化语言
          * @groups 工具
          * @effect 只在客户端调用生效
@@ -1134,6 +1209,7 @@ declare namespace mw {
          */
         static getlanguage(): mw.LanguageCodeType;
         /**
+         * @author xiaobo.qi
          * @description 获取默认的语言和地区
          * @groups 工具
          * @effect 调用端生效
@@ -1165,12 +1241,14 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author xiaobo.qi
      * @description 本地化工具
      * @groups 工具
      * @networkStatus usage:双端
      */
     class LocaleUtil {
         /**
+         * @author xiaobo.qi
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 接口废弃 replacement: LanguageUtil.getDefaultLocale;
          * @description 获取默认的语言和地区
          * @groups 工具
@@ -1203,152 +1281,189 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author xiangkun.sun
      * @description 数学库工具
      * @groups 工具
      * @networkStatus usage:双端
      */
     class MathUtil {
         /**
+         * @author xiangkun.sun
          * @description 序列化/反序列化浮点值所要求的十进制精度 (double)
          */
         static DBL_DECIMAL_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 文本的往返转换中保留而不会因舍入或溢出发生改变的的十进制位数 (double)
          */
         static DBL_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 1 和大于 1 的最小浮点数之间的差值。(double)
          */
         static DBL_EPSILON: number;
         /**
+         * @author xiangkun.sun
          * @description 指明类型是否支持非正规数值：-1 为不确定，0 为不支持，1 为支持。 (double)
          */
         static DBL_HAS_SUBNORM: number;
         /**
+         * @author xiangkun.sun
         * @description 有效数字（尾数）的位数(double)
         */
         static DBL_MANT_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 最大的有效浮点数的值（为正数），也即浮点数的最大值。(double)
          */
         static DBL_MAX: number;
         /**
+         * @author xiangkun.sun
          * @description 分别为能够使 10 的该整数减一次幂为可表示的有限的最大正整数 (double)
          */
         static DBL_MAX_10_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 最大二进制指数 (double)
          */
         static DBL_MAX_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 最小规格化正数值 (double)
          */
         static DBL_MIN: number;
         /**
+         * @author xiangkun.sun
          * @description 能够使 10 的该整数减一次幂为规格化的最小负整数 (double)
          */
         static DBL_MIN_10_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 能够使FLT_RADIX 的该整数减一次幂为规格化的最小负整数 (double)
          */
         static DBL_MIN_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 基数(进制)(double)
          */
         static DBL_RADIX: number;
         /**
+         * @author xiangkun.sun
          * @description 最小正数值(double)
          */
         static DBL_TRUE_MIN: number;
         /**
+         * @author xiangkun.sun
          * @description 序列化/反序列化浮点值所要求的十进制精度 (float)
          */
         static FLT_DECIMAL_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 文本的往返转换中保留而不会因舍入或溢出发生改变的的十进制位数 (float)
          */
         static FLT_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 1 和大于 1 的最小浮点数之间的差值。(float)
          */
         static FLT_EPSILON: number;
         /**
+         * @author xiangkun.sun
          * @description 指明类型是否支持非正规数值：-1 为不确定，0 为不支持，1 为支持。
          */
         static FLT_HAS_SUBNORM: number;
         /**
+         * @author xiangkun.sun
          * @description 算术结果中是否使用保护位(例如 0)
          */
         static FLT_GUARD: number;
         /**
+         * @author xiangkun.sun
          * @description 有效数字（尾数）的位数 (float)
          */
         static FLT_MANT_DIG: number;
         /**
+         * @author xiangkun.sun
          * @description 最大的有效浮点数的值(为正数)，也即浮点数的最大值。(float)
          */
         static FLT_MAX: number;
         /**
+         * @author xiangkun.sun
          * @description 转换成十进制形式后，规格化浮点数的指数的最大值（为正数）。 (float)
          */
         static FLT_MAX_10_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 最大二进制指数 (float)
          */
         static FLT_MAX_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 最小正规值 (float)
          */
         static FLT_MIN: number;
         /**
+         * @author xiangkun.sun
          * @description 最小十进制指数 (float)
          */
         static FLT_MIN_10_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 最小二进制指数 (float)
          */
         static FLT_MIN_EXP: number;
         /**
+         * @author xiangkun.sun
          * @description 指示应始终规范化浮点数。
          */
         static FLT_NORMALIZE: number;
         /**
+         * @author xiangkun.sun
          * @description 基数(进制)(float)
          */
         static FLT_RADIX: number;
         /**
+         * @author xiangkun.sun
          * @description 最小正数值 (float)
          */
         static FLT_TRUE_MIN: number;
         /**
+         * @author xiangkun.sun
          * @description 角度转换弧度参数（Math.PI/180）
          */
         static D2R: number;
         /**
+         * @author xiangkun.sun
          * @description 弧度转换角度参数
          */
         static R2D: number;
         /**
+         * @author xiangkun.sun
          * @description 1/PI
          */
         static INV_PI: number;
         /**
+         * @author xiangkun.sun
          * @description PI/2
          */
         static HALF_PI: number;
         /**
+         * @author xiangkun.sun
          * @description 字节偏移
          */
         static SIGN_BIT: number;
         /**
+         * @author xiangkun.sun
          * @description 所有大于或等于此值的单精度浮点数都没有小数
          */
         static FLOAT_NON_FRACTIONAL: number;
         /**
+         * @author xiangkun.sun
          * @description 最小误差数
          */
         static EPSILON: number;
         /**
+         * @author xiangkun.sun
          * @description 计算 sin 值
          * @groups 工具
          * @effect 调用端生效
@@ -1375,6 +1490,7 @@ declare namespace mw {
          */
         static sin(a: number): number;
         /**
+         * @author xiangkun.sun
          * @description 计算 cos 值
          * @groups 工具
          * @effect 调用端生效
@@ -1401,6 +1517,7 @@ declare namespace mw {
          */
         static cos(a: number): number;
         /**
+         * @author xiangkun.sun
          * @description 计算 tan 值
          * @groups 工具
          * @effect 调用端生效
@@ -1427,6 +1544,7 @@ declare namespace mw {
          */
         static tan(a: number): number;
         /**
+         * @author xiangkun.sun
          * @description 根据输入的度数返回弧度值
          * @groups 工具
          * @effect 调用端生效
@@ -1454,6 +1572,7 @@ declare namespace mw {
          */
         static degreesToRadians(a: number): number;
         /**
+         * @author xiangkun.sun
          * @description 根据输入的弧度值返回度数
          * @groups 工具
          * @effect 调用端生效
@@ -1481,6 +1600,7 @@ declare namespace mw {
          */
         static radiansToDegrees(a: number): number;
         /**
+         * @author xiangkun.sun
          * @description 基于 alpha 在 数值a 和 数值b 之间线性插值
          * @groups 工具
          * @effect 调用端生效
@@ -1510,6 +1630,7 @@ declare namespace mw {
          */
         static lerp(a: number, b: number, alpha: number): number;
         /**
+         * @author xiangkun.sun
          * @description 将传入的数值 a 限制在 min 与 max 范围内，超出部分自动舍弃
          * @groups 工具
          * @effect 调用端生效
@@ -1538,6 +1659,7 @@ declare namespace mw {
          */
         static clamp(a: number, min: number, max: number): number;
         /**
+         * @author xiangkun.sun
          * @description 数值 x 除以数值 y 的余数
          * @groups 工具
          * @effect 调用端生效
@@ -1565,6 +1687,7 @@ declare namespace mw {
          */
         static fmod(x: number, y: number): number;
         /**
+         * @author xiangkun.sun
          * @description 获取随机范围内浮点数[包含min, 不包含max)
          * @groups 工具
          * @effect 调用端生效
@@ -1592,6 +1715,7 @@ declare namespace mw {
          */
         static randomFloat(min: number, max: number): number;
         /**
+         * @author xiangkun.sun
          * @description 获取随机范围内整数[包含min, 不包含max)
          * @groups 工具
          * @effect 调用端生效
@@ -1619,6 +1743,7 @@ declare namespace mw {
          */
         static randomInt(min: number, max: number): number;
         /**
+         * @author baoqiang.han
          * @description 判断终点位置是否处于起点位置在某一方向的一定角度内
          * @groups 玩法
          * @effect 调用端生效
@@ -1640,6 +1765,7 @@ declare namespace mw {
          */
         static angleCheck(StartLocation: mw.Vector, StartDirection: mw.Vector, TargetLocation: mw.Vector, Angle: number): boolean;
         /**
+         * @author yang.zheng
          * @description 判断浮点数是否近似相等
          * @groups 玩法
          * @effect 调用端生效
@@ -1669,6 +1795,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author hao.huang
      * @groups 玩法/寻路系统
      * @description 寻路
      * @description 寻路就像是给游戏角色一张地图和一套指导，让它们知道如何从一个地方走到另一个地方，避开障碍物。
@@ -1684,6 +1811,7 @@ declare namespace mw {
      */
     class Navigation {
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 查找起点与终点之间的最短移动路径，并以数组的方式返回主要路径点
          * @effect 调用端生效
@@ -1723,6 +1851,7 @@ declare namespace mw {
          */
         static findPath(startPos: mw.Vector, endPos: mw.Vector): Array<mw.Vector>;
         /**
+        * @author hao.huang
         * @description 寻路移动
         * @groups 玩法/寻路系统
         * @effect 调用端生效
@@ -1762,6 +1891,7 @@ declare namespace mw {
         */
         static navigateTo(relatedObject: mw.GameObject, position: mw.Vector, radius?: number, OnSuccess?: () => void, OnFail?: () => void): void;
         /**
+         * @author hao.huang
          * @description 导航停止
          * @groups 玩法/寻路系统
          * @effect 调用端生效
@@ -1797,6 +1927,7 @@ declare namespace mw {
          */
         static stopNavigateTo(relatedObject: mw.GameObject): void;
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 跟随目标
          * @description 角色和客户端NPC在客户端调用时生效，双端在服务端调用时生效
@@ -1853,6 +1984,7 @@ declare namespace mw {
          */
         static follow(relatedObject: mw.GameObject, target: mw.GameObject, radius?: number, OnSuccess?: () => void, OnFail?: () => void): boolean;
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 停止跟随
          * @description 角色和客户端NPC在客户端调用时生效，双端在服务端调用时生效
@@ -1904,6 +2036,7 @@ declare namespace mw {
          */
         static stopFollow(relatedObject: mw.GameObject): void;
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 自动寻找与目标点距离最近的可寻路位置
          * @effect 调用端生效
@@ -1936,6 +2069,7 @@ declare namespace mw {
          */
         static getClosestReachablePoint(targetPoint: mw.Vector, queryExtent: mw.Vector): mw.Vector;
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 在指定位置限制半径内的可导航区域中生成一个随机可到达的位置
          * @effect 调用端生效
@@ -1968,6 +2102,7 @@ declare namespace mw {
          */
         static getRandomReachablePointInRadius(targetPoint: mw.Vector, radius: number): mw.Vector;
         /**
+         * @author hao.huang
          * @groups 玩法/寻路系统
          * @description 判断两点连线上是否存在障碍或超出寻路区域范围
          * @effect 调用端生效
@@ -2000,12 +2135,14 @@ declare namespace mw {
 declare namespace mw {
     /**
      * @hidden
+     * @author jie.wu
      * @description NFT资产交易系统。
      * @groups 工具
      * @networkStatus usage:客户端
      */
     class NFTUtil {
         /**
+         * @author jie.wu
          * @description 添加游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2018,6 +2155,7 @@ declare namespace mw {
          */
         static addUserGameCoin(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 减少游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2030,6 +2168,7 @@ declare namespace mw {
          */
         static decreaseUserGameCoin(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 查询账户的游戏币数量
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2040,6 +2179,7 @@ declare namespace mw {
          */
         static queryUserGameCoin(Delegate: mw.MulticastDelegate<(Content: string) => void>, Account: string, GameId: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 添加游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2053,6 +2193,7 @@ declare namespace mw {
          */
         static addUserGameCoinWithGameID(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, GameId: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 减少游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2066,6 +2207,7 @@ declare namespace mw {
          */
         static decreaseUserGameCoinWithGameID(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, GameId: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 查询账户的游戏币数量
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2076,6 +2218,7 @@ declare namespace mw {
          */
         static queryUserGameCoinWithGameID(Delegate: mw.MulticastDelegate<(Content: string) => void>, Account: string, GameId: string, TimeOut: number): void;
         /**
+         * @author jie.wu
          * @description 添加游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2090,6 +2233,7 @@ declare namespace mw {
          */
         static addUserGameCoinWithEnv(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, GameId: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number, Env: string): void;
         /**
+         * @author jie.wu
          * @description 减少游戏币接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2104,6 +2248,7 @@ declare namespace mw {
          */
         static decreaseUserGameCoinWithEnv(Delegate: mw.MulticastDelegate<(Content: string) => void>, Token: string, GameId: string, UserAccount: string, CoinNum: number, Note: string, TimeOut: number, Env: string): void;
         /**
+         * @author jie.wu
          * @description 查询账户的游戏币数量
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2115,6 +2260,7 @@ declare namespace mw {
          */
         static queryUserGameCoinWithEnv(Delegate: mw.MulticastDelegate<(Content: string) => void>, Account: string, GameId: string, TimeOut: number, Env: string): void;
         /**
+         * @author jie.wu
          * @description 查询 NFT 接口
          * @groups 服务/货币
          * @effect 只在客户端调用生效
@@ -2130,12 +2276,14 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 碰撞组
          * @networkStatus usage:双端
          */
     class PhysicsService {
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 设置俩碰撞组之间的碰撞关系(是否可发生碰撞)
          * @effect 调用端生效
@@ -2184,6 +2332,7 @@ declare namespace mw {
          */
         static setCollisionBetweenGroups(group1: string, group2: string, collidable: boolean): void;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 获取两碰撞组之间的碰撞关系(是否可发生碰撞)
          * @effect 调用端生效
@@ -2212,6 +2361,7 @@ declare namespace mw {
          */
         static getCollisionBetweenGroups(group1: string, group2: string): boolean;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 获取当前可剩余使用碰撞组数量
          * @effect 调用端生效
@@ -2238,6 +2388,7 @@ declare namespace mw {
          */
         static getAvailableCollisionGroupsCount(): number;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 获取当前已添加的碰撞组名列表
          * @effect 调用端生效
@@ -2264,6 +2415,7 @@ declare namespace mw {
          */
         static getValidCollisionGroups(): Array<string>;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 检测碰撞组是否有效(已添加过)
          * @effect 调用端生效
@@ -2291,6 +2443,7 @@ declare namespace mw {
          */
         static isCollisionGroupValid(name: string): boolean;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 添加新碰撞组
          * @effect 调用端生效
@@ -2318,6 +2471,7 @@ declare namespace mw {
          */
         static addCollisionGroup(name: string): void;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 删除已有碰撞组
          * @effect 调用端生效
@@ -2355,6 +2509,7 @@ declare namespace mw {
          */
         static deleteCollisionGroup(name: string): void;
         /**
+         * @author hao.huang
          * @groups 玩法/物理
          * @description 重命名碰撞组
          * @effect 调用端生效
@@ -2393,6 +2548,7 @@ declare namespace mw {
          */
         static renameCollisionGroup(previousName: string, newName: string): void;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 确定不同组中设置为不碰撞的模型是否在忽略碰撞的同时忽略touch事件
          * @effect 调用端生效
@@ -2452,6 +2608,7 @@ declare namespace mw {
          */
         static get touchesUseCollisionGroups(): boolean;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 沿着给定的路径进行射线追踪，直到首次遇到阻挡命中时结束，返回沿途遇到的所有命中。
          * @effect 调用端生效
@@ -2471,6 +2628,7 @@ declare namespace mw {
          */
         static lineTraceMulti(start: mw.Vector, end: mw.Vector, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.HitResult>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 沿着给定的路径进行射线追踪，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
@@ -2487,6 +2645,7 @@ declare namespace mw {
          */
         static lineTraceSingle(start: mw.Vector, end: mw.Vector, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): mw.HitResult;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 球体沿着给定的路径扫过一个空间，直到首次在起点球体空间之外遇到阻挡命中时结束（球体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
@@ -2507,6 +2666,7 @@ declare namespace mw {
          */
         static sphereTraceMulti(start: mw.Vector, end: mw.Vector, radius: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.HitResult>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 球体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
@@ -2524,6 +2684,7 @@ declare namespace mw {
          */
         static sphereTraceSingle(start: mw.Vector, end: mw.Vector, radius: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): mw.HitResult;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 胶囊体沿着给定的路径扫过一个空间，直到首次在起点胶囊体空间之外遇到阻挡命中时结束（胶囊体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
@@ -2545,6 +2706,7 @@ declare namespace mw {
          */
         static capsuleTraceMulti(start: mw.Vector, end: mw.Vector, radius: number, halfHeight: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.HitResult>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 胶囊体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
@@ -2563,6 +2725,7 @@ declare namespace mw {
          */
         static capsuleTraceSingle(start: mw.Vector, end: mw.Vector, radius: number, halfHeight: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): mw.HitResult;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 盒体沿着给定的路径扫过一个空间，直到首次在起点盒体空间之外遇到阻挡命中时结束（盒体在起点时重叠的阻挡对象不包含在首次判定中），返回沿途遇到的所有命中。
          * @effect 调用端生效
@@ -2584,6 +2747,7 @@ declare namespace mw {
          */
         static boxTraceMulti(start: mw.Vector, end: mw.Vector, halfSize: mw.Vector, orientation: mw.Rotation, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.HitResult>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 盒体沿着给定的路径扫过一个空间，并返回遇到的第一个阻挡命中。
          * @effect 调用端生效
@@ -2602,6 +2766,7 @@ declare namespace mw {
          */
         static boxTraceSingle(start: mw.Vector, end: mw.Vector, halfSize: mw.Vector, orientation: mw.Rotation, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): mw.HitResult;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 返回一个与给定球体重叠的对象数组
          * @effect 调用端生效
@@ -2621,6 +2786,7 @@ declare namespace mw {
          */
         static sphereOverlap(spherePos: mw.Vector, sphereRadius: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.GameObject>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 返回一个与给定胶囊体重叠的对象数组
          * @effect 调用端生效
@@ -2641,6 +2807,7 @@ declare namespace mw {
          */
         static capsuleOverlap(capsulePos: mw.Vector, radius: number, halfHeight: number, collisionParams: mw.CollisionQueryParams, renderParams: mw.RenderQueryParams): Array<mw.GameObject>;
         /**
+         * @author zhiqiang.tan
          * @groups 玩法/物理
          * @description 返回一个与给定盒体重叠的对象数组
          * @effect 调用端生效
@@ -2664,12 +2831,14 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author hao.huang
      * @groups 工具/射线检测
      * @description 射线检测工具
      * @networkStatus usage:双端
      */
     class QueryUtil {
         /**
+         * @author hao.huang
          * @description 射线检测
          * @groups 玩法
          * @effect 调用端生效
@@ -2693,6 +2862,7 @@ declare namespace mw {
          */
         static lineTrace(start: mw.Vector, end: mw.Vector, multiTrace?: boolean, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, traceSkeletonOnly?: boolean, source?: mw.GameObject): Array<mw.HitResult>;
         /**
+         * @author hao.huang
          * @description 盒体射线检测
          * @groups 玩法
          * @effect 调用端生效
@@ -2717,6 +2887,7 @@ declare namespace mw {
          */
         static boxTrace(start: mw.Vector, end: mw.Vector, halfSize: mw.Vector, orientation: mw.Rotation, multiTrace?: boolean, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, source?: mw.GameObject): Array<mw.HitResult>;
         /**
+         * @author hao.huang
          * @description 球体射线检测
          * @groups 玩法
          * @effect 调用端生效
@@ -2740,6 +2911,7 @@ declare namespace mw {
          */
         static sphereTrace(start: mw.Vector, end: mw.Vector, radius: number, multiTrace?: boolean, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, source?: mw.GameObject): Array<mw.HitResult>;
         /**
+         * @author hao.huang
          * @description 胶囊体射线检测
          * @groups 玩法
          * @effect 调用端生效
@@ -2764,6 +2936,7 @@ declare namespace mw {
          */
         static capsuleTrace(start: mw.Vector, end: mw.Vector, radius: number, halfHeight: number, multiTrace?: boolean, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, source?: mw.GameObject): Array<mw.HitResult>;
         /**
+         * @author hao.huang
          * @description 胶囊体范围检测
          * @groups 玩法
          * @effect 调用端生效
@@ -2786,6 +2959,7 @@ declare namespace mw {
          */
         static capsuleOverlap(capsuleCenter: mw.Vector, radius: number, halfHeight: number, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, source?: mw.GameObject): Array<mw.GameObject>;
         /**
+         * @author hao.huang
          * @groups 玩法
          * @description 球形范围检测
          * @effect 调用端生效
@@ -2807,6 +2981,7 @@ declare namespace mw {
          */
         static sphereOverlap(sphereCenter: mw.Vector, sphereRadius: number, drawDebug?: boolean, objectsToIgnore?: Array<string>, ignoreByType?: boolean, source?: mw.GameObject): Array<mw.GameObject>;
         /**
+         * @author hao.huang
          * @groups 玩法
          * @description 矩形范围检测
          * @effect 调用端生效
@@ -2832,12 +3007,14 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author baoqiang.han
      * @groups 工具
      * @description 屏幕视口工具
      * @networkStatus usage:客户端
      */
     class ScreenUtil {
         /**
+         * @author baoqiang.han
          * @description 获取视口相应位置的物体
          * @groups 玩法
          * @effect 只在客户端调用生效
@@ -2872,6 +3049,7 @@ declare namespace mw {
          */
         static getGameObjectByScreenPosition(sceneX: number, sceneY: number, distance?: number, multiTrace?: boolean, onRay?: boolean): Array<mw.HitResult>;
         /**
+         * @author baoqiang.han
          * @description 获取相机中心点所瞄准的世界位置
          * @groups 玩法
          * @effect 只在客户端调用生效
@@ -2895,6 +3073,7 @@ declare namespace mw {
          */
         static getSightBeadPosition(): mw.Vector;
         /**
+         * @author jie.wu
          * @description 获取投影世界到播放器的屏幕位置，然后将其转换为控件位置，考虑任何质量缩放。
          * @groups 界面
          * @effect 只在客户端调用生效
@@ -2906,6 +3085,7 @@ declare namespace mw {
          */
         static projectWorldPositionToWidgetPosition(player: mw.Player, worldLocation: mw.Vector, outScreenPosition: mw.Vector2, isPlayerViewportRelative: boolean): boolean;
         /**
+        * @author jie.wu
         * @groups 界面
         * @description 获取屏幕坐标点处是否有UI，注意该方法性能过差，不要频繁调用
         * @effect 只在客户端调用生效
@@ -2914,6 +3094,7 @@ declare namespace mw {
         */
         static checkWidgetAt(screenPosition: mw.Vector2): boolean;
         /**
+         * @author jie.wu
          * @groups 界面
          * @description 获取屏幕坐标点处的UI，注意该方法性能过差，不要频繁调用
          * @effect 只在客户端调用生效
@@ -2926,12 +3107,14 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author wu.hao
      * @groups 工具
      * @description 描边绘制工具
      * @networkStatus usage:客户端
      */
     class SelectionUtil {
         /**
+         * @author wu.hao
          * @description 获取框选屏幕位置的物体
          * @groups 工具
          * @effect 只在客户端调用生效
@@ -3018,6 +3201,7 @@ declare namespace mw {
          */
         static getGameObjectBySelectionBox(StartPoint: mw.Vector2, EndPoint: mw.Vector2, IsIncludeNonCollidingObjects?: boolean, IsUseObjectsBoundingBox?: boolean): Array<mw.HitResult>;
         /**
+         * @author wu.hao
          * @description 绘制物体选择框
          * @groups 工具
          * @effect 只在客户端调用生效
@@ -3067,6 +3251,7 @@ declare namespace mw {
          */
         static drawGameObjectSelectionBox(StartPoint: mw.Vector2, EndPoint: mw.Vector2, Color: mw.LinearColor, DurationTime?: number): void;
         /**
+         * @author wu.hao
          * @description 设置全局描边参数
          * @groups 工具
          * @effect 只在客户端调用生效
@@ -3082,6 +3267,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+         * @author huipeng.jia
          * @description 屏蔽字检测的结果
          * @groups 基础类型
          */
@@ -3092,12 +3278,14 @@ declare namespace mw {
         "hits": string[];
     };
     /**
+     * @author huipeng.jia
      * @groups 工具
      * @description 字符串工具
      * @networkStatus usage:客户端
      */
     class StringUtil {
         /**
+         * @author junwen.hua
          * @description 文本复制
          * @description 将字符串复制到剪切板
          * @groups 工具
@@ -3123,6 +3311,7 @@ declare namespace mw {
          */
         static clipboardCopy(text: string): void;
         /**
+         * @author junwen.hua
          * @description 文本粘贴，获取剪切板的文本
          * @groups 工具
          * @effect 只在客户端调用生效
@@ -3148,6 +3337,7 @@ declare namespace mw {
          */
         static clipboardPaste(): string;
         /**
+         * @author huipeng.jia
          * @description 判断字符串是否为空 (null或"")
          * @groups 工具
          * @effect 调用端生效
@@ -3174,6 +3364,7 @@ declare namespace mw {
          */
         static isEmpty(str: string): boolean;
         /**
+         * @author huipeng.jia
          * @description 将{i}中的内容依次替换为后续参数。i从0开始，表示第i+2个参数，详细请查看使用示例。
          * @groups 工具
          * @effect 调用端生效
@@ -3201,6 +3392,7 @@ declare namespace mw {
          */
         static format(str: string, ...param: any[]): string;
         /**
+         * @author huipeng.jia
          * @description 屏蔽字检测
          * @groups 工具
          * @effect 调用端生效
@@ -3239,6 +3431,7 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author guang.deng
      * @description 贴图格式
      * @groups 基础类型
      */
@@ -3253,6 +3446,20 @@ declare namespace mw {
         GIF = 3
     }
     /**
+     * @author guang.deng
+     * @description 贴图格式
+     * @groups 基础类型
+     */
+    enum MultiTextureFormat {
+        /** PNG */
+        PNG = 0,
+        /** JPEG */
+        JPEG = 1,
+        /** GIF */
+        GIF = 2
+    }
+    /**
+     * @author mengyuan.hao
      * @description 状态信息获取工具
      * @description 判断当前环境状态是否是客户端、服务端、移动端。获取版本号等信息
      * @groups 工具
@@ -3261,6 +3468,7 @@ declare namespace mw {
     class SystemUtil {
         /**
          * @description 添加OnPause开始时执行的回调函数
+         * @author mengyuan.hao
          * @effect 只在客户端调用生效
          * @precautions 只在Android和IOS生效。触发时机有切入后台、息屏和播广告。
          *              部分机型切入后台不会暂停游戏所以不会触发该回调或暂停时间很短，可以通过游戏背景音乐是否持续播放来判断。
@@ -3269,6 +3477,7 @@ declare namespace mw {
         static get onPause(): mw.MulticastDelegate<() => void>;
         /**
          * @description 添加OnPause结束时执行的回调函数
+         * @author junwen.hua
          * @effect 只在客户端调用生效
          * @precautions 只在Android和IOS生效。触发时机有切入后台、息屏和播广告后回到游戏。
          *              部分机型切入后台不会暂停游戏所以不会触发该回调或暂停时间很短，可以通过游戏背景音乐是否持续播放来判断。
@@ -3277,12 +3486,14 @@ declare namespace mw {
         static get onResume(): mw.MulticastDelegate<(leaveDuration: any) => void>;
         /**
          * @description 添加退出游戏时执行的回调函数
+         * @author junwen.hua
          * @effect 只在客户端调用生效
          * @precautions 只在App悬浮球退出和PIE关闭窗口时生效。悬浮球退出会计时5s，5s后会强制杀进程.
          * @returns 返回一个事件监听器
          */
         static get onExit(): mw.MulticastDelegate<() => void>;
         /**
+         * @author xiangkun.sun
          * @description 是否客户端运行
          * @groups 玩法
          * @effect 调用端生效
@@ -3310,6 +3521,7 @@ declare namespace mw {
          */
         static isClient(): boolean;
         /**
+         * @author xiangkun.sun
          * @description 是否服务器运行
          * @groups 玩法
          * @effect 调用端生效
@@ -3337,11 +3549,13 @@ declare namespace mw {
          */
         static isServer(): boolean;
         /**
+         * @author xiangkun.sun
          * @description 判断当前是否是编辑器运行模式
          * @effect 调用端生效
          */
         static isPIE: boolean;
         /**
+         * @author xiangkun.sun
          * @description 判定当前程序的运行平台,返回值参考Type.RuntimePlatform
          * @effect 调用端生效
          * @example
@@ -3363,6 +3577,7 @@ declare namespace mw {
          */
         static currentPlatform: mw.RuntimePlatform;
         /**
+         * @author xiangkun.sun
          * @description 判断当前是否是移动端
          * @groups 玩法
          * @effect 调用端生效
@@ -3386,6 +3601,7 @@ declare namespace mw {
          */
         static isMobile(): boolean;
         /**
+         * @author xiangkun.sun
          * @description 获取当前环境
          * @groups 玩法
          * @effect 调用端生效
@@ -3409,6 +3625,7 @@ declare namespace mw {
          */
         static getCurrentEnv(): string;
         /**
+         * @author xiangkun.sun
          * @description 获取完整编辑器版本号
          * @groups 玩法
          * @effect 调用端生效
@@ -3432,6 +3649,7 @@ declare namespace mw {
          */
         static getFullEditorVersion(): string;
         /**
+         * @author xiangkun.sun
          * @description 获取编辑器版本号
          * @groups 玩法
          * @effect 调用端生效
@@ -3455,6 +3673,7 @@ declare namespace mw {
          */
         static getEditorVersion(): string;
         /**
+         * @author xiangkun.sun
          * @description 获取当前游戏GameId
          * @groups 玩法
          * @effect 调用端生效
@@ -3480,6 +3699,7 @@ declare namespace mw {
          */
         static getGameId(): string;
         /**
+         * @author xiangkun.sun
          * @description 获取当前游戏版本
          * @groups 玩法
          * @effect 调用端生效
@@ -3505,6 +3725,7 @@ declare namespace mw {
          */
         static getVersion(): string;
         /**
+         * @author huipeng.jia
          * @description 获取当前房间Id，如果是单机游戏，则返回null
          * @groups 玩法
          * @effect 调用端生效
@@ -3530,6 +3751,7 @@ declare namespace mw {
          */
         static get roomId(): string;
         /**
+         * @author huipeng.jia
          * @description 获取当前场景的SceneId
          * @groups 玩法
          * @effect 调用端生效
@@ -3579,11 +3801,13 @@ declare namespace mw {
 declare namespace mw {
     /**
      * @groups 工具
+     * @author huipeng.jia, xiangkun.sun
      * @description 时间工具
      * @networkStatus usage:双端
      */
     class TimeUtil {
         /**
+         * @author xiangkun.sun
          * @description 返回当前本地会话所在的电脑自 UNIX Epoch（UNIX 纪元）开始所经过的时间（以秒为单位）。
          * @groups 工具
          * @effect 调用端生效
@@ -3610,6 +3834,7 @@ declare namespace mw {
          */
         static time(): number;
         /**
+         * @author xiangkun.sun
          * @description 返回自游戏运行后所经过的总时长，单位秒，精确到毫秒。
          * @groups 工具
          * @effect 调用端生效
@@ -3638,6 +3863,7 @@ declare namespace mw {
          */
         static elapsedTime(): number;
         /**
+         * @author xiangkun.sun
          * @description 格式化时间戳
          * @groups 工具
          * @effect 调用端生效
@@ -3665,6 +3891,7 @@ declare namespace mw {
          */
         static parseTime(timeData: Date, format?: string): string;
         /**
+         * @author xiangkun.sun
          * @description 帧刷新事件(参数deltaTime)
          * @precautions 每次update自动执行所绑定的方法
          * @example
@@ -3691,10 +3918,12 @@ declare namespace mw {
          */
         static onEnterFrame: mw.Action1<number>;
         /**
+         * @author xiangkun.sun
          * @description 是否输出每帧的执行时间
          */
         static traceFrameTime: boolean;
         /**
+         * @author xiangkun.sun
          * @description 每一帧经过的时间 (单位：秒)
          * @groups 工具
          * @precautions 调用这个函数之前两次Update函数调用之间的间隔时间
@@ -3703,6 +3932,7 @@ declare namespace mw {
          */
         static deltatime(): number;
         /**
+         * @author xiangkun.sun
          * @description 延迟一定帧数执行方法
          * @groups 工具
          * @effect 调用端生效
@@ -3731,6 +3961,7 @@ declare namespace mw {
          */
         static delayExecute(handler: () => void, frameNum?: number): number;
         /**
+         * @author xiangkun.sun
          * @description 清除 delayExecute
          * @groups 工具
          * @effect 调用端生效
@@ -3761,6 +3992,7 @@ declare namespace mw {
          */
         static clearDelayExecute(id: number): void;
         /**
+         * @author xiangkun.sun
          * @description 按一定时间间隔执行方法
          * @groups 工具
          * @effect 调用端生效
@@ -3799,6 +4031,7 @@ declare namespace mw {
          */
         static setInterval(handler: () => void, timeout: number, exitJudge?: () => boolean): number;
         /**
+         * @author xiangkun.sun
          * @description 清除 setInterval
          * @groups 工具
          * @effect 调用端生效
@@ -3837,6 +4070,7 @@ declare namespace mw {
          */
         static clearInterval(id: number): void;
         /**
+         * @author xiangkun.sun
          * @description 延迟一定秒数，用于异步方法中间的等待
          * @groups 工具
          * @effect 调用端生效
@@ -3899,21 +4133,25 @@ declare namespace mw {
 
 declare namespace mw {
     /**
+     * @author huipeng.jia
      * @description 插值函数的类型定义
      * @groups 基础类型
      */
     type TweenInterpolationFunction = (v: number[], k: number) => number;
     /**
+     * @author huipeng.jia
      * @description 缓动函数的类型定义
      * @groups 基础类型
      */
     type TweenEasingFunction = (amount: number) => number;
     /**
+     * @author huipeng.jia
      * @description 补间属性的定义，用户可以自由扩展
      * @groups 基础类型
      */
     type TweenUnknownProps = Record<string, any>;
     /**
+     * @author huipeng.jia
      * @groups 工具/补间动画
      * @description 序列工具类，主要用于获取连续的ID
      * @networkStatus usage: 双端
@@ -3928,6 +4166,7 @@ declare namespace mw {
         static nextID(): number;
     }
     /**
+     * @author huipeng.jia
      * @groups 工具/补间动画
      * @description 补间组，用于同时控制多个补间对象
      * @networkStatus usage: 双端
@@ -3978,6 +4217,7 @@ declare namespace mw {
     }
     /**
      * @groups 工具/补间动画
+     * @author huipeng.jia
      * @description 补间(动画)（来自 in-between）是一个概念，允许你以平滑的方式更改对象的属性。
      * 你只需告诉它哪些属性要更改，当补间结束运行时它们应该具有哪些最终值，以及这需要多长时间，
      * 补间引擎将负责计算从起始点到结束点的值。
@@ -4135,6 +4375,7 @@ CatmullRom插值：拐弯平滑，只在拐弯处进行平滑
      */
     class TweenUtil {
         /**
+         * @author huipeng.jia
          * @description 预设插值函数
          * @ignore
          */
@@ -4150,6 +4391,7 @@ CatmullRom插值：拐弯平滑，只在拐弯处进行平滑
             };
         };
         /**
+         * @author huipeng.jia
          * @description 预设的缓动函数
          * @ignore
          */
@@ -4216,18 +4458,21 @@ CatmullRom插值：拐弯平滑，只在拐弯处进行平滑
         /**
          * @hidden
          * @description 获取下一个 ID 的全局方法
+         * @author huipeng.jia
          * @groups 工具
          * @effect 调用端生效
          * @returns 下一个ID
          */
         static nextId: typeof TweenSequence.nextID;
         /**
+         * @author huipeng.jia
          * @groups 工具
          * @description 全局补间组单例。在创建补间时，如不特别指定，默认添加到该补间组
          */
         static TWEEN: TweenGroup;
     }
     /**
+     * @author huipeng.jia
      * @groups 工具/补间动画
      * @description 补间(动画)（来自 in-between）是一个概念，允许你以平滑的方式更改对象的属性。
      * 你只需告诉它哪些属性要更改，当补间结束运行时它们应该具有哪些最终值，以及这需要多长时间，
@@ -4451,6 +4696,7 @@ CatmullRom插值：拐弯平滑，只在拐弯处进行平滑
 
 declare namespace mw {
     /**
+     * @author mengyuan.hao
      * @description 窗口设置工具。
      * @description 可设置窗口聚焦失焦时触发某种行为，获取分辨率等功能。
      * @groups 工具
@@ -4498,6 +4744,7 @@ declare namespace mw {
          */
         static get onDefocus(): mw.MulticastDelegate<() => void>;
         /**
+         * @author xiangkun.sun
          * @description 获取屏幕的分辨率大小（不跟随屏幕缩放变化）。
          * @description 此方法仅在客户端调用生效。
          * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 038 reason: 删除接口 replacement: 使用screenSize替换
@@ -4515,6 +4762,7 @@ declare namespace mw {
          */
         static getViewportSize(): mw.Vector2;
         /**
+         * @author xiangkun.sun
          * @description 获取屏幕的分辨率大小（不跟随屏幕缩放变化）。
          * @description 此方法仅在客户端调用生效。
          * @groups 玩法
