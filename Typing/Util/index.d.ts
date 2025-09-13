@@ -156,6 +156,17 @@ declare namespace mw {
          * @returns 为真时本地资源
          * */
         static isLocalMaterialAsset(InAssetId: string): boolean;
+        /**
+         * @groups 工具
+         * @author ruichen.wang
+         * @groups 基础类型
+         * @description 将线上prefab资源本地化
+         * @effect 调用端生效
+         * @param InAssetId usage:资源 ID  range: 依据资源 ID 而定
+         * @param InPath usage:本地化路径  range: 依据路径 而定
+         * @returns 转为本地资源后的资源ID
+         * */
+        static localizeOnlinePrefab(InAssetId: string, InPath: string): Promise<string>;
     }
 }
 

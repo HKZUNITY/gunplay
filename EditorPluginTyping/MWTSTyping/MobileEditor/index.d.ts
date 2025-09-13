@@ -42,6 +42,18 @@ declare namespace mw {
      * @returns 旋转角度
      */
     function getWorldRotationEuler(target: mw.GameObject): mw.Rotation;
+    /**
+     * @author jie.wu
+     * @param target 修改目标脚本
+     * @param status 状态
+     */
+    function setScriptNetStatus(target: mw.Script, status: mw.NetStatus): void;
+    /**
+     * @author jie.wu
+     * @param target 获取目标脚本
+     * @return 状态
+     */
+    function getScriptNetStatus(target: mw.Script): mw.NetStatus;
 }
 
 declare namespace mw {

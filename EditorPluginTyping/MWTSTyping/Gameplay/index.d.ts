@@ -1181,6 +1181,20 @@ declare namespace mw {
         get length(): number;
         /**
          * @groups 动画
+         * @description 获取当前动画已播放时长，以秒为单位。
+         * @effect 调用端生效
+         * @networkStatus usage:双端
+         */
+        get position(): number;
+        /**
+         * @groups 动画
+         * @description 设置当前动画已播放时长，以秒为单位。
+         * @effect 调用端生效
+         * @networkStatus usage:双端
+         */
+        set position(value: number);
+        /**
+         * @groups 动画
          * @description 获取动画播放循环次数。
          * @description 当 loop 设置为 0 时，可无限循环播放。
          * @description 设置完成时，调用 Play() 函数即可看到角色播放动画。
@@ -6845,6 +6859,24 @@ declare namespace mw {
          */
         setStateEnabled(characterStateType: mw.CharacterStateType, enabled: boolean): void;
         /**
+         * @groups 角色系统/角色
+         * @description 角色阴影开关
+         * @effect 调用端生效
+         * @precautions 获取角色阴影投射状态。true表示打开，false表示关闭。
+         * @param CastShadow usage: 角色阴影投射状态
+         * @networkStatus usage:单端
+         */
+        get CastShadow(): boolean;
+        /**
+         * @groups 角色系统/角色
+         * @description 角色阴影开关
+         * @effect 调用端生效
+         * @precautions 角色当前开启阴影投射。true表示打开，false表示关闭。
+         * @param value usage: true为打开阴影投射，false为禁用。
+         * @networkStatus usage:单端
+         */
+        set CastShadow(value: boolean);
+        /**
         * @description 启用布娃娃
         * @precautions 角色当前是否使用布娃娃状态。true表示使用，false表示禁用。
         * @example
@@ -7696,6 +7728,91 @@ declare namespace mw {
          * @param value usage:透明度[0,1]
          */
         set opacity(value: number);
+        /**
+         * @description 打开音效播放开关
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        playCharacterSound(): void;
+        /**
+         * @description 关闭音效播放开关
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        pauseCharacterSound(): void;
+        /**
+        * @description 获取玩家音效音量
+        * @effect 调用端生效
+        * @return 获取玩家音效音量
+        */
+        get frequencyScaleSound(): number;
+        /**
+         * @description 设置玩家音效音量
+         * @param value usage:音量
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set frequencyScaleSound(value: number);
+        /**
+         * @description 获取跑步音效
+         * @effect 调用端生效
+         */
+        get runningSound(): string;
+        /**
+         * @description 设置跑步音效
+         * @param sound usage:音效资源GUID
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set runningSound(sound: string);
+        /**
+         * @description 获取跳跃音效
+         * @effect 调用端生效
+         */
+        get jumpingSound(): string;
+        /**
+         * @description 设置跳跃音效
+         * @param sound usage:音效资源GUID
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set jumpingSound(sound: string);
+        /**
+         * @description 获取着陆音效
+         * @effect 调用端生效
+         */
+        get landingSound(): string;
+        /**
+         * @description 设置着陆音效
+         * @param sound usage:音效资源GUID
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set landingSound(sound: string);
+        /**
+         * @description 获取水花音效
+         * @effect 调用端生效
+         */
+        get splashSound(): string;
+        /**
+         * @description 设置水花音效
+         * @param sound usage:音效资源GUID
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set splashSound(sound: string);
+        /**
+         * @description 获取游泳音效
+         * @effect 调用端生效
+         */
+        get swimmingSound(): string;
+        /**
+         * @description 设置游泳音效
+         * @param sound usage:音效资源GUID
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set swimmingSound(sound: string);
     }
 }
 

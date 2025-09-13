@@ -1195,6 +1195,13 @@ declare namespace UGC {
     */
     function saveUIFile(Widget: mw.UserWidget, path: string, name: string): string;
     /**
+     * @author yingjie.zhong
+     * @description 从UI文件读取数据刷新内存中的UI缓存
+     * @effect 只在客户端调用生效
+     * @param path usage: 需要刷新的UI在本地文件夹中的相对路径
+     */
+    function refreshUICache(path: string): void;
+    /**
     * @description   框选对象
     * @param selectionStartPoint 框选开始的点，屏幕坐标系中的一个点
     * @param selectionEndPoint 框选结束的点，屏幕坐标系中的一个点
