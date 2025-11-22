@@ -656,17 +656,34 @@ declare namespace UGC {
      */
     function uploadPrefab(assetId: string, name: string, imagePath: string, comment?: string, isReplaceGameThumb?: boolean): Promise<UploadPrefabResult>;
     /**
+     * @author yingjie.zhong
+     * @description 上传自定义数据包返回结果
+     * @groups DATATYPE
+     * @param uploadCustomResultType usage: 上传自定义数据包返回状态
+     * @param assetId usage: 资源标识
+     */
+    type UploadCustomResult = {
+        uploadCustomResultType: UGC.UploadCustomResultType;
+        assetId: string;
+    };
+    /**
     * @author tangbin.zhang
     * @groups 基础类型
-    * @description 上传预制体
+    * @description 上传自定义数据包
     * @effect 调用端生效
     * @precautions 异步请求
-    * @param assetId usage:预制体资源Id  range: 字符串长度依据资源 ID 长度而定
+    * @param assetId usage:自定义数据包资源Id  range: 字符串长度依据资源 ID 长度而定
     * @param name usage:名字
     * @param comment usage:资源描述
     * @param imagePath usage:512*512的透明png缩略图
     * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
-    * @returns {Promise<UploadPrefabResult>} 上传预制体返回结果
+    * @param price usage:价格
+    * @param tabId usage:标签ID
+    * @param extraData usage:额外数据
+    * @param bizLine usage:业务线
+    * @param commonReqVO usage:拓展字段
+    * @param tags usage:tags
+    * @returns {Promise<UploadCustomResult>} 上传预制体返回结果
     * @example
     * 使用示例:调用方法 新建一个脚本 NewScript
     * ```
@@ -674,15 +691,49 @@ declare namespace UGC {
     * export default class NewScript extends Script {
     *   //当脚本被实例后，会在第一帧更新前调用此函数
     *   protected onStart(): void {
-    *     //把guid='23C1ED241027B9E0'的预制体上传到服务器上，预制体的名字=我的预制体，，预制体的描述=这是个预制体，缩略图=C:/icon.png
-    *     UGC.fastUploadPrefab('23C1ED241027B9E0','C:/icon.png','我的预制体','这是个预制体').then(item =>{
+    *     //把guid='23C1ED241027B9E0'的自定义数据包上传到服务器上，自定义数据包的名字=我的自定义数据包，自定义数据包的描述=这是个自定义数据包，缩略图=C:/icon.png
+    *     UGC.fastUploadCustom('23C1ED241027B9E0','C:/icon.png','我的自定义数据包','这是个自定义数据包').then(item =>{
     *        console.log(item.AssetId)
     *     });
     *   }
     * }
     * ```
     */
-    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean): Promise<UploadPrefabResult>;
+    function fastUploadCustom(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean, price?: number, tabId?: number[], extraData?: string, bizLine?: string, commonReqVO?: string, tags?: string): Promise<UploadCustomResult>;
+    /**
+     * @author tangbin.zhang
+     * @groups 基础类型
+     * @description 上传自定义数据预设
+     * @effect 调用端生效
+     * @precautions 异步请求
+     * @param assetId usage:自定义预设资源Id  range: 字符串长度依据资源 ID 长度而定
+     * @param name usage:名字
+     * @param comment usage:资源描述
+     * @param imagePath usage:512*512的透明png缩略图
+     * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
+     * @param price usage:价格
+     * @param tabId usage:标签ID
+     * @param extraData usage:额外数据
+     * @param bizLine usage:业务线
+     * @param commonReqVO usage:拓展字段
+     * @param tags usage:tags
+     * @returns {Promise<UploadPrefabResult>} 上传预制体返回结果
+     * @example
+     * 使用示例:调用方法 新建一个脚本 NewScript
+     * ```
+     * @Component
+     * export default class NewScript extends Script {
+     *   //当脚本被实例后，会在第一帧更新前调用此函数
+     *   protected onStart(): void {
+     *     //把guid='23C1ED241027B9E0'的预制体上传到服务器上，预制体的名字=我的预制体，，预制体的描述=这是个预制体，缩略图=C:/icon.png
+     *     UGC.fastUploadPrefab('23C1ED241027B9E0','C:/icon.png','我的预制体','这是个预制体').then(item =>{
+     *        console.log(item.AssetId)
+     *     });
+     *   }
+     * }
+     * ```
+     */
+    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean, price?: number, tabId?: number[], extraData?: string, bizLine?: string, commonReqVO?: string, tags?: string): Promise<UploadPrefabResult>;
     /**
      * @author tangbin.zhang
      * @groups 基础类型
@@ -890,6 +941,16 @@ declare namespace UGC {
      * @returns {string} 返回生成预制体的资源ID
      */
     function savePrefab(root: mw.GameObject, targetPath?: string, bUpdateReference?: boolean): string;
+    /**
+     * @author yingjie.zhong
+     * @groups SCRIPTING
+     * @description 保存自定义数据包,作为上传资源fastUploadCustom()的前置
+     * @effect 只在客调用端生效
+     * @param  packFilePaths:usage: 目标文件/目录对项目根目录的相对路径 range: 目标文件要求在项目根目录下
+     * @param  rootName:usage: 自定义数据包的名字
+     * @returns {string} 返回生成自定义数据包的本地资源ID
+     */
+    function saveCustom(packFilePaths: string[], rootName: string): string;
     /**
      * @author maohang.zeng
      * @groups SCRIPTING
@@ -1220,6 +1281,36 @@ declare namespace UGC {
      */
     function setAutoCreateRuntimeAsset(gameObjectId: string, bGenerateAsset: boolean): string;
     /**
+     * @author dashan.wang
+     * @description 序列化对象数据，撤销恢复用
+     * @param gameObjectId 要序列化的对象id
+     * @returns 序列化的数据
+     */
+    function serializeNode(gameObjectId: string): string;
+    /**
+     * @author dashan.wang
+     * @description 反序列化对象数据，撤销恢复用
+     * @param content 序列化的数据
+     * @returns 新生成的对象
+     */
+    function unSerializeNode(content: string): mw.GameObject;
+    /**
+     * @author dashan.wang
+     * @description 通过正则匹配到文件中得数据,指令里的动作
+     * @effect 调用端生效
+     * @param name 文件名，需要带着路径以及后缀名。也可以传文件夹
+     * @param regexs 正则表达式
+     * @returns
+     */
+    function matchFromFile(name: string, regexs: RegExp[]): Promise<string[]>;
+    /**
+     * @author dashan.wang
+     * @description 往关卡中注册一些资源，到assetdatalist，
+     * @param normalAssets
+     * @param preloadAssets
+     */
+    function onceAppendAssets(normalAssets: string[], preloadAssets: string[]): void;
+    /**
      * @author zheng.zeng
      * @groups SCRIPTING
      * @description 获取路径
@@ -1227,6 +1318,34 @@ declare namespace UGC {
      * @return 返回当前UGC项目的路径
      */
     function getCurrentProjectPath(): string;
+    /**
+     * @author jinxin.yang
+     * @groups 基础类型
+     * @description 更新预制体
+     * @effect 调用端生效
+     * @param  inPrefabAssetId:usage: 需要更新的预制体ID
+     * @param  inOriginalAssetId:usage: 原始资源ID
+     * @returns 更新是否成功
+     */
+    function updatePrefabByOriginalAsset(inNeedUpdateId: string, inOriginalAssetId: string): Promise<boolean>;
+    /**
+     * @author jinxin.yang
+     * @groups 基础类型
+     * @description 还原更新的预制体，与更新配合使用
+     * @effect 调用端生效
+     * @param  inNeedRevertId:usage: 需要还原的预制体ID
+     * @returns 还原是否成功
+     */
+    function revertUpdatePrefab(inNeedRevertId: string): Promise<boolean>;
+    /**
+     * @author jinxin.yang
+     * @groups 基础类型
+     * @description 清理因更新预制体产生的备份文件，与更新配合使用
+     * @effect 调用端生效
+     * @param  inCleanId:usage: 需要清理的备份的预制体ID
+     * @returns 清理是否成功
+     */
+    function cleanUpdatePrefabBak(inCleanId: string): Promise<boolean>;
 }
 
 declare namespace UGC {
@@ -1371,6 +1490,45 @@ declare namespace UGC {
         * 预制体非法文件名
         */
         PrefabIllegalFileName = 6,
+        /**
+        * 服务器已经存在这个资源
+        */
+        ExistingAsset = 7
+    }
+    /**
+    * @author yingjie.zhong
+    * @description 上传自定义数据包返回状态
+    * @groups DATATYPE
+    */
+    enum UploadCustomResultType {
+        /**
+        * 上传成功
+        */
+        Success = 0,
+        /**
+         * 上传因未知原因失败
+         */
+        Failure = 1,
+        /**
+         * 未找到id对应的自定义数据包
+         */
+        CustomNotFound = 2,
+        /**
+         * 非法名称
+         */
+        IllegalName = 3,
+        /**
+         * 图片未找到
+         */
+        ImageNotFound = 4,
+        /**
+         * 图片大小不匹配
+         */
+        ImageNotMatch = 5,
+        /**
+        * 预制体非法文件名
+        */
+        CustomIllegalFileName = 6,
         /**
         * 服务器已经存在这个资源
         */

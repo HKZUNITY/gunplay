@@ -1259,6 +1259,24 @@ declare namespace mw {
          */
         set loop(loopCount: number);
         /**
+        * @groups 动画
+        * @description 获取暂停于最后一帧。
+        * @precautions 当值为true的时候，播放动画会暂停至最后一帧。动画循环播放时只针对最后一次播放生效。默认值为 false。
+        */
+        get pauseAtLastFrame(): boolean;
+        /**
+         * @groups 动画
+         * @description 设置暂停于最后一帧。
+         * @precautions 当值为true的时候，播放动画会暂停至最后一帧。动画循环播放时只针对最后一次播放生效。默认值为 false。
+         * @example
+         * 使用示例: 如下示例展示操作动画使其播放结束暂停于最后一帧
+         * ```ts
+         * animation.pauseAtLastFrame = true;
+         * animation.play();
+         * ```
+         */
+        set pauseAtLastFrame(value: boolean);
+        /**
          * @groups 动画
          * @description 设置动画的播放速率
          * @effect 调用端生效
@@ -1557,7 +1575,7 @@ declare namespace mw {
          * ```
          * @networkStatus usage:客户端
          */
-        get onFinish(): mw.MulticastDelegate<() => void>;
+        get onFinish(): mw.MulticastDelegate<(InInterrupted?: boolean) => void>;
         /**
          * @groups 动画
          * @description 播放动画。从动画资源的起点播放动画。生效范围与角色创建方式绑定。
@@ -7766,6 +7784,18 @@ declare namespace mw {
          */
         set runningSound(sound: string);
         /**
+         * @description 获取跑步音效速度
+         * @effect 调用端生效
+         */
+        get runningSoundSpeed(): number;
+        /**
+         * @description 设置跑步音效速度
+         * @param value usage:音效播放速度
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set runningSoundSpeed(value: number);
+        /**
          * @description 获取跳跃音效
          * @effect 调用端生效
          */
@@ -7777,6 +7807,18 @@ declare namespace mw {
          * @networkStatus usage:双端
          */
         set jumpingSound(sound: string);
+        /**
+         * @description 获取跳跃音效速度
+         * @effect 调用端生效
+         */
+        get jumpingSoundSpeed(): number;
+        /**
+         * @description 设置跳跃音效速度
+         * @param value usage:音效播放速度
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set jumpingSoundSpeed(value: number);
         /**
          * @description 获取着陆音效
          * @effect 调用端生效
@@ -7790,6 +7832,18 @@ declare namespace mw {
          */
         set landingSound(sound: string);
         /**
+         * @description 获取着陆音效速度
+         * @effect 调用端生效
+         */
+        get landingSoundSpeed(): number;
+        /**
+         * @description 设置着陆音效速度
+         * @param value usage:音效播放速度
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set landingSoundSpeed(value: number);
+        /**
          * @description 获取水花音效
          * @effect 调用端生效
          */
@@ -7802,6 +7856,18 @@ declare namespace mw {
          */
         set splashSound(sound: string);
         /**
+         * @description 获取水花音效速度
+         * @effect 调用端生效
+         */
+        get splashSoundSpeed(): number;
+        /**
+         * @description 设置水花音效速度
+         * @param value usage:音效播放速度
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set splashSoundSpeed(value: number);
+        /**
          * @description 获取游泳音效
          * @effect 调用端生效
          */
@@ -7813,6 +7879,18 @@ declare namespace mw {
          * @networkStatus usage:双端
          */
         set swimmingSound(sound: string);
+        /**
+         * @description 获取游泳音效速度
+         * @effect 调用端生效
+         */
+        get swimmingSoundSpeed(): number;
+        /**
+         * @description 设置游泳音效速度
+         * @param value usage:音效播放速度
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @networkStatus usage:双端
+         */
+        set swimmingSoundSpeed(value: number);
     }
 }
 
@@ -15278,6 +15356,108 @@ declare namespace mw {
         Gradient = 0
     }
     /**
+     * @author cong.xu
+     * @groups 场景/灯光
+     * @description 天空盒云片层
+     * @description ----------------------------------
+     * @networkStatus usage:客户端
+     */
+    class SkyboxCloudInstanceLayer {
+        /**
+         * @description 图片id
+         */
+        CloudInstanceTextureGuid: string;
+        /**
+         * @description 本层片的数量
+         */
+        InstanceCount: number;
+        /**
+         * @description 生成最低高度 0~1
+         */
+        HeightMin: number;
+        /**
+         * @description 生成最高高度 0~1
+         */
+        HeightMax: number;
+        /**
+         * @description 生成高度衰落 0~ >1时,越低越密集 <1时,越高越密集
+         */
+        DensityFallOff: number;
+        /**
+         * @description 生成位置随机 0~1
+         */
+        PositionNoise: number;
+        /**
+         * @description 生成最小大小 0~1
+         */
+        ScaleMin: number;
+        /**
+         * @description 生成最大大小 0~1
+         */
+        ScaleMax: number;
+        /**
+         * @description 本层距离 0~1
+         */
+        Distance: number;
+        /**
+         * @description 生成翻转随机 0~1
+         */
+        FlipNoise: number;
+    }
+    /**
+     * @author cong.xu
+     * @groups 场景/灯光
+     * @description 天空盒星星片层
+     * @description ----------------------------------
+     * @networkStatus usage:客户端
+     */
+    class SkyboxStarInstanceLayer {
+        /**
+         * @description 图片id
+         */
+        StarInstanceTextureGuid: string;
+        /**
+         * @description 本层片的数量
+         */
+        InstanceCount: number;
+        /**
+         * @description 生成最小大小 0~1
+         */
+        ScaleMin: number;
+        /**
+         * @description 生成最大大小 0~1
+         */
+        ScaleMax: number;
+        /**
+         * @description 生成最小亮度 0~1
+         */
+        IntensityMin: number;
+        /**
+         * @description 生成最大亮度 0~1
+         */
+        IntensityMax: number;
+        /**
+         * @description 生成亮度分布曲线 0~
+         */
+        IntensityPow: number;
+        /**
+         * @description 闪烁速度
+         */
+        FlickerSpeed: number;
+        /**
+         * @description 闪烁强度 0~1 0是没有闪烁效果
+         */
+        FlickerIntensity: number;
+        /**
+         * @description 闪烁间隔 1~ 越大间隔时间越长
+         */
+        FlickerSpace: number;
+        /**
+         * @description 闪烁比例 0~1 所有星星中有闪烁的比例
+         */
+        FlickerRatio: number;
+    }
+    /**
      * @author baoqiang.han
      * @groups 场景/灯光
      * @description 天空盒
@@ -15339,6 +15519,19 @@ declare namespace mw {
          * @effect 只在客户端调用生效
          */
         static reset(): void;
+        /**
+         * @description 设置天空盒是否显示
+         * @groups 场景/灯光
+         * @effect 只在客户端调用生效
+         * @param value usage:是否显示
+         */
+        static set skyboxVisiable(value: boolean);
+        /**
+         * @description 获取天空盒是否显示
+         * @effect 只在客户端调用生效
+         * @returns 是否显示
+         */
+        static get skyboxVisiable(): boolean;
         /**
          * @description 设置天空盒贴图资源ID
          * @groups 场景/灯光
@@ -15548,6 +15741,18 @@ declare namespace mw {
          */
         static set starDensity(value: number);
         /**
+         * @description 获取星星片层
+         * @effect 只在客户端调用生效
+         * @returns 星星片层信息
+         */
+        static get starInstanceLayer(): SkyboxStarInstanceLayer;
+        /**
+         * @description 设置星星片层
+         * @effect 只在客户端调用生效
+         * @param value usage:要设置的层信息
+         */
+        static set starInstanceLayer(value: SkyboxStarInstanceLayer);
+        /**
          * @description 获取是否开启太阳
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
@@ -15713,6 +15918,19 @@ declare namespace mw {
          */
         static get cloudTextureID(): string;
         /**
+         * @description 设置前景贴图资源ID
+         * @groups 场景/灯光
+         * @effect 只在客户端调用生效
+         * @param value usage:前景贴图资源ID
+         */
+        static set prospectTextureID(value: string);
+        /**
+         * @description 获取前景贴图ID
+         * @effect 只在客户端调用生效
+         * @returns 前景贴图ID
+         */
+        static get prospectTextureID(): string;
+        /**
          * @description 获取云的透明度
          * @groups 场景/灯光
          * @effect 只在客户端调用生效
@@ -15866,6 +16084,32 @@ declare namespace mw {
          * @effect 只在客户端调用生效
          */
         static pausSwitch(): void;
+        /**
+         * @description 增加云片层
+         * @param value usage:要增加的值
+         * @effect 只在客户端调用生效
+         */
+        static addCloudInstanceLayer(value: SkyboxCloudInstanceLayer): void;
+        /**
+         * @description 删除云片层
+         * @param index usage:指定第几层信息 range: 无 type: 整型
+         * @effect 只在客户端调用生效
+         */
+        static removeCloudInstanceLayer(index: number): void;
+        /**
+         * @description 设置云片层
+         * @param value usage:要设置的值
+         * @param index usage:指定第几层信息 range:无 type: 整型
+         * @effect 只在客户端调用生效
+         */
+        static setCloudInstanceLayer(value: SkyboxCloudInstanceLayer, index: number): void;
+        /**
+         * @description 获取云片层信息
+         * @effect 只在客户端调用生效
+         * @param index usage:指定第几层信息 range:无 type: 整型
+         * @returns 云片层信息
+         */
+        static getCloudInstanceLayer(index: number): SkyboxCloudInstanceLayer;
     }
 }
 
@@ -16142,6 +16386,20 @@ declare namespace mw {
          * @returns 音量比例
          */
         get volume(): number;
+        /**
+         * @description 设置播放速度
+         * @groups 场景/音效
+         * @effect 只在客户端调用生效
+         * @param value usage:播放速度
+         */
+        set speed(value: number);
+        /**
+         * @description 获取播放速度
+         * @groups 场景/音效
+         * @effect 只在客户端调用生效
+         * @returns 播放速度
+         */
+        get speed(): number;
         /**
          * @description 通过 GUID 设置音效
          * @groups 场景/音效
@@ -17530,6 +17788,14 @@ declare namespace mw {
          * @precautions 请在客户端调用，世界空间类型专用
          */
         get alwaysOnTop(): boolean;
+        /**
+         * @description 设置是否正确裁剪
+         * @groups 界面/基础
+         * @effect 只在客户端调用生效
+         * @precautions 请在客户端调用，世界空间类型专用
+         * @param value usage: UI是否正确裁剪
+         */
+        set isCorrectClipsize(value: boolean);
         /**
          * @description 设置是否保持朝向相机
          * @groups 界面/基础

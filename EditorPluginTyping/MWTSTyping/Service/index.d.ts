@@ -199,6 +199,13 @@ declare namespace mw {
          */
         static fillAvatar(img: mw.Image): void;
         /**
+         * @description 获取玩家头像
+         * @effect 只在客户端调用生效
+         * @precautions 只在移动端生效
+         * @returns 用户头像
+         */
+        static getAvatarUrl(): string;
+        /**
          * @description 上传角色形象资源到服务器  Character，Hair, UpperCloth, LowerCloth, Gloves, Shoe
          * @param character usage:要上传换装数据的角色
          * @param callback usage:设置是否成功的回调 default:默认没有回调
@@ -2026,6 +2033,7 @@ declare namespace mw {
         static get onRecharge(): mw.MulticastDelegate<(info: RechargeInfo) => void>;
         /**
          * @groups 服务/货币
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 048 reason: 接口更新 replacement: 不要再用，新版请自己工程对接http请求
          * @description 获取商品列表
          * @effect 只在客户端调用生效
          * @param tagIds usage: 用于筛选商品的Tag数组
@@ -2034,6 +2042,7 @@ declare namespace mw {
         static asyncGetCommodityListByTag(tagIds: number[]): Promise<CommodityListObj>;
         /**
          * @groups 服务/货币
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 048 reason: 接口更新 replacement: 不要再用，新版请自己工程对接http请求
          * @description 获取我可使用的物品列表
          * @effect 只在客户端调用生效
          * @param tagIds usage: 用于筛选商品的Tag数组
@@ -2042,6 +2051,7 @@ declare namespace mw {
         static asyncGetMyItemsListByTag(tagIds: number[]): Promise<CommodityListObj>;
         /**
          * @groups 服务/货币
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 048 reason: 接口更新 replacement: 不要再用，新版请自己工程对接http请求
          * @description 通过资源Id获取商品列表
          * @effect 只在客户端调用生效
          * @param assetIds usage: 用于筛选商品的AssetId数组
@@ -2050,6 +2060,7 @@ declare namespace mw {
         static asyncGetCommodityByAssetIds(assetIds: string[]): Promise<CommodityListObj>;
         /**
          * @groups 服务/货币
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 048 reason: 接口更新 replacement: 不要再用，新版请自己工程对接http请求
          * @description 通过物品Id获取商品列表
          * @effect 只在客户端调用生效
          * @param itemIds usage: 用于筛选商品的ItemId数组
@@ -2083,6 +2094,7 @@ declare namespace mw {
         static asyncSaveAvatarAndUpdateProfile(targetNPC: mw.Character, updateHead?: boolean): Promise<number>;
         /**
          * @groups 服务/货币
+         * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 048 reason: 接口更新 replacement: 不要再用，新版请自己工程对接http请求
          * @description 设置角色编辑器按钮可见性
          * @effect 只在客户端调用生效
          * @param visible usage: true表示可见，false不可见
@@ -3307,6 +3319,7 @@ declare namespace mw {
          * @param assetId usage: 播放的唯一标识，音效资源 ID，等同于 playId。区别是 playId 传递的是 number 类型，如：4330；assetId 传字符串类型 "4330" 即可。  range: 字符串长度依据资源 ID 长度而定
          * @param loopCount usage: 循环次数，当=0时，为无限播放  default: 1  range:不做限制  type:整数
          * @param volume usage: 音量 default: 1  range:不做限制  type:整数
+         * @param speed usage: 速度 default: 1  range:不做限制  type:整数
          * @returns 资源id
          * @example
          * 使用示例:创建一个名为SoundExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，按下F键会播放一个爆炸音效
@@ -3330,7 +3343,7 @@ declare namespace mw {
          * }
          * ```
          */
-        static playSound(assetId: string, loopCount?: number, volume?: number): string;
+        static playSound(assetId: string, loopCount?: number, volume?: number, speed?: number): string;
         /**
          * @description 根据资源Id停止声音
          * @effect 调用端生效|服务端调用自动广播
@@ -3467,6 +3480,7 @@ declare namespace mw {
          * @param loopCount usage: 循环次数，当=0时，为无限播放  default: 1  range:不做限制  type:整数
          * @param volume usage: 音量 default: 1  range:不做限制  type:整数
          * @param params usage: 播放参数: { radius: 内部半径(default 200), falloffDistance: 衰减距离,不包含内部半径(default 600) } default: undefined
+         * @param speed usage: 速度 default: undefined  range:不做限制  type:整数
          * @returns 播放ID，播放声音的唯一标识，可用于停止声音
          * @example
          * 使用示例:创建一个名为SoundExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，按下F键会在0点坐标处创建一个方块，并在该位置播放一个3D音效，再次按下F键会停止该音效
@@ -3503,7 +3517,7 @@ declare namespace mw {
         static play3DSound(assetId: string, target: string | mw.GameObject | mw.Vector, loopCount?: number, volume?: number, params?: {
             radius?: number;
             falloffDistance?: number;
-        }): number;
+        }, speed?: number): number;
         /**
          * @groups 场景/音效
          * @description 停止3D声音

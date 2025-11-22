@@ -1,4 +1,7 @@
 ﻿declare namespace mw {
+}
+
+declare namespace mw {
     /**
      * @groups 基类
      * @author si.wu
@@ -355,6 +358,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -367,12 +371,14 @@ declare namespace mw {
          * });
          * ```
          */
-        moveTo(targetPosition: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        moveTo(targetPosition: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按给定的速度矢量随时间平滑地移动对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param velocity usage:速度
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -383,7 +389,7 @@ declare namespace mw {
          * cube.moveBy(new Vector(10, 10, 0), true);
          * ```
          */
-        moveBy(velocity: mw.Vector, isLocal?: boolean): void;
+        moveBy(velocity: mw.Vector, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断moveTo()、moveBy()的进一步移动
          * @effect 双端物体服务端调用生效，单端物体调用端生效
@@ -396,6 +402,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -408,12 +415,14 @@ declare namespace mw {
          * });
          * ```
          */
-        scaleTo(targetScale: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        scaleTo(targetScale: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按每秒给定的缩放矢量随时间平滑缩放对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param scale usage:缩放速度
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -424,7 +433,7 @@ declare namespace mw {
          * cube.scaleBy(new Vector(1, 1, 0), true);
          * ```
          */
-        scaleBy(scale: mw.Vector, isLocal?: boolean): void;
+        scaleBy(scale: mw.Vector, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断从ScaleTo()或ScaleBy()的进一步缩放
          * @effect 双端物体服务端调用生效，单端物体调用端生效
@@ -437,6 +446,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -449,13 +459,15 @@ declare namespace mw {
          * });
          * ```
          */
-        rotateTo(targetRotation: mw.Rotation | mw.Quaternion, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        rotateTo(targetRotation: mw.Rotation | mw.Quaternion, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按给定的旋转量随时间平滑地旋转对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param rotation usage:旋转速度
          * @param multiplier usage:旋转乘数 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -466,12 +478,36 @@ declare namespace mw {
          * cube.rotateBy(new Rotation(1, 0, 1), 5, true);
          * ```
          */
-        rotateBy(rotation: mw.Rotation | mw.Quaternion, multiplier: number, isLocal?: boolean): void;
+        rotateBy(rotation: mw.Rotation | mw.Quaternion | mw.Vector, multiplier: number, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断从rotateTo()或rotateBy()的进一步旋转
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          */
         stopRotate(): void;
+        /**
+         * @description 按给定的摆动速度进行摆动
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @param swingSpeed usage:摆动速度
+         * @param stopTime usage:停止时间 range: >= 0 type: 浮点数 default:0
+         * @param angle usage:摆动角度 range: > 0 type: 浮点数 default:0
+         * @param isLocal usage:是否本地空间生效 default:true
+         * @param delay usage:延迟时间 range: >= 0 type: 浮点数 default:0
+         * @example
+         * 使用示例: 调用方式
+         * ```ts
+         * let cube = GameObject.spawn<Model>("197386", {
+         *    replicates: true,
+         *    transform: new Transform()
+         * });
+         * cube.swingBy(new Vector(1, 0, 1), 5, 45, true);
+         * ```
+         */
+        swingBy(swingSpeed: mw.Vector, stopTime: number, angle: number, isLocal?: boolean, delay?: number): void;
+        /**
+         * @description 中断从rotateTo()或rotateBy()的进一步旋转
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         */
+        stopSwing(): void;
         /**
          * @description 批量设置位置
          * @effect 调用端生效
@@ -1073,6 +1109,14 @@ declare namespace mw {
          * @effect 调用端生效
          */
         protected onEnter(): void;
+        /**
+         * @description 接管关闭加载ui
+         * @param maxWaitTime usage: 原始系统最大等大加载时长 不同画质等级区分 <br> range: 大于0.0  type:浮点数
+         * @param closeSystemLoadingUI usage: 关闭系统loading
+         * @effect 调用端生效
+         * @returns 返回数值表示最大接管时间 超出系统会自动关闭，返回undefined表示不接管
+         */
+        protected takeOverCloseLoading(maxWaitTime: number, closeSystemLoadingUI: () => void): number | undefined;
     }
 }
 

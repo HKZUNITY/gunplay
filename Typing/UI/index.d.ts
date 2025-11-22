@@ -1,6 +1,5 @@
 ﻿declare namespace mw {
     /**
-     * @author cheng.zeng
      * @groups 界面/控件/广告按钮
      * @description 广告按钮，请注意广告按钮不允许被遮挡
      * @description 需要在游戏中使用 onshow/onclose 才能播放广告
@@ -326,7 +325,6 @@
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面/控件/按钮
      * @description 按钮
      * @description -------------------------
@@ -775,7 +773,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/容器
      * @description 容器
      * @description ----------------------
@@ -911,7 +908,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面/控件/勾选框
      * @description 勾选框
      * @networkStatus usage:客户端
@@ -1015,7 +1011,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author jie.wu
     * @groups 界面/控件/调色板
     * @description 调色板
     * @networkStatus usage:客户端
@@ -1078,7 +1073,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-      * @author jie.wu
       * @groups 界面/事件
       * @description 拖拽事件数据传递类
       * @networkStatus usage:客户端
@@ -1127,7 +1121,6 @@ declare namespace mw {
     }
     /** UI 拖拽事件 */
     /**
-     * @author jie.wu
      * @groups 界面/事件
      * @description UI 拖拽事件
      * @networkStatus usage:客户端
@@ -1183,7 +1176,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/绘图画板
      * @description UI 画板
      * @networkStatus usage:客户端
@@ -1326,7 +1318,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/绘图画布
      * @description 自定义绘制图元数据
      * @networkStatus usage:客户端
@@ -1346,7 +1337,6 @@ declare namespace mw {
         texCoord: mw.Vector2;
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/绘图画布
      * @description 图元绘制基础参数
      * @networkStatus usage:客户端
@@ -1366,7 +1356,6 @@ declare namespace mw {
         lineThickness: number;
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/绘图画布
      * @description UI 画布
      * @networkStatus usage:客户端
@@ -1456,7 +1445,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面/控件/下拉框
      * @description Dropdown
      * @networkStatus usage:客户端
@@ -1685,7 +1673,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/帧动画
      * @description 帧动画控件
      * @networkStatus usage:客户端
@@ -1800,7 +1787,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/图片
      * @description 图片
      * @networkStatus usage:客户端
@@ -1978,7 +1964,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/输入框
      * @description 输入框
      * @networkStatus usage:客户端
@@ -2446,7 +2431,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author maohang.zeng
     * @groups 界面
     * @description 列表视图节点数据基类
     * @networkStatus usage:客户端
@@ -2469,7 +2453,6 @@ declare namespace mw {
         get ownerListView(): any;
     }
     /**
-     * @author maohang.zeng
      * @groups 界面/控件/列表视图
      * @description 列表视图
      * @networkStatus usage: 客户端
@@ -2686,7 +2669,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面/控件/遮罩按钮
      * @description 遮罩按钮
      * @networkStatus usage:客户端
@@ -3347,7 +3329,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/容器
      * @description 遮罩容器
      * @description ----------------------
@@ -3430,7 +3411,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author wei.yang
      * @groups 界面
      * @description 菜单项节点信息
      * @networkStatus usage:客户端
@@ -3461,7 +3441,6 @@ declare namespace mw {
         uiCommand: string;
     }
     /**
-     * @author jianke.feng
      * @groups 界面/控件/菜单锚点
      * @description 菜单锚点
      * @networkStatus usage:客户端
@@ -3473,7 +3452,6 @@ declare namespace mw {
 declare namespace mw {
     /**
     * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement:挂载相关功能已全移动到 Widget 控件
-    * @author jie.wu
     * @groups 界面/控件
     * @description UI 控件中，可以挂载子控件的父类。
     * @description ---------------------
@@ -3486,7 +3464,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/进度条
      * @description 进度条
      * @networkStatus usage:客户端
@@ -3861,7 +3838,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-   * @author jie.wu
    * @groups 界面/控件/滚动框
    * @description 滑动框
    * @networkStatus usage:客户端
@@ -4172,7 +4148,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author jie.wu
     * @groups 界面/控件/文本按钮
     * @description 文本按钮
     * @networkStatus usage:客户端
@@ -4982,7 +4957,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author jianke.feng
     * @description 选项卡组-点击事件type
     * @groups 界面
     */
@@ -4991,7 +4965,6 @@ declare namespace mw {
         get onClicked(): mw.MulticastDelegate<() => void>;
     };
     /**
-     * @author wei.yang
      * @groups 界面
      * @description 选项卡组
      * @networkStatus usage:客户端
@@ -5037,7 +5010,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author jie.wu
     * @groups 界面/控件/文本
     * @description 文本
     * @networkStatus usage:客户端
@@ -5458,7 +5430,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author maohang.zeng
      * @groups 界面/控件/平铺视图
      * @description 平铺视图
      * @networkStatus usage: 客户端
@@ -5503,7 +5474,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/摄像机滑动区
      * @description 摄像机滑动区
      * @networkStatus usage:客户端
@@ -5552,7 +5522,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-    * @author maohang.zeng
     * @groups 界面
     * @description 树状视图节点数据基类
     * @networkStatus usage: 客户端
@@ -5600,7 +5569,6 @@ declare namespace mw {
         get children(): TreeViewItemDataBase[];
     }
     /**
-     * @author maohang.zeng
      * @groups 界面/控件/树状视图
      * @description 树状视图
      * @networkStatus usage: 客户端
@@ -5848,7 +5816,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @description 获取 UI 脚本
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -5857,7 +5824,6 @@ declare namespace mw {
      */
     function findUIScript(UI: mw.Widget): mw.UIScript;
     /**
-     * @author jie.wu
      * @description 创建 UIPrefab
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5866,7 +5832,6 @@ declare namespace mw {
      */
     function createUIByName(UIPrefabName: string): mw.UserWidget;
     /**
-     * @author jie.wu
      * @description 创建 UIPrefab
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5875,7 +5840,6 @@ declare namespace mw {
      */
     function createUIByPath(UIPath: string): mw.UserWidget;
     /**
-     * @author jie.wu
      * @description 异步创建UI，失败返回空
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5884,7 +5848,6 @@ declare namespace mw {
      */
     function asyncCreateUIByName(UIPath: string): Promise<mw.UserWidget>;
     /**
-     * @author jie.wu
      * @description 创建空的 UI
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5895,7 +5858,6 @@ declare namespace mw {
         new (): T;
     }): T;
     /**
-     * @author jie.wu
      * @description 创建UIPrefab
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5907,7 +5869,6 @@ declare namespace mw {
         new (): T;
     }): T;
     /**
-     * @author jie.wu
      * @description 异步创建UI
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5919,7 +5880,6 @@ declare namespace mw {
         new (): T;
     }): Promise<T>;
     /**
-     * @author jie.wu
      * @description 异步请求资源的ICON信息
      * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:038 reason:该接口不再需要 replacement:直接设置ICON即可
      * @groups 界面
@@ -5929,7 +5889,6 @@ declare namespace mw {
      */
     function assetIDChangeIconUrlRequest(assets: string[]): Promise<void>;
     /**
-     * @author jie.wu
      * @description 获取资源的 ICON 信息
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5939,7 +5898,6 @@ declare namespace mw {
      */
     function getAssetIconDataByAssetID(asset: string, size?: mw.AssetIconSize): mw.AssetIconData;
     /**
-     * @author jie.wu
      * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since:039 reason:接口调整 replacement: 使用 releaseTextureFromCache
      * @description 尝试标记资源的 ICON 图为待释放的等待释放
      * @groups 界面
@@ -5948,7 +5906,6 @@ declare namespace mw {
      */
     function releaseAssetIconTextureFromCache(asset: string): void;
     /**
-     * @author jie.wu
      * @description 尝试标记资源的ICON或则一个URL地址用于释放本地缓存的资源数据
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -5956,13 +5913,37 @@ declare namespace mw {
      */
     function releaseTextureFromCache(id: string): void;
     /**
-     * @author jie.wu
      * @description 分辨率改变时的回调
      * @groups 界面
      * @effect 只在客户端调用生效
      * @param Delegate usage:传入回调函数
      */
     function getResolutionChanged(Delegate: mw.MulticastDelegate<(x: number, y: number) => void>): void;
+    /**
+     * @description 从UI文件读取数据刷新内存中的UI缓存
+     * @groups 界面
+     * @effect 只在客户端调用生效
+     * @param path usage: 需要刷新的UI在本地文件夹中的相对路径 range: 从工程目录开始的相对路径
+     */
+    function clearUIDataCache(path: string): void;
+    /**
+     * @description 删除项目UI目录下指定目录中的UI文件
+     * @groups 界面
+     * @effect 只在客户端调用生效, 仅UGC编辑态和MW编辑器时态有效
+     * @param directroyPath usage: 本地文件夹路径 range: 从项目UI目录开始的相对路径
+     * @param whiteList usage: 白名单，白名单中的文件不会被删除 range: 指定目录下的文件名(有无后缀名皆可)
+     */
+    function clearLocalUIFiles(directroyPath: string, whiteList: string[]): void;
+    /**
+     *
+     * @description 更新指定目录下的UI文件Guid以及UI图层名
+     * @groups 界面
+     * @effect 调用端生效
+     * @param directroyPath usage: 本地文件夹路径 range: 从项目根目录开始的相对路径
+     * @param ignoreList usage: 白名单，白名单中的文件不会被更新 range: 指定目录下的文件名(有无后缀名皆可)
+     * @returns 被影响了的ui文件名
+     */
+    function RefreshUnLoadUIGuidByDirectory(directroyPath: string, ignoreList: string[]): string[];
 }
 
 declare namespace mw {
@@ -5986,7 +5967,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面/基础
      * @description UI 对象
      * @description ----------------------------
@@ -6077,7 +6057,6 @@ declare namespace mw {
      */
     function UIBind(bindUIClass: string): (target: unknown) => void;
     /**
-    * @author jie.wu
     * @groups 界面/基础
     * @description UI 的驱动脚本基类
     * @description -----------------------
@@ -6437,7 +6416,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author wei.yang
      * @groups 界面/基础
      * @description UI 管理类
      * @description 1. 关于 UI 的一些名词解释
@@ -6760,7 +6738,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @description 判定给定坐标是否在geometry下
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6770,7 +6747,6 @@ declare namespace mw {
      */
     function isUnderLocation(geometry: mw.Geometry, absolutePosition: mw.Vector2): boolean;
     /**
-     * @author jie.wu
      * @description 转化绝对坐标到相对坐标
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6780,7 +6756,6 @@ declare namespace mw {
      */
     function absoluteToLocal(geometry: mw.Geometry, absolutePosition: mw.Vector2): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 将局部坐标转换为绝对坐标,绝对坐标可以是桌面空间，也可以是窗口空间，这取决于小部件层次结构的根所在的空间。
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6790,7 +6765,6 @@ declare namespace mw {
      */
     function localToAbsolute(geometry: mw.Geometry, localPosition: mw.Vector2): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 返回局部空间中几何图形的局部顶部/左侧
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6799,7 +6773,6 @@ declare namespace mw {
      */
     function getLocalTopLeft(geometry: mw.Geometry): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 返回局部空间中几何图形的大小
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6808,7 +6781,6 @@ declare namespace mw {
      */
     function getLocalSize(geometry: mw.Geometry): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 返回绝对空间中几何图形的大小
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6817,7 +6789,6 @@ declare namespace mw {
      */
     function getAbsoluteSize(geometry: mw.Geometry): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 转化绝对空间下矢量到局部空间下
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6827,7 +6798,6 @@ declare namespace mw {
      */
     function transformVectorAbsoluteToLocal(geometry: mw.Geometry, absoluteVector: mw.Vector2): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 转化局部空间下矢量到绝对空间下
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6837,7 +6807,6 @@ declare namespace mw {
      */
     function transformVectorLocalToAbsolute(geometry: mw.Geometry, localVector: mw.Vector2): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 将几何体的局部坐标转换为局部视口坐标。
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6848,7 +6817,6 @@ declare namespace mw {
      */
     function localToViewport(geometry: mw.Geometry, localPosition: mw.Vector2, outPixelPosition: mw.Vector2, outViewportPosition: mw.Vector2): void;
     /**
-     * @author jie.wu
      * @description 将桌面空间中几何图形的绝对坐标转换为本地视口坐标
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6858,7 +6826,6 @@ declare namespace mw {
      */
     function absoluteToViewport(absoluteDesktopPosition: mw.Vector2, outPixelPosition: mw.Vector2, outViewportPosition: mw.Vector2): void;
     /**
-     * @author jie.wu
      * @description 将屏幕位置(以像素为单位)转换为具有给定几何形状的小部件的本地空间。如果bIncludeWindowPosition为真，那么这个方法也将移除游戏窗口的位置(在窗口模式下有用)。
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6869,7 +6836,6 @@ declare namespace mw {
      */
     function screenToWidgetLocal(geometry: mw.Geometry, screenPosition: mw.Vector2, isIncludeWindowPosition?: boolean): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 将屏幕位置(像素)转换为绝对桌面程序坐标。如果bIncludeWindowPosition为真，那么这个方法也将移除游戏窗口的位置(在窗口模式下有用)。
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6879,7 +6845,6 @@ declare namespace mw {
      */
     function screenToWidgetAbsolute(screenPosition: mw.Vector2, isIncludeWindowPosition?: boolean): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 将屏幕位置(以像素为单位)转换为视口控件的本地空间。
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6888,7 +6853,6 @@ declare namespace mw {
      */
     function screenToViewport(screenPosition: mw.Vector2): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 获取当前鼠标所在的绝对位置
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6896,7 +6860,6 @@ declare namespace mw {
      */
     function getCurrentMousePosition(): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 获取上一次鼠标所在的绝对位置
      * @groups 界面
      * @effect  只在客户端调用生效
@@ -6910,7 +6873,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 帧动画播放规则
      */
@@ -6923,7 +6885,6 @@ declare namespace mw {
         Stopped = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 输入框回车键功能
      */
@@ -6954,7 +6915,6 @@ declare namespace mw {
         AllCommit = 16
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 选中规则
      */
@@ -6967,7 +6927,6 @@ declare namespace mw {
         Undetermined = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 自动布局排版规则-排列规则
      */
@@ -6992,7 +6951,6 @@ declare namespace mw {
         CenterBottom = 8
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 自动布局排版规则-容器类型
      */
@@ -7004,7 +6962,6 @@ declare namespace mw {
     }
     /**  */
     /**
-    * @author jianke.feng
     * @groups 界面
     * @description 自动布局容器水平适应规则
     */
@@ -7016,7 +6973,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 自动布局容器垂直适应规则
      */
@@ -7028,7 +6984,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 自动布局子项布局排序 - 水平排序
      */
@@ -7040,7 +6995,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 自动布局子项布局排序 - 垂直排序
      */
@@ -7052,7 +7006,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 文本框规则显示规则限制
      */
@@ -7066,7 +7019,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 滚动框动画类型
      */
@@ -7080,7 +7032,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 对齐策略水平规则
      */
@@ -7097,7 +7048,6 @@ declare namespace mw {
         Scale = 4
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 对齐策略垂直规则
      */
@@ -7114,7 +7064,6 @@ declare namespace mw {
         Scale = 4
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 字体类型
      */
@@ -7133,7 +7082,6 @@ declare namespace mw {
         Heavy = 5
     }
     /**
-     * @author yang.zheng
      * @groups 界面
      * @description 字体
      */
@@ -7171,7 +7119,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 文本排列对齐规则
      */
@@ -7195,7 +7142,6 @@ declare namespace mw {
         Right = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 文本排列垂直对齐规则
      */
@@ -7208,7 +7154,6 @@ declare namespace mw {
         Bottom = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 按钮点击响应规则
      */
@@ -7235,7 +7180,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 按钮触摸响应规则
      */
@@ -7254,7 +7198,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 按钮按压响应规则
      */
@@ -7276,7 +7219,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description UI节点显示规则
      */
@@ -7294,7 +7236,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 鼠标锁定模式
      */
@@ -7310,7 +7251,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 相机控制模式
      */
@@ -7324,7 +7264,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 滚动框类型
      */
@@ -7335,7 +7274,6 @@ declare namespace mw {
         OrientVertical = 1
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 光标类型
      */
@@ -7374,7 +7312,6 @@ declare namespace mw {
     /**
      * @description  滚动条默认位置
      * @groups 界面
-     * @author jianke.feng
      *
      */
     enum ScrollBarDefaultLocation {
@@ -7386,7 +7323,6 @@ declare namespace mw {
         BottomOrRight = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 进度条填充规则
      */
@@ -7404,7 +7340,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description UI颜色应用模式
      */
@@ -7420,7 +7355,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 图片画刷绘制模式
      */
@@ -7438,7 +7372,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 图片画刷填充模式
      */
@@ -7454,7 +7387,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 输入框限制
      */
@@ -7472,7 +7404,6 @@ declare namespace mw {
     }
     /**  */
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 输入提交模式
      */
@@ -7487,7 +7418,6 @@ declare namespace mw {
         OnCleared = 3
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 拖拽的锚点
      */
@@ -7514,7 +7444,6 @@ declare namespace mw {
         BottomRight = 9
     }
     /**
-    * @author jie.wu
     * @groups 界面
     * @description 进度条滑动的方式
     */
@@ -7525,7 +7454,6 @@ declare namespace mw {
         Slide = 1
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 遮罩类型
      */
@@ -7538,7 +7466,6 @@ declare namespace mw {
         MTRoundRect = 2
     }
     /**
-     * @author jianke.feng
      * @groups 界面
      * @description 新版遮罩类型
      */
@@ -7553,7 +7480,6 @@ declare namespace mw {
         None = 3
     }
     /**
-     * @author maohang.zeng
      * @groups 界面
      * @description 列表视图选择模式
      */
@@ -7568,7 +7494,6 @@ declare namespace mw {
         Multi = 3
     }
     /**
-     * @author maohang.zeng
      * @groups 界面
      * @description 列表视图选择来源信息
      */
@@ -7583,7 +7508,6 @@ declare namespace mw {
         Direct = 3
     }
     /**
-     * @author wei.yang
      * @groups 界面
      * @description 菜单呼出位置枚举
      */
@@ -7618,7 +7542,6 @@ declare namespace mw {
         MousePosition = 13
     }
     /**
-     * @author maohang.zeng
      * @groups 界面
      * @description 图标的分辨率
      */
@@ -7629,7 +7552,6 @@ declare namespace mw {
         Icon_128px = 128
     }
     /**
-     * @author jie.wu
      * @groups 界面/配置
      * @description 基础的边距，提供4个方向的数值修改
      * @networkStatus usage:客户端
@@ -7660,7 +7582,6 @@ declare namespace mw {
     }
     /**
      * @deprecated info:该接口已废弃，在该接口被删除前会仍保持可用，请尽快使用替换方案以免出现问题 since: 029 reason: 删除接口 replacement:控件属性 autoSizeHorizontalEnable()/autoSizeVerticalEnable()
-     * @author jie.wu
      * @groups 界面/控件/容器
      * @description 容器自动布局大小适应规则
      * @networkStatus usage:客户端
@@ -7679,7 +7600,6 @@ declare namespace mw {
         hugContentH: UIHugContentVertically;
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/容器
      * @description 容器自动布局子项排序规则
      * @networkStatus usage:客户端
@@ -7698,7 +7618,6 @@ declare namespace mw {
         verticalCollation: UIVerticalCollation;
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/容器
      * @description 容器自动布局规则
      * @networkStatus usage:客户端
@@ -7752,7 +7671,6 @@ declare namespace mw {
         hugContent: UIHugContent;
     }
     /**
-     * @author jie.wu
      * @groups 界面/配置
      * @description Transform
      * @networkStatus usage:客户端
@@ -7780,7 +7698,6 @@ declare namespace mw {
         size: mw.Vector2;
     }
     /**
-     * @author jie.wu
      * @groups 界面/配置
      * @description 节点对齐规则
      * @networkStatus usage:客户端
@@ -7805,7 +7722,6 @@ declare namespace mw {
         constraintVertical: UIConstraintVertical;
     }
     /**
-     * @author jie.wu
      * @groups 界面/配置
      * @description 字体信息
      * @networkStatus usage:客户端
@@ -7843,7 +7759,6 @@ declare namespace mw {
         outLineColor: mw.LinearColor;
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/遥杆
      * @description 摇杆信息
      * @networkStatus usage:客户端
@@ -7851,7 +7766,6 @@ declare namespace mw {
     class JoystickStyleDesigner {
     }
     /**
-     * @author jie.wu
      * @groups 界面/控件/遥杆
      * @description 颜色管理
      * @networkStatus usage:客户端
@@ -7869,7 +7783,6 @@ declare namespace mw {
         colorUseRule: SlateColorStylingMode;
     }
     /**
-     * @author jie.wu
      * @groups 界面
      * @description 几何坐标信息
      * @networkStatus usage:客户端
@@ -7919,7 +7832,6 @@ declare namespace mw {
     }
     /**
      * @hidden
-     * @author jie.wu
      * @groups 输入
      * @description 输入事件
      * @networkStatus usage:客户端
@@ -7930,7 +7842,6 @@ declare namespace mw {
     }
     /**
      * @hidden
-     * @author jie.wu
      * @groups 界面
      * @description 焦点事件
      * @networkStatus usage:客户端
@@ -7940,7 +7851,6 @@ declare namespace mw {
         private constructor();
     }
     /**
-     * @author jie.wu
      * @groups 界面/事件
      * @description 角色输入事件
      * @networkStatus usage:客户端
@@ -7956,7 +7866,6 @@ declare namespace mw {
         toInputEvent(): InputEvent;
     }
     /**
-     * @author jie.wu
      * @groups 界面/事件
      * @description 按键事件
      * @networkStatus usage:客户端
@@ -8008,7 +7917,6 @@ declare namespace mw {
         isShiftDown(): boolean;
     }
     /**
-    * @author jie.wu
     * @groups 界面/事件
     * @description 点击或者滑动的时候传递mobile touch,鼠标,键盘信息的类
     * @networkStatus usage:客户端
@@ -8073,7 +7981,6 @@ declare namespace mw {
         isMouseButtonDown(MouseButton: mw.Keys): boolean;
     }
     /**
-    * @author jie.wu
     * @groups 界面/事件
     * @description 事件回复
     * @networkStatus usage:客户端
@@ -8117,7 +8024,6 @@ declare namespace mw {
         releaseMouseCapture(): EventReply;
     }
     /**
-    * @author jie.wu
     * @groups 界面/控件/图片
     * @description 资源 icon 信息
     * @networkStatus usage:客户端
@@ -8142,7 +8048,6 @@ declare namespace mw {
         set assetID(v: string);
     }
     /**
-    * @author jie.wu
     * @groups 界面/控件/遥杆
     * @description 摇杆按键绑定
     * @networkStatus usage:客户端
@@ -8180,7 +8085,6 @@ declare namespace mw {
         constructor(up: mw.Keys, down: mw.Keys, left: mw.Keys, right: mw.Keys);
     }
     /**
-     * @author jianke.feng
      * @description 图片信息类
      * @groups 界面/控件/图片
      * @networkStatus usage:客户端
@@ -8287,7 +8191,6 @@ declare namespace mw {
         get size(): Readonly<mw.Vector2>;
     }
     /**
-     * @author zheng.zeng
      * @description Checkbox 控件风格类型
      * @groups 界面/控件/勾选框
      * @networkStatus usage:客户端
@@ -8350,7 +8253,6 @@ declare namespace mw {
         get undeterminedPressedImage(): ImageInfo;
     }
     /**
-     * @author zheng.zeng
      * @description Button 控件风格类型
      * @groups 界面/控件/按钮
      * @networkStatus usage:客户端
@@ -8383,7 +8285,6 @@ declare namespace mw {
         get disabledImage(): ImageInfo;
     }
     /**
-     * @author zheng.zeng
      * @description Dropdown 控件风格类型
      * @groups 界面/控件/下拉框
      * @networkStatus usage:客户端
@@ -8470,7 +8371,6 @@ declare namespace mw {
         get comboButtonContentVisible(): boolean;
     }
     /**
-     * @author jianke.feng
      * @groups 界面/控件/滚动框
      * @description 滚动条风格类型
      * @networkStatus usage:客户端
@@ -8509,7 +8409,6 @@ declare namespace mw {
         set padding(inPadding: Margin);
     }
     /**
-     * @author jianke.feng
      * @groups 界面/控件/图片
      * @description 背景图片风格类型
      * @networkStatus usage:客户端
@@ -8548,7 +8447,6 @@ declare namespace mw {
         set rowPadding(margin: Margin);
     }
     /**
-     * @author jianke.feng
      * @groups 界面/控件/文本
      * @description 文本风格类型
      * @networkStatus usage:客户端
@@ -8656,7 +8554,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @description 设置只允许UI响应用户输入的输入模式。
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8665,7 +8562,6 @@ declare namespace mw {
      */
     function setInputModeUIOnly(InWidgetToFocus?: mw.Widget, InMouseLockMode?: mw.MouseLockMode): void;
     /**
-     * @author jie.wu
      * @description 设置一个输入模式，只允许UI响应用户输入，如果UI不处理它，玩家输入/玩家控制器就有机会
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8675,21 +8571,18 @@ declare namespace mw {
      */
     function setInputModeGameAndUI(InWidgetToFocus?: mw.Widget, InMouseLockMode?: mw.MouseLockMode, hideCursorDuringCapture?: boolean): void;
     /**
-     * @author jie.wu
      * @description 设置一个输入模式，只允许玩家输入/玩家控制器响应用户输入
      * @groups 界面
      * @effect 只在客户端调用生效
      */
     function setInputModeGameOnly(): void;
     /**
-     * @author jie.wu
      * @description 设置关注游戏窗口
      * @groups 界面
      * @effect 只在客户端调用生效
      */
     function setFocusToGameViewport(): void;
     /**
-     * @author jie.wu
      * @description 中断一个拖拽事件, 传入一个操作的事件
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8697,14 +8590,12 @@ declare namespace mw {
      */
     function endDragDrop(InReply: mw.EventReply): void;
     /**
-     * @author jie.wu
      * @description 中断所有的DragDrop
      * @groups 界面
      * @effect 只在客户端调用生效
      */
     function cancelDragDrop(): void;
     /**
-     * @author jie.wu
      * @description 判断当前是否有一个DragDrop事件
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8712,7 +8603,6 @@ declare namespace mw {
      */
     function isDragDropping(): boolean;
     /**
-     * @author jie.wu
      * @description 获取当前的DragDrop事件
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8723,7 +8613,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
     * @description 获取应用于视口和所有小部件的当前DPI Scale。
     * @groups 界面
     * @effect 只在客户端调用生效
@@ -8731,7 +8620,6 @@ declare namespace mw {
     */
     function getViewportScale(): number;
     /**
-     * @author jie.wu
     * @description 获取游戏视口的大小。
     * @groups 界面
     * @effect 只在客户端调用生效
@@ -8739,7 +8627,6 @@ declare namespace mw {
     */
     function getViewportSize(): mw.Vector2;
     /**
-     * @author jie.wu
      * @description 获取包含添加到“视口”中的所有控件的控件的几何形状。你可以使用这个几何图形在绝对和本地空间的控件之间转换控件。
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8747,7 +8634,6 @@ declare namespace mw {
      */
     function getViewportWidgetGeometry(): mw.Geometry;
     /**
-     * @author jie.wu
      * @description 获取包含添加到“player screen”的所有控件的控件的几何形状。你可以使用这个几何图形在绝对和本地空间的控件之间转换控件。
      * @groups 界面
      * @effect 只在客户端调用生效
@@ -8756,7 +8642,6 @@ declare namespace mw {
      */
     function getPlayerScreenWidgetGeometry(player: mw.Player): mw.Geometry;
     /**
-     * @author jie.wu
     * @description 获取平台的鼠标光标位置。这是鼠标的绝对桌面位置。
     * @groups 界面
     * @effect 只在客户端调用生效
@@ -8764,7 +8649,6 @@ declare namespace mw {
     */
     function getMousePositionOnPlatform(): mw.Vector2;
     /**
-     * @author jie.wu
     * @description 获取平台的鼠标光标在视口控件的本地空间中的位置。
     * @groups 界面
     * @effect 只在客户端调用生效
@@ -8775,7 +8659,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/自定义控件
      * @description 自定义控件
      * @description UI控件的集合，预制体UI
@@ -8934,7 +8817,6 @@ declare namespace mw {
 declare namespace mw {
     /**
      * @hidden
-     * @author jie.wu
      * @groups 界面
      * @description ui预制体
      * @networkStatus usage:客户端
@@ -8945,7 +8827,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author jie.wu
      * @groups 界面/控件/遥杆
      * @description 摇杆
      * @networkStatus usage:客户端
@@ -9245,7 +9126,6 @@ declare namespace mw {
      */
     function UIPack(InName: string): (target: any) => void;
     /**
-     * @author jie.wu
      * @groups 界面/基础
      * @description 控件的基类
      * @description ---------------
@@ -9623,7 +9503,6 @@ declare namespace mw {
         */
         clone(position: mw.Vector2, Parent?: Widget): Widget;
         /**
-          * @author baolin.li
           * @description 序列化UI控件
           * @groups 界面
           * @effect 只在客户端调用生效
@@ -9631,7 +9510,6 @@ declare namespace mw {
           */
         serialize(): string;
         /**
-          * @author baolin.li
           * @description 反序列化UI
           * @groups 界面
           * @effect 只在客户端调用生效

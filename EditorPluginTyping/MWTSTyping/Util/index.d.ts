@@ -3034,6 +3034,7 @@ declare namespace mw {
          * @param distance usage:检测距离 default:100000  range: 不做限制，type: 浮点数
          * @param multiTrace usage:是否获取多个GameObject default:false
          * @param onRay usage:是否开启射线显示效果 default:false
+         * @param ueChannels usage:指定检测的UE碰撞通道 default:[] type:整数数组
          * @returns 点击位置的物体
          * @example
          * 使用示例:创建一个名为ScreenExample的脚本，放置在对象栏中，打开脚本，将原本内容修改为如下内容，保存并运行游戏，获取触摸位置所对应的世界Object
@@ -3058,7 +3059,7 @@ declare namespace mw {
          * }
          * ```
          */
-        static getGameObjectByScreenPosition(sceneX: number, sceneY: number, distance?: number, multiTrace?: boolean, onRay?: boolean): Array<mw.HitResult>;
+        static getGameObjectByScreenPosition(sceneX: number, sceneY: number, distance?: number, multiTrace?: boolean, onRay?: boolean, ueChannels?: Array<number>): Array<mw.HitResult>;
         /**
          * @author baoqiang.han
          * @description 获取相机中心点所瞄准的世界位置

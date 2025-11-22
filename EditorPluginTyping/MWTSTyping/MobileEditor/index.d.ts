@@ -97,6 +97,45 @@ declare namespace mw {
         ExistingAsset = 7
     }
     /**
+    * @author yingjie.zhong
+    * @description 上传自定义数据包返回状态
+    * @groups DATATYPE
+    */
+    enum UploadCustomResultType {
+        /**
+        * 上传成功
+        */
+        Success = 0,
+        /**
+         * 上传因未知原因失败
+         */
+        Failure = 1,
+        /**
+         * 未找到id对应的自定义数据包
+         */
+        CustomNotFound = 2,
+        /**
+         * 非法名称
+         */
+        IllegalName = 3,
+        /**
+         * 图片未找到
+         */
+        ImageNotFound = 4,
+        /**
+         * 图片大小不匹配
+         */
+        ImageNotMatch = 5,
+        /**
+        * 预制体非法文件名
+        */
+        CustomIllegalFileName = 6,
+        /**
+        * 服务器已经存在这个资源
+        */
+        ExistingAsset = 7
+    }
+    /**
     * @author boxin.liu
     * @description 上传贴图资源类型
     * @groups 数据处理
@@ -204,6 +243,45 @@ declare namespace mw {
          * 文件格式不支持
          */
         UnsupportedFormat = 7
+    }
+    /**
+    * @author fuqiang.yang
+    * @description 上传音频文件返回状态
+    * @groups 数据处理
+    */
+    enum UploadRTFSoundResultType {
+        /**
+         * 上传成功
+         */
+        Success = 0,
+        /**
+         * 上传因未知原因失败
+         */
+        Failure = 1,
+        /**
+         * 需要上传的文件不存在
+         */
+        FileNotFound = 2,
+        /**
+         * 文件名称中存在非法字符
+         */
+        IllegalFileName = 3,
+        /**
+         * 服务器已经存在这个资源
+         */
+        ExistingAsset = 4,
+        /**
+         * 生成RTFSound失败
+         */
+        GenerateRTFFailed = 5,
+        /**
+         * 同一时间只允许一个音频上传任务
+         */
+        OnlyOneSessionAllowed = 6,
+        /**
+         * Server端不支持该功能
+         */
+        UnsupportedOnServer = 7
     }
 }
 
@@ -547,6 +625,13 @@ declare namespace mw {
      * @param name usage:名字
      * @param comment usage:资源描述
      * @param imagePath usage:512*512的透明png缩略图
+     * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
+     * @param price usage:价格
+     * @param tabId usage:标签ID
+     * @param extraData usage:额外数据
+     * @param bizLine usage:业务线
+     * @param commonReqVO usage:拓展字段
+     * @param tags usage:tags
      * @returns {Promise<UploadPrefabResult>} 上传预制体返回结果
      * @example
      * 使用示例:调用方法 新建一个脚本 NewScript
@@ -563,7 +648,62 @@ declare namespace mw {
      * }
      * ```
      */
-    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string): Promise<UploadPrefabResult>;
+    function fastUploadPrefab(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean, price?: number, tabId?: number[], extraData?: string, bizLine?: string, commonReqVO?: string, tags?: string): Promise<UploadPrefabResult>;
+    /**
+     * @author yingjie.zhong
+     * @description 上传自定义数据包返回结果
+     * @groups DATATYPE
+     * @param uploadCustomResultType usage: 上传自定义数据包返回状态
+     * @param assetId usage: 资源标识
+     */
+    type UploadCustomResult = {
+        uploadCustomResultType: mw.UploadCustomResultType;
+        assetId: string;
+    };
+    /**
+     * @author yingjie.zhong
+     * @groups 基础类型
+     * @description 上传自定义数据包
+     * @effect 调用端生效
+     * @precautions 异步请求
+     * @param assetId usage:自定义数据包资源Id  range: 字符串长度依据资源 ID 长度而定
+     * @param name usage:名字
+     * @param comment usage:资源描述
+     * @param imagePath usage:512*512的透明png缩略图
+     * @param isReplaceGameThumb usage:替换当前游戏的缩略图记录为最新的imagePath
+     * @param price usage:价格
+     * @param tabId usage:标签ID
+     * @param extraData usage:额外数据
+     * @param bizLine usage:业务线
+     * @param commonReqVO usage:拓展字段
+     * @param tags usage:tags
+     * @returns {Promise<UploadCustomResult>} 上传预制体返回结果
+     * @example
+     * 使用示例:调用方法 新建一个脚本 NewScript
+     * ```
+     * @Component
+     * export default class NewScript extends Script {
+     *   //当脚本被实例后，会在第一帧更新前调用此函数
+     *   protected onStart(): void {
+     *     //把guid='23C1ED241027B9E0'的自定义数据包上传到服务器上，自定义数据包的名字=我的自定义数据包，自定义数据包的描述=这是个自定义数据包，缩略图=C:/icon.png
+     *     UGC.fastUploadCustom('23C1ED241027B9E0','C:/icon.png','我的自定义数据包','这是个自定义数据包').then(item =>{
+     *        console.log(item.AssetId)
+     *     });
+     *   }
+     * }
+     * ```
+     */
+    function fastUploadCustom(assetId: string, imagePath: string, name: string, comment: string, isReplaceGameThumb?: boolean, price?: number, tabId?: number[], extraData?: string, bizLine?: string, commonReqVO?: string, tags?: string): Promise<UploadCustomResult>;
+    /**
+     * @author yingjie.zhong
+     * @groups SCRIPTING
+     * @description 保存自定义数据包,作为上传资源fastUploadCustom()的前置
+     * @effect 只在客调用端生效
+     * @param  packFilePaths:usage: 目标文件/目录对项目根目录的相对路径 range: 目标文件要求在项目根目录下
+     * @param  rootName:usage: 自定义数据包的名字
+     * @returns {string} 返回生成自定义数据包的本地资源ID
+     */
+    function saveCustom(packFilePaths: string[], rootName: string): string;
     /**
      * @author tangbin.zhang
      * @groups 基础类型
@@ -645,6 +785,82 @@ declare namespace mw {
      * @param GPULevel usage:GPU画质等级
      */
     function setGraphicsGPULevel(GPULevel: mw.GraphicsLevel): void;
+    /**
+     * @author fuqiang.yang
+     * @description 选择本地文件，返回结果
+     * @groups 基础类型
+     */
+    type SelectLocalFilesResult = {
+        /** 成功与否 */
+        bSuccess: boolean;
+        /** (bSuccess=true:data表示本地文件路径列表，以分号';
+'分隔 | bSuccess=false:发生错误，data记录错误信息) */
+        data: string;
+    };
+    /**
+     * @author fuqiang.yang
+     * @description 获取本地的音频文件列表
+     * @groups 基础类型
+     * @effect 只在客户端调用生效
+     * @param timeoutDurationInSecond 超时时长，单位 秒
+     * @param filters 文件过滤器
+     * @returns 选择本地音频文件的结果
+     */
+    function selectLocalAudioFiles(timeoutDurationInSecond: number, filters: string): Promise<SelectLocalFilesResult>;
+    /**
+     * @author fuqiang.yang
+     * @description 播放本地音频文件
+     * @groups 基础类型
+     * @effect 只在客户端调用生效
+     * @param localAudioFilePath 本地音频文件路径
+     */
+    function playLocalAudioFile(localAudioFilePath: string): void;
+    /**
+    * @author fuqiang.yang
+    * @description 上传音频文件返回结果
+    * @groups 数据处理
+    * @param uploadResultType usage: 上传音频返回状态
+    * @param assetId usage: 上传音频返回UUId
+    * @param onlineGuid usage: 资源库Guid
+    */
+    type FastUploadRTFSoundResult = {
+        uploadResultType: mw.UploadRTFSoundResultType;
+        assetId: string;
+        onlineGuid: string;
+    };
+    /**
+     * @author fuqiang.yang
+     * @description 上传本地音频文件，生成RTFSoundWave资源
+     * @groups 基础类型
+     * @effect 只在客户端调用生效
+     * @param inRawSoundFilePath usage:本地音频文件
+     * @param name usage:名字
+     * @param comment usage:资源描述
+     * @returns {Promise<FastUploadRTFSoundResult>} 上传音频返回结果
+     * @example
+     * 使用示例：调用方法 新建一个脚本 NewScript
+     * ```
+     * @Component
+     * export default class NewScript extent Script {
+     * //当脚本被实例后，会在第一帧更新前调用此函数
+     * protected onStart(): void {
+     *     //音频文件=/user/path/to/sample.mp3，音频的名字=我的音频，音频的描述=这是个音频
+     *     mw.fastUploadRTFSound('/user/path/to/sample.mp3','我的音频','这是个音频').then(item =>{
+     *        console.log(item.assetId)
+     *     });
+     *   }
+     * }
+     * ```
+     */
+    function fastUploadRTFSound(rawSoundFilePath: string, name: string, comment: string): Promise<FastUploadRTFSoundResult>;
+    /**
+     * @author yingjie.zhong
+     * @description 获取新的Guid8
+     * @groups 基础类型
+     * @effect 调用端生效
+     * @returns 新的Guid8
+     */
+    function getNewGuid8(): string;
 }
 
 declare namespace mw {
@@ -702,8 +918,34 @@ declare namespace mw {
     }
 }
 
+/// <reference types="engine" />
 declare namespace mw {
+    // @ts-ignore
+    import * as UE from "ue";
+    class StagingScreenShotHandle {
+        constructor(Handle: UE.StagingScreenShotHandle);
+        private handle;
+        get autoSave(): boolean;
+        get requested(): boolean;
+        set autoSave(value: boolean);
+        previewTextureCallback: mw.MulticastDelegate<(preview: UE.Texture2DDynamic) => void>;
+        saveComplelted: mw.MulticastDelegate<(bsuccess: boolean, path: string) => void>;
+    }
 }
 
 declare namespace mw {
+    /**
+     * @hidden
+     * @author changzun.li
+     * @description 获取web地址列表
+     * @returns 所有配置key
+     */
+    function getUrlConfigList(): string[];
+    /**
+     * @hidden
+     * @author changzun.li
+     * @description 应用web配置地址
+     * @param key
+     */
+    function useUrlConfig(key: string): void;
 }

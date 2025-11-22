@@ -1,7 +1,9 @@
 ﻿declare namespace mw {
+}
+
+declare namespace mw {
     /**
      * @groups 基类
-     * @author si.wu
      * @description GameObject和Script的基类，定义基础能力
      * @networkStatus usage:双端
      */
@@ -31,7 +33,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author si.wu
      * @groups 基础类型
      * @description 自定义属性类型
      */
@@ -53,42 +54,36 @@ declare namespace mw {
     class FunctionOption {
     }
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 多播
      * @effect 调用端生效
      */
     const Multicast: FunctionOption;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 客户端
      * @effect 调用端生效
      */
     const Client: FunctionOption;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 服务端
      * @effect 调用端生效
      */
     const Server: FunctionOption;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 与Client Server配合实现RPC函数返回值
      * @effect 调用端生效
      */
     const Result: FunctionOption;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 不可靠rpc
      * @effect 调用端生效
      */
     const Unreliable: FunctionOption;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 将类声明为mwclass
      * @effect 调用端生效
@@ -97,7 +92,6 @@ declare namespace mw {
      */
     function Component<T extends typeof mw.Script>(component: T): T;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 类型支持属性同步
      * @effect 调用端生效
@@ -106,7 +100,6 @@ declare namespace mw {
      */
     function Serializable<T extends ConstructorType>(type: T): T;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 函数支持Rpc调用
      * @effect 调用端生效
@@ -115,7 +108,6 @@ declare namespace mw {
      */
     function RemoteFunction(...options: FunctionOption[]): (target: unknown, propertyKey: string, descriptor: PropertyDescriptor) => void;
     /**
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 属性支持同步
      * @effect 调用端生效
@@ -127,7 +119,6 @@ declare namespace mw {
 
 declare namespace mw {
     /**
-     * @author xiangkun.sun
      * @groups 基类/场景所有物体基类
      * @description 场景中所有实体的基类
      * @description Model、Pawn、Camera、AdvancedVehicle、BlockingVolume等逻辑对象均继承自GameObject。
@@ -355,6 +346,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -367,12 +359,14 @@ declare namespace mw {
          * });
          * ```
          */
-        moveTo(targetPosition: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        moveTo(targetPosition: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按给定的速度矢量随时间平滑地移动对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param velocity usage:速度
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -383,7 +377,7 @@ declare namespace mw {
          * cube.moveBy(new Vector(10, 10, 0), true);
          * ```
          */
-        moveBy(velocity: mw.Vector, isLocal?: boolean): void;
+        moveBy(velocity: mw.Vector, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断moveTo()、moveBy()的进一步移动
          * @effect 双端物体服务端调用生效，单端物体调用端生效
@@ -396,6 +390,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -408,12 +403,14 @@ declare namespace mw {
          * });
          * ```
          */
-        scaleTo(targetScale: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        scaleTo(targetScale: mw.Vector, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按每秒给定的缩放矢量随时间平滑缩放对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param scale usage:缩放速度
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -424,7 +421,7 @@ declare namespace mw {
          * cube.scaleBy(new Vector(1, 1, 0), true);
          * ```
          */
-        scaleBy(scale: mw.Vector, isLocal?: boolean): void;
+        scaleBy(scale: mw.Vector, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断从ScaleTo()或ScaleBy()的进一步缩放
          * @effect 双端物体服务端调用生效，单端物体调用端生效
@@ -437,6 +434,7 @@ declare namespace mw {
          * @param time usage:缓动时间 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
          * @param onComplete usage:完成回调方法 default:undefined
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -449,13 +447,15 @@ declare namespace mw {
          * });
          * ```
          */
-        rotateTo(targetRotation: mw.Rotation | mw.Quaternion, time: number, isLocal?: boolean, onComplete?: () => void): void;
+        rotateTo(targetRotation: mw.Rotation | mw.Quaternion, time: number, isLocal?: boolean, onComplete?: () => void, smmothradio?: number): void;
         /**
          * @description 按给定的旋转量随时间平滑地旋转对象
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          * @param rotation usage:旋转速度
          * @param multiplier usage:旋转乘数 range: > 0 type: 浮点数
          * @param isLocal usage:是否本地空间生效 default:true
+         * @param stopTime usage:停止时间 range: >= 0 ,等于 0 时表示不停止 type: 浮点数 default:0
+         * @param smmothradio usage:缓动倍率 range: > 0 , < 1 type: 浮点数 default:-1
          * @example
          * 使用示例: 调用方式
          * ```ts
@@ -466,12 +466,36 @@ declare namespace mw {
          * cube.rotateBy(new Rotation(1, 0, 1), 5, true);
          * ```
          */
-        rotateBy(rotation: mw.Rotation | mw.Quaternion, multiplier: number, isLocal?: boolean): void;
+        rotateBy(rotation: mw.Rotation | mw.Quaternion | mw.Vector, multiplier: number, isLocal?: boolean, stopTime?: number, smmothradio?: number): void;
         /**
          * @description 中断从rotateTo()或rotateBy()的进一步旋转
          * @effect 双端物体服务端调用生效，单端物体调用端生效
          */
         stopRotate(): void;
+        /**
+         * @description 按给定的摆动速度进行摆动
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         * @param swingSpeed usage:摆动速度
+         * @param stopTime usage:停止时间 range: >= 0 type: 浮点数 default:0
+         * @param angle usage:摆动角度 range: > 0 type: 浮点数 default:0
+         * @param isLocal usage:是否本地空间生效 default:true
+         * @param delay usage:延迟时间 range: >= 0 type: 浮点数 default:0
+         * @example
+         * 使用示例: 调用方式
+         * ```ts
+         * let cube = GameObject.spawn<Model>("197386", {
+         *    replicates: true,
+         *    transform: new Transform()
+         * });
+         * cube.swingBy(new Vector(1, 0, 1), 5, 45, true);
+         * ```
+         */
+        swingBy(swingSpeed: mw.Vector, stopTime: number, angle: number, isLocal?: boolean, delay?: number): void;
+        /**
+         * @description 中断从rotateTo()或rotateBy()的进一步旋转
+         * @effect 双端物体服务端调用生效，单端物体调用端生效
+         */
+        stopSwing(): void;
         /**
          * @description 批量设置位置
          * @effect 调用端生效
@@ -843,7 +867,6 @@ declare namespace mw {
 declare namespace mw {
     /**
      * @hidden
-     * @author zhaoyang.hou
      * @groups 基类
      * @description 脚本管理类
      * @networkStatus usage:双端
@@ -863,7 +886,6 @@ declare namespace mw {
         static asyncFindScript(guid: string): Promise<Script>;
     }
     /**
-     * @author zhaoyang.hou
      * @groups 基类
      * @description 脚本的基类
      * @description -----------------------------
@@ -1062,7 +1084,6 @@ declare namespace mw {
         isRunningClient(): boolean;
     }
     /**
-     * @author zhaoyang.hou
      * @groups 基类
      * @networkStatus usage:双端
      * @description main脚本的基类
@@ -1073,6 +1094,14 @@ declare namespace mw {
          * @effect 调用端生效
          */
         protected onEnter(): void;
+        /**
+         * @description 接管关闭加载ui
+         * @param maxWaitTime usage: 原始系统最大等大加载时长 不同画质等级区分 <br> range: 大于0.0  type:浮点数
+         * @param closeSystemLoadingUI usage: 关闭系统loading
+         * @effect 调用端生效
+         * @returns 返回数值表示最大接管时间 超出系统会自动关闭，返回undefined表示不接管
+         */
+        protected takeOverCloseLoading(maxWaitTime: number, closeSystemLoadingUI: () => void): number | undefined;
     }
 }
 
@@ -1080,7 +1109,6 @@ declare namespace mw {
     /**
      * @hidden
      * @groups 基础类型
-     * @author xiangkun.sun
      * @description 游戏窗口被激活事件
      * @effect 只在客户端调用生效
      * @param callback usage:回调事件
@@ -1089,7 +1117,6 @@ declare namespace mw {
     /**
      * @hidden
      * @groups 基础类型
-     * @author xiangkun.sun
      * @description 游戏窗口被挂起事件
      * @effect 只在客户端调用生效
      * @param callback usage:回调事件
@@ -1098,7 +1125,6 @@ declare namespace mw {
     /**
      * @hidden
      * @groups 基础类型
-     * @author xiangkun.sun
      * @description 获取游戏窗口激活状态
      * @effect 只在客户端调用生效
      * @returns 是否激活
@@ -1116,7 +1142,6 @@ declare namespace mw {
     /**
      * @hidden
      * @groups 基础类型
-     * @author xiangkun.sun
      * @description 用户属性范围和是否显示滑块
      */
     interface IRangeOptions {
@@ -1139,7 +1164,6 @@ declare namespace mw {
     }
     /**
      * @hidden
-     * @author xiangkun.sun
      * @groups 基础类型
      * @description 用户属性标记的参数选项
      */
@@ -1234,7 +1258,6 @@ declare namespace mw {
         value: unknown;
     }
     /**
-     * @author xiangkun.sun
      * @description 是否在编辑器里隐藏
      * @groups 基础类型
      */

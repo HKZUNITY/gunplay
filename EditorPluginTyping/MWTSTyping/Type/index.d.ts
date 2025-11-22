@@ -31,10 +31,14 @@
     interface GameObjectInfo {
         /** @description 是否同步 */
         replicates?: boolean;
-        /** @description transform */
+        /** @description 位置 */
         transform?: mw.Transform;
-        /** @description static */
+        /** @description 是否优先生成静态 */
         static?: boolean;
+        /** @description 碰撞是否开启，默认开启 */
+        collisionEnabled?: boolean;
+        /** @description 查询是否开启，默认开启 */
+        queryEnabled?: boolean;
     }
     interface CloneInfo extends GameObjectInfo {
         /** @description 只包含序列化的对象 */

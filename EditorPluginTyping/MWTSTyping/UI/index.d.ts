@@ -5963,6 +5963,34 @@ declare namespace mw {
      * @param Delegate usage:传入回调函数
      */
     function getResolutionChanged(Delegate: mw.MulticastDelegate<(x: number, y: number) => void>): void;
+    /**
+     * @author yingjie.zhong
+     * @description 从UI文件读取数据刷新内存中的UI缓存
+     * @groups 界面
+     * @effect 只在客户端调用生效
+     * @param path usage: 需要刷新的UI在本地文件夹中的相对路径 range: 从工程目录开始的相对路径
+     */
+    function clearUIDataCache(path: string): void;
+    /**
+     * @author yingjie.zhong
+     * @description 删除项目UI目录下指定目录中的UI文件
+     * @groups 界面
+     * @effect 只在客户端调用生效, 仅UGC编辑态和MW编辑器时态有效
+     * @param directroyPath usage: 本地文件夹路径 range: 从项目UI目录开始的相对路径
+     * @param whiteList usage: 白名单，白名单中的文件不会被删除 range: 指定目录下的文件名(有无后缀名皆可)
+     */
+    function clearLocalUIFiles(directroyPath: string, whiteList: string[]): void;
+    /**
+     *
+     * @author yingjie.zhong
+     * @description 更新指定目录下的UI文件Guid以及UI图层名
+     * @groups 界面
+     * @effect 调用端生效
+     * @param directroyPath usage: 本地文件夹路径 range: 从项目根目录开始的相对路径
+     * @param ignoreList usage: 白名单，白名单中的文件不会被更新 range: 指定目录下的文件名(有无后缀名皆可)
+     * @returns 被影响了的ui文件名
+     */
+    function RefreshUnLoadUIGuidByDirectory(directroyPath: string, ignoreList: string[]): string[];
 }
 
 declare namespace mw {
